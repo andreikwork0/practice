@@ -15,6 +15,22 @@ class CreateCompaniesTable extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
+            $table->string('name', 100);
+            $table->string('legal_adress', 200);
+            $table->string('mng_surname', 40);
+            $table->string('mng_name', 40);
+            $table->string('mng_patronymic', 40)->nullable();
+
+            $table->string('inn', 15);
+            $table->string('kpp', 15);
+
+            $table->string('ch_account', 70);
+            $table->string('cr_account', 30);
+
+            $table->string('bik');
+
+            $table->unsignedBigInteger('parent_id')->nullable();
+
             $table->timestamps();
         });
     }
