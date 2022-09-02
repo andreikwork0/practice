@@ -14,7 +14,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        return view('company.index', ['companies' => Company::paginate(15)]);
+        return view('company.index', ['companies' => Company::orderby('name')->paginate(15)]);
     }
 
     /**
@@ -46,7 +46,7 @@ class CompanyController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('company.show', ['company' => Company::find($id)]);
     }
 
     /**
@@ -57,7 +57,7 @@ class CompanyController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('company.edit', ['company' => Company::find($id)]);
     }
 
     /**
@@ -69,7 +69,11 @@ class CompanyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $company = Company::find($id);
+        $company->update($request->all());
+        return redirect()->route('companies.edit', $company)->with('success', "Организация обновлена");
+
+
     }
 
     /**
@@ -80,6 +84,9 @@ class CompanyController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $company = Company::find($id);
+        $name = $company->name;
+        $company->delete();
+        return redirect()->route('companies.index')->with('success', "Организация удалена $name");
     }
 }
