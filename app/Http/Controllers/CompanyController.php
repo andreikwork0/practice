@@ -14,7 +14,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        return view('company.index', ['companies' => Company::orderby('name')->paginate(15)]);
+        return view('company.index', ['companies' => Company::orderby('name')->paginate(10)]);
     }
 
     /**
@@ -24,7 +24,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        //
+        return view('company.create');
     }
 
     /**
@@ -35,7 +35,9 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $company = Company::create($request->all());
+        return redirect()->route('companies.index')->with('success', "Организация $company->name добавлена");
     }
 
     /**
@@ -72,8 +74,6 @@ class CompanyController extends Controller
         $company = Company::find($id);
         $company->update($request->all());
         return redirect()->route('companies.edit', $company)->with('success', "Организация обновлена");
-
-
     }
 
     /**

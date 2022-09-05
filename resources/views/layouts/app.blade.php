@@ -80,8 +80,17 @@
             </div>
         </nav>
 
+
         <main class="py-4">
-            @yield('content')
+            <div class="d-flex">
+                @include('inc.sidebar')
+                <div class="wrap" style="width: 100%">
+                    @include('inc.messages')
+                    @yield('content')
+                </div>
+
+            </div>
+
         </main>
     </div>
 </body>

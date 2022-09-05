@@ -2,16 +2,20 @@
 
 @section('title-block') Организации {{ $company->name}}  @endsection
 @section('content')
-    <div style="padding: 50px 0;">
+
         <div class="container">
+
+            <div class=" border-bottom d-flex align-content-center justify-content-between pb-3 mb-5">
+                <h1 class="font-weight-bold ">Редактировать организацию</h1>
+                <a href="{{route('companies.index')}}" class="btn btn-outline-primary h-30">Все организации</a>
+            </div>
 
             <form action="{{route('companies.update', $company->id)}}" method="post">
                 @csrf
                 @method('PUT')
                 <div class="row">
                     <div class="col-md-6">
-                        <h4 class="mb-3">Организация</h4>
-                        <div class="border border-secondary p-3   mb-4">
+                        <x-form.fieldgroup title="Организация">
                             <x-form.input
                                 required
                                 dfvalue="{{$company->id}}"
@@ -29,11 +33,11 @@
                                 dfvalue="{{$company->legal_adress}}"
                                 label="Юридический адресс"
                                 name="legal_adress"/>
-                        </div>
+                        </x-form.fieldgroup>
                     </div>
                     <div class="col-md-6">
-                        <h4 class="mb-3">Руководитель</h4>
-                        <div class="border border-secondary p-3   mb-4">
+                        <x-form.fieldgroup title="Руководитель">
+
                             <x-form.input
                                 required
                                 dfvalue="{{$company->mng_surname}}"
@@ -49,12 +53,13 @@
                                 dfvalue="{{$company->mng_patronymic}}"
                                 label="Отчество"
                                 name="mng_patronymic"/>
-                        </div>
+                        </x-form.fieldgroup>
+
                     </div>
                 </div>
-                <h4 class="mb-3">Реквизиты</h4>
-                <div class="border border-secondary p-3   mb-4">
-                    <div class="row "
+
+                <x-form.fieldgroup title="Реквизиты">
+                    <div class="row" >
                         <div class="col-md-6">
                             <x-form.input
                                 required
@@ -89,7 +94,8 @@
 
                         </div>
                     </div>
-                </div>
+                </x-form.fieldgroup>
+
 
                 <button type="submit" class="btn btn-primary">Сохранить</button>
             </form>
