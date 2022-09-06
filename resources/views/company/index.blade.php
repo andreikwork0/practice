@@ -1,8 +1,15 @@
 @extends('layouts/app')
 
 @section('title-block') Организации @endsection
+
+@section('page-title')
+    <x-page-title>Все организации</x-page-title>
+@endsection
+
 @section('content')
     <div class="container">
+
+
         <div class="d-flex justify-content-between  mb-3">
             <div class="input-group  w-50">
                 <input type="text" class="form-control" placeholder="Поиск ...">

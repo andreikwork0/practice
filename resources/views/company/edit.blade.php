@@ -1,14 +1,19 @@
 @extends('layouts/app')
 
 @section('title-block') Организации {{ $company->name}}  @endsection
+
+@section('page-title')
+    <x-page-title>
+        <div class="d-flex justify-content-between align-content-center">
+            Редактировать организацию
+            <a href="{{route('companies.index')}}" class="btn btn-outline-primary h-30 ml-auto d-inline-block">Все организации</a>
+        </div>
+    </x-page-title>
+@endsection
+
 @section('content')
 
         <div class="container">
-
-            <div class=" border-bottom d-flex align-content-center justify-content-between pb-3 mb-5">
-                <h1 class="font-weight-bold ">Редактировать организацию</h1>
-                <a href="{{route('companies.index')}}" class="btn btn-outline-primary h-30">Все организации</a>
-            </div>
 
             <form action="{{route('companies.update', $company->id)}}" method="post">
                 @csrf

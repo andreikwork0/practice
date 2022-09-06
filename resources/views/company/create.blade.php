@@ -1,10 +1,17 @@
 @extends('layouts/app')
 
+
+
 @section('title-block') Добавить организацию @endsection
+
+@section('page-title')
+    <x-page-title>Добавить организацию</x-page-title>
+@endsection
+
 @section('content')
 
     <div class="container">
-        <h1 class="border-bottom  font-weight-bold pb-3 mb-5">Добавить организацию</h1>
+
         <form action="{{route('companies.store')}}" method="post">
             @csrf
             <div class="row">

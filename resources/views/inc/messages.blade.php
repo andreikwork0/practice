@@ -15,9 +15,11 @@
 @if(session('success'))
     <div class="container">
 
-        <div class="alert alert-success alert-dismissible fade show">
-            @svg('check-circle-fill', 'w-30 h-6 text-dark')
-          {{ session('success')}}
+        <div class="alert alert-success alert-dismissible fade show d-flex">
+            @svg('check-circle', 'w-30 h-6 text-success')
+            <div class="mx-3">
+                {{ session('success')}}
+            </div>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     </div>
