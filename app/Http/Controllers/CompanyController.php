@@ -36,6 +36,7 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
 
+        $this->valideRequest($request);
         $company = Company::create($request->all());
         return redirect()->route('companies.index')->with('success', "Организация $company->name добавлена");
     }
@@ -88,5 +89,20 @@ class CompanyController extends Controller
         $name = $company->name;
         $company->delete();
         return redirect()->route('companies.index')->with('success', "Организация удалена $name");
+    }
+
+    public function valideRequest(Request $request){
+        $request->validate([
+            'name' => 'required|max:100',
+            'legal_adress' => 'required|max:100',
+            'mng_surname' => 'required|max:20',
+            'mng_name' => 'required|max:20',
+            'mng_patronymic' => 'required|max:20',
+            'inn' => 'required|max:6',
+            'kpp' => 'required|max:10',
+            'ch_account' => 'required|max:70',
+            'cr_account' => 'required|max:30',
+            'bik' => 'required|max:100'
+        ]);
     }
 }
