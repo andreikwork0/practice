@@ -1,4 +1,4 @@
-<div class="form-group my-2">
+<div class="form-group my-3">
 {{$slot}}
 </div>
 
