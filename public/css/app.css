@@ -18891,3 +18891,8 @@ textarea.form-control-lg {
   height: 40px;
   right: 5px;
 }
+
+.text-dark.icon-index:hover {
+  color: #0d6efd !important;
+  transition: 0.3s ease;
+}

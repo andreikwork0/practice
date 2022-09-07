@@ -8,16 +8,6 @@
 
 @section('content')
     <div class="container">
-
-
-
-{{--        <select class="custom-select d-block w-100 js-example-basic-single" name="code_cntr" required="" multiple="multiple">--}}
-{{--            @foreach( $companies as $company)--}}
-{{--                <option @if ($company->id == 75 || $company->id == 4 )  {{'selected="selected"'}} @endif   value="{{$company->id}}">{{$company->name}}</option>--}}
-{{--            @endforeach--}}
-{{--        </select>--}}
-
-
         <div class="d-flex justify-content-between  mb-3">
             <div class="input-group  w-50">
                 <input type="text" class="form-control" placeholder="Поиск ...">
@@ -49,13 +39,13 @@
 
                     <td class="">
                         <div class="d-flex justify-content-end">
-                            <a class="p-2 mx-1"  href="{{route('companies.show', $company->id)}}">@svg('eye', 'w-30 h-6 text-dark')</a>
-                            <a  class="p-2 mx-1" href="{{route('companies.edit', $company->id)}}">@svg('pencil-square', 'w-6 h-6 text-dark')</a>
+                            <a class="p-2 mx-1"  href="{{route('companies.show', $company->id)}}">@svg('eye', 'w-30 h-6 text-dark icon-index')</a>
+                            <a  class="p-2 mx-1" href="{{route('companies.edit', $company->id)}}">@svg('pencil-square', 'w-6 h-6 text-dark icon-index')</a>
                             <a class="p-2 mx-1"   >
                                 <form action="{{route('companies.destroy', $company->id)}}" method="post">
                                     @method('delete')
                                     @csrf
-                                    <button type="submit" class="border-0 bg-transparent"> @svg('trash3', 'w-6 h-6 text-dark') </button>
+                                    <button type="submit" class="border-0 bg-transparent"> @svg('trash3', 'w-6 h-6 text-dark icon-index') </button>
                                 </form>
 
                             </a>
