@@ -15,6 +15,7 @@
 
         <div class="container">
 
+
             <form action="{{route('companies.update', $company->id)}}" method="post">
                 @csrf
                 @method('PUT')
