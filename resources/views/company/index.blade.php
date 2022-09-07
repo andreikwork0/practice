@@ -10,6 +10,14 @@
     <div class="container">
 
 
+
+{{--        <select class="custom-select d-block w-100 js-example-basic-single" name="code_cntr" required="" multiple="multiple">--}}
+{{--            @foreach( $companies as $company)--}}
+{{--                <option @if ($company->id == 75 || $company->id == 4 )  {{'selected="selected"'}} @endif   value="{{$company->id}}">{{$company->name}}</option>--}}
+{{--            @endforeach--}}
+{{--        </select>--}}
+
+
         <div class="d-flex justify-content-between  mb-3">
             <div class="input-group  w-50">
                 <input type="text" class="form-control" placeholder="Поиск ...">

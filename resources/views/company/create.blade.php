@@ -25,60 +25,67 @@
                             required
                             label="Юридический адресс"
                             name="legal_adress"/>
-                    </x-form.fieldgroup>
-                </div>
-                <div class="col-md-6">
-                    <x-form.fieldgroup title="Руководитель">
-                        <x-form.input
-                            required
-                            label="Фамилия"
-                            name="mng_surname"/>
 
-                        <x-form.input
-                            required
-                            label="Имя"
-                            name="mng_name"/>
-                        <x-form.input
-                            label="Отчество"
-                            name="mng_patronymic"/>
-                    </x-form.fieldgroup>
-                </div>
-            </div>
-            <x-form.fieldgroup title="Реквизиты">
-                <div class="row" >
-                    <div class="col-md-6">
-                        <x-form.input
-                            required
-                            label="ИНН"
-                            name="inn"/>
-
-                        <x-form.input
-                            required
-                            label="КПП"
-                            name="kpp"/>
-
-                        <x-form.input
-                            required
-                            name="bik"
-                            label="БИК" />
+                        <select class="custom-select  js-example-basic-single" name="code_cntr"  >
+                            <option value="null">Не выбрано</option>
+                            @foreach( $companies as $company)
+                                <option   value="{{$company->id}}">{{$company->name}}</option>
+                            @endforeach
+                        </select>
+                        </x-form.fieldgroup>
                     </div>
                     <div class="col-md-6">
-                        <x-form.input
-                            required
-                            name="ch_account"
-                            label="Расчетный счет" />
+                        <x-form.fieldgroup title="Руководитель">
+                            <x-form.input
+                                required
+                                label="Фамилия"
+                                name="mng_surname"/>
 
-                        <x-form.input
-                            required
-                            name="cr_account"
-                            label="К/С" />
-
+                            <x-form.input
+                                required
+                                label="Имя"
+                                name="mng_name"/>
+                            <x-form.input
+                                label="Отчество"
+                                name="mng_patronymic"/>
+                        </x-form.fieldgroup>
                     </div>
                 </div>
-            </x-form.fieldgroup>
-            <button type="submit" class="btn btn-primary">Создать</button>
-        </form>
+                <x-form.fieldgroup title="Реквизиты">
+                    <div class="row" >
+                        <div class="col-md-6">
+                            <x-form.input
+                                required
+                                label="ИНН"
+                                name="inn"/>
 
-    </div>
-@endsection
+                            <x-form.input
+                                required
+                                label="КПП"
+                                name="kpp"/>
+
+                            <x-form.input
+                                required
+                                name="bik"
+                                label="БИК" />
+                        </div>
+                        <div class="col-md-6">
+                            <x-form.input
+                                required
+                                name="ch_account"
+                                label="Расчетный счет" />
+
+                            <x-form.input
+                                required
+                                name="cr_account"
+                                label="К/С" />
+
+                        </div>
+                    </div>
+                </x-form.fieldgroup>
+                <button type="submit" class="btn btn-primary">Создать</button>
+            </form>
+
+        </div>
+    @endsection
 
