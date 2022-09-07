@@ -6,6 +6,16 @@ require('select2')
 
 
 $(document).ready(function() {
-    $('.js-example-basic-single').select2();
+
+
+    $('.js-example-basic-single').select2({
+        allowClear: true,
+        placeholder: "Выберите из списка",
+        "language": {
+            "noResults": function(){
+                return "Ничего не найдено";
+            }
+        },
+    });
 });
 

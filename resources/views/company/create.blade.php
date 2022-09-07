@@ -26,12 +26,12 @@
                             label="Юридический адресс"
                             name="legal_adress"/>
 
-                        <select class="custom-select  js-example-basic-single" name="code_cntr"  >
-                            <option value="null">Не выбрано</option>
-                            @foreach( $companies as $company)
-                                <option   value="{{$company->id}}">{{$company->name}}</option>
-                            @endforeach
-                        </select>
+                        <x-form.select
+                            :options=$companies
+                            name="parent_id"
+                            label="Центральная организация"
+                        />
+
                         </x-form.fieldgroup>
                     </div>
                     <div class="col-md-6">

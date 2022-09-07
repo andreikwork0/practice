@@ -18871,3 +18871,23 @@ textarea.form-control-lg {
 .bi-fuel-pump::before {
   content: "\f83e";
 }
+
+#app .selection > span.select2-selection {
+  color: #212529;
+  background-color: #f8fafc;
+  padding: 0.5rem !important;
+  border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
+  height: 40px;
+}
+
+#app .select2-container--default .select2-selection--single .select2-selection__clear {
+  font-size: 18px;
+  color: #842029;
+  margin-right: 25px;
+  margin-top: -3px;
+}
+
+#app .select2-container--default .select2-selection--single .select2-selection__arrow {
+  height: 40px;
+  right: 5px;
+}

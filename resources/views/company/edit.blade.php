@@ -24,6 +24,7 @@
                         <x-form.fieldgroup title="Организация">
                             <x-form.input
                                 required
+                                disabled
                                 dfvalue="{{$company->id}}"
                                 label="ID"
                                 name="id"/>
@@ -39,6 +40,14 @@
                                 dfvalue="{{$company->legal_adress}}"
                                 label="Юридический адресс"
                                 name="legal_adress"/>
+
+
+                            <x-form.select
+                                :options=$companies
+                                dfvalue="{{$company->parent_id}}"
+                                name="parent_id"
+                                label="Центральная организация"
+                            />
                         </x-form.fieldgroup>
                     </div>
                     <div class="col-md-6">
