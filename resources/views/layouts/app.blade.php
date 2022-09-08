@@ -81,9 +81,9 @@
 
         <main class="">
             <div class="d-flex">
-                @auth
+{{--                @auth--}}
                     @include('inc.sidebar')
-                @endauth
+{{--                @endauth--}}
                 <div class="wrap" style="width: 100%">
 
                     @yield('page-title')
