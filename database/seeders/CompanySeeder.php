@@ -14,7 +14,7 @@ class CompanySeeder extends Seeder
      */
     public function run()
     {
-        Company::truncate();
+      //  Company::truncate();
         Company::factory(20)->create();
         Company::factory(5)->create(
             ['parent_id' => rand(10,20)]

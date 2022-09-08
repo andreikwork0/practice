@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Company;
+use App\Models\ContactPerson;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -18,9 +19,10 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         //DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-       $this->call(
-         CompanySeeder::class
-       );
+       $this->call([
+         CompanySeeder::class,
+         ContactPersonSeeder::class
+       ]);
         //DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }
