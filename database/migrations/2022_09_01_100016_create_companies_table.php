@@ -4,6 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+
 class CreateCompaniesTable extends Migration
 {
     /**
@@ -31,7 +32,10 @@ class CreateCompaniesTable extends Migration
 
             $table->unsignedBigInteger('parent_id')->nullable();
 
-            $table->timestamps();
+            $table->dateTime('created_at', 4);
+            $table->dateTime('updated_at', 4);
+            //$table->timestamps();
+
         });
     }
 

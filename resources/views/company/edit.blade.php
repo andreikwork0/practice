@@ -6,7 +6,6 @@
     <x-page-title>
         <div class="d-flex justify-content-between align-content-center">
             Редактировать организацию
-            <a href="{{route('companies.index')}}" class="btn btn-outline-primary h-30 ml-auto d-inline-block">Все организации</a>
         </div>
     </x-page-title>
 @endsection
