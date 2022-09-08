@@ -19,4 +19,9 @@ class Company extends Model
     {
         return $this->hasMany(Agreement::class);
     }
+
+    public function grn_letters()
+    {
+        return $this->hasMany(GrnLetter::class);
+    }
 }

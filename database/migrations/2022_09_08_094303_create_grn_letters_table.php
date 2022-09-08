@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAgreementsTable extends Migration
+class CreateGrnLettersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,15 @@ class CreateAgreementsTable extends Migration
      */
     public function up()
     {
-        Schema::create('agreements', function (Blueprint $table) {
+        Schema::create('grn_letters', function (Blueprint $table) {
             $table->id();
 
             $table->foreignId('company_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
 
-            $table->string('num_agreement',10)->unique();
-            $table->dateTime('date_agreement', 4);
+            $table->string('num_letter',30);
+            $table->dateTime('date_letter', 4);
 
-            $table->dateTime('date_bg', 4);
-            $table->dateTime('date_end', 4);
-
-            $table->tinyInteger('is_actual')->nullable();
+            $table->string('note_letter',300);
 
             $table->dateTime('created_at', 4);
             $table->dateTime('updated_at', 4);
@@ -39,6 +36,6 @@ class CreateAgreementsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('agreements');
+        Schema::dropIfExists('grn_letters');
     }
 }
