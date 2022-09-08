@@ -14,9 +14,16 @@
 return [
     'attributes' =>   [
 
-        'name'                  => 'Имя',
-        'surname'               => 'Фамилия',
-        'last_name'             => 'Отчество',
+
+        'legal_adress'             => 'Юридический адресс',
+        'mng_surname'              => 'Фамилия',
+        'mng_name'                 => 'Имя',
+        'mng_patronymic'           => 'Отчество',
+        'inn'                      => 'ИНН',
+        'kpp'                      => 'КПП',
+        'ch_account'               => 'Расчетный счет',
+        'cr_account'               => 'К/C',
+        'bik'                       => 'БИК',
     ],
     'accepted'             => 'Вы должны принять :attribute.',
     'accepted_if'          => 'Поле :attribute должно быть принято, когда :other соответствует :value.',

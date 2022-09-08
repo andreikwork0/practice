@@ -60,7 +60,8 @@ class CompanyController extends Controller
      */
     public function edit($id)
     {
-        return view('company.edit', ['company' => Company::find($id), 'companies' => Company::all()]);
+        return view('company.edit', ['company' => Company::findOrFail($id),
+                                            'companies' => Company::all()->except($id)]);
     }
 
     /**
@@ -72,7 +73,8 @@ class CompanyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $company = Company::find($id);
+        $company = Company::findOrFail($id);
+        $this->valideRequest($request);
         $company->update($request->all());
         return redirect()->route('companies.edit', $company)->with('success', "Организация обновлена");
     }
@@ -97,9 +99,9 @@ class CompanyController extends Controller
             'legal_adress' => 'required|max:100',
             'mng_surname' => 'required|max:20',
             'mng_name' => 'required|max:20',
-            'mng_patronymic' => 'required|max:20',
-            'inn' => 'required|max:6',
-            'kpp' => 'required|max:10',
+            'mng_patronymic' => 'max:20',
+            'inn' => 'required|max:12',
+            'kpp' => 'required|max:12',
             'ch_account' => 'required|max:70',
             'cr_account' => 'required|max:30',
             'bik' => 'required|max:100'

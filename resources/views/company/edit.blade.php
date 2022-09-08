@@ -78,18 +78,21 @@
                         <div class="col-md-6">
                             <x-form.input
                                 required
+                                type="number"
                                 dfvalue="{{$company->inn}}"
                                 label="ИНН"
                                 name="inn"/>
 
                             <x-form.input
                                 required
+                                type="number"
                                 dfvalue="{{$company->kpp}}"
                                 label="КПП"
                                 name="kpp"/>
 
                             <x-form.input
                                 required
+                                type="number"
                                 dfvalue="{{$company->bik}}"
                                 name="bik"
                                 label="БИК" />
@@ -97,12 +100,14 @@
                         <div class="col-md-6">
                             <x-form.input
                                 required
+                                type="number"
                                 dfvalue="{{$company->ch_account}}"
                                 name="ch_account"
                                 label="Расчетный счет" />
 
                             <x-form.input
                                 required
+                                type="number"
                                 dfvalue="{{$company->cr_account}}"
                                 name="cr_account"
                                 label="К/С" />

@@ -56,27 +56,32 @@
                         <div class="col-md-6">
                             <x-form.input
                                 required
+                                type="number"
                                 label="ИНН"
                                 name="inn"/>
 
                             <x-form.input
                                 required
+                                type="number"
                                 label="КПП"
                                 name="kpp"/>
 
                             <x-form.input
                                 required
+                                type="number"
                                 name="bik"
                                 label="БИК" />
                         </div>
                         <div class="col-md-6">
                             <x-form.input
                                 required
+                                type="number"
                                 name="ch_account"
                                 label="Расчетный счет" />
 
                             <x-form.input
                                 required
+                                type="number"
                                 name="cr_account"
                                 label="К/С" />
 

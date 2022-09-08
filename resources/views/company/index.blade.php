@@ -14,7 +14,7 @@
                 <button class="btn btn-primary " type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     @svg('search', 'w-16 h-16 text-white')</button>
             </div>
-            <a href="{{route('companies.create')}}"  class="btn btn-primary"> Добавить новую  </a>
+            <a href="{{route('companies.create')}}"  class="btn btn-primary"> Добавить новую</a>
 
         </div>
         <table class="table  border table-striped">
