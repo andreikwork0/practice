@@ -22,10 +22,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('companies', CompanyController::class);
-Route::resource('contact_people', ContactPersonController::class);
-Route::resource('agreements',  AgreementController::class);
-Route::resource('grn_letters',   GrnLetterController::class);
+//Route::middleware(['auth'])->group( function (){
+    Route::resource('companies', CompanyController::class);
+    Route::resource('contact_people', ContactPersonController::class);
+    Route::resource('agreements',  AgreementController::class);
+    Route::resource('grn_letters',   GrnLetterController::class);
+//});
+
 
 Auth::routes();
 

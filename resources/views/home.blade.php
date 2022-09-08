@@ -1,5 +1,11 @@
 @extends('layouts.app')
 
+@section('title-block') Панель управления @endsection
+
+@section('page-title')
+    <x-page-title> Панель управления </x-page-title>
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row justify-content-center">

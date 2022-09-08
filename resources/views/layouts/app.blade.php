@@ -81,7 +81,9 @@
 
         <main class="">
             <div class="d-flex">
-                @include('inc.sidebar')
+                @auth
+                    @include('inc.sidebar')
+                @endauth
                 <div class="wrap" style="width: 100%">
 
                     @yield('page-title')
