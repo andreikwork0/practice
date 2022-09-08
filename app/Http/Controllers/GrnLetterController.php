@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ContactPerson;
+use App\Models\GrnLetter;
 use Illuminate\Http\Request;
 
-class ContactPersonController extends Controller
+class GrnLetterController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class ContactPersonController extends Controller
      */
     public function index()
     {
-        return view('contact_person.index', ['contact_people' => ContactPerson::paginate(10)]);
+        return view('grn_letter.index', ['grn_letters' => GrnLetter::paginate(10)]);
     }
 
     /**

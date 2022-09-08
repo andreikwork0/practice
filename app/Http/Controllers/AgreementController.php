@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Agreement;
 use Illuminate\Http\Request;
 
 class AgreementController extends Controller
@@ -13,7 +14,7 @@ class AgreementController extends Controller
      */
     public function index()
     {
-        //
+        return view('agreement.index', ['agreements' => Agreement::paginate(10)]);
     }
 
     /**
