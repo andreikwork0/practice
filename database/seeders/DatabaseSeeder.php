@@ -20,8 +20,9 @@ class DatabaseSeeder extends Seeder
 
         //DB::statement('SET FOREIGN_KEY_CHECKS=0;');
        $this->call([
-         CompanySeeder::class,
-         ContactPersonSeeder::class
+            CompanySeeder::class,
+            ContactPersonSeeder::class,
+            AgreementSeeder::class
        ]);
         //DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }

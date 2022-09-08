@@ -9,4 +9,14 @@ class Company extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function contact_people()
+    {
+        return $this->hasMany(ContactPerson::class);
+    }
+
+    public function agreements()
+    {
+        return $this->hasMany(Agreement::class);
+    }
 }
