@@ -10,19 +10,32 @@
     <div class="container">
         <div class="d-flex justify-content-between  mb-3">
             <div class="input-group  w-50">
-                <input type="text" class="form-control" placeholder="Поиск ...">
-                <button class="btn btn-primary " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    @svg('search', 'w-16 h-16 text-white')</button>
+                <form method="GET" action="{{route('companies.index')}}" class="w-100">
+                    <div class="d-flex">
+                        <input
+                            name="search"
+                            value="{{request('search')}}"
+                            width="400px"
+                            type="text" class="form-control" placeholder="Поиск ...">
+                        <button class="btn btn-primary " type="submit">
+                            @svg('search', 'w-16 h-16 text-white')</button>
+
+                        @if(request('search'))
+                            <a href="{{route('companies.index')}}"  class="btn btn-outline-danger mx-3"> Сбросить</a>
+                        @endif
+                    </div>
+
+                </form>
             </div>
             <a href="{{route('companies.create')}}"  class="btn btn-primary"> Добавить новую</a>
-
         </div>
+        @if(count($companies)>0)
         <table class="table  border table-striped">
             <thead>
             <tr>
-                <th scope="col">ID</th>
+{{--                <th scope="col">ID</th>--}}
                 <th scope="col">Название</th>
-                <th scope="col">Адрес</th>
+                <th scope="col">Юридический Адрес</th>
                 <th scope="col">ИНН</th>
                 <th scope="col">КПП</th>
                 <th scope="col"></th>
@@ -31,7 +44,7 @@
             <tbody>
             @foreach($companies as $company)
                 <tr>
-                    <td>{{$company->id}}</td>
+{{--                    <td>{{$company->id}}</td>--}}
                     <td>{{$company->name}}</td>
                     <td>{{$company->legal_adress}}</td>
                     <td>{{$company->inn}}</td>
@@ -56,10 +69,23 @@
             @endforeach
             </tbody>
         </table>
+
         <div class="my-4">
             {{$companies->links()}}
         </div>
-
+        @elseif(request('search'))
+            <h2>Ничего не найдно</h2>
+            <h3>Условие поиска : {{request('search')}}</h3>
+            <p>Нет организаций соответствующих условиям поиска. Попробуйте изменить условие поиска</p>
+        @else
+       <h2>Нет Организаций</h2>
+        <p>
+            Еще недобавлено ни одной организации.
+        </p>
+        <p>
+            Добавьте новую  <a href="{{route('companies.create')}}"  class="btn btn-primary"> Добавить новую</a>
+        </p>
+        @endif
     </div>
 @endsection
 

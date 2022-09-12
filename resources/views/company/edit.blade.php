@@ -19,7 +19,7 @@
                 @csrf
                 @method('PUT')
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-7">
                         <x-form.fieldgroup title="Организация">
                             <x-form.input
                                 required
@@ -54,7 +54,7 @@
                             />
                         </x-form.fieldgroup>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <x-form.fieldgroup title="Руководитель">
 
                             <x-form.input

@@ -14,7 +14,11 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        return view('company.index', ['companies' => Company::orderby('name')->paginate(10)]);
+        return view('company.index', ['companies' =>
+            Company::orderby('name')
+            ->filter(request(['search'] ))
+            ->paginate(10)
+            ->withQueryString()]);
     }
 
     /**

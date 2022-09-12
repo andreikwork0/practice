@@ -14,8 +14,8 @@
 return [
     'attributes' =>   [
 
-
-        'legal_adress'             => 'Юридический адресс',
+        'fact_adress'             => 'Фактический адрес',
+        'legal_adress'             => 'Юридический адрес',
         'mng_surname'              => 'Фамилия',
         'mng_name'                 => 'Имя',
         'mng_patronymic'           => 'Отчество',
