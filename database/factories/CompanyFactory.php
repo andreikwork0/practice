@@ -16,6 +16,7 @@ class CompanyFactory extends Factory
         return [
             'name' => $this->faker->unique()->company(),
             'legal_adress' => $this->faker->address(),
+            'fact_adress' => $this->faker->address(),
             'mng_surname' => $this->faker->lastName(),
             'mng_name' => $this->faker->firstName(),
             'mng_patronymic' => $this->faker->middleName(),

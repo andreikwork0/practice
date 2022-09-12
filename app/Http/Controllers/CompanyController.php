@@ -96,15 +96,16 @@ class CompanyController extends Controller
     public function valideRequest(Request $request){
         $request->validate([
             'name' => 'required|max:100',
-            'legal_adress' => 'required|max:100',
+            'legal_adress' => 'required|max:200',
+            'fact_adress' => 'max:200',
             'mng_surname' => 'required|max:20',
             'mng_name' => 'required|max:20',
             'mng_patronymic' => 'max:20',
             'inn' => 'required|max:12',
             'kpp' => 'required|max:12',
-            'ch_account' => 'required|max:70',
-            'cr_account' => 'required|max:30',
-            'bik' => 'required|max:100'
+            'ch_account' => 'max:70',
+            'cr_account' => 'max:30',
+            'bik' => 'max:100'
         ]);
     }
 }

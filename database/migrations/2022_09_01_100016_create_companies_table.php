@@ -18,6 +18,9 @@ class CreateCompaniesTable extends Migration
             $table->id();
             $table->string('name', 100);
             $table->string('legal_adress', 200);
+            $table->string('fact_adress', 200);
+
+
             $table->string('mng_surname', 40);
             $table->string('mng_name', 40);
             $table->string('mng_patronymic', 40)->nullable();

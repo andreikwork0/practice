@@ -1,7 +1,4 @@
 @extends('layouts/app')
-
-
-
 @section('title-block') Добавить организацию @endsection
 
 @section('page-title')
@@ -23,8 +20,13 @@
                             name="name"/>
                         <x-form.input
                             required
-                            label="Юридический адресс"
+                            label="Юридический адрес"
                             name="legal_adress"/>
+
+                        <x-form.input
+
+                            label="Фактический  адрес"
+                            name="fact_adress"/>
 
                         <x-form.select
                             :options=$companies
@@ -67,20 +69,17 @@
                                 name="kpp"/>
 
                             <x-form.input
-                                required
                                 type="number"
                                 name="bik"
                                 label="БИК" />
                         </div>
                         <div class="col-md-6">
                             <x-form.input
-                                required
                                 type="number"
                                 name="ch_account"
                                 label="Расчетный счет" />
 
                             <x-form.input
-                                required
                                 type="number"
                                 name="cr_account"
                                 label="К/С" />

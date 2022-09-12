@@ -6,13 +6,14 @@
         </div>
         <div class="col-md-9">
             <input
-                class="border border-gray-200 rounded p-2 w-full focus:outline-none focus:ring form-control"
+                class="  p-2 w-full   form-control  @error($name) is-invalid @enderror"
                 name="{{$name}}"
                 id="{{$name}}"
                 {{ $attributes(['value' => old($name, $dfvalue)] ) }} >
+            <x-form.erorr name="{{$name}}" />
         </div>
     </div>
-    <x-form.erorr name="{{$name}}" />
+
 </x-form.field>
 
 

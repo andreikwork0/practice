@@ -37,8 +37,13 @@
                             <x-form.input
                                 required
                                 dfvalue="{{$company->legal_adress}}"
-                                label="Юридический адресс"
+                                label="Юридический адрес"
                                 name="legal_adress"/>
+
+                            <x-form.input
+                                dfvalue="{{$company->fact_adress}}"
+                                label="Фактический  адрес"
+                                name="fact_adress"/>
 
 
                             <x-form.select
