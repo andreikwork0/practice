@@ -23,9 +23,9 @@ class CreateContactPeopleTable extends Migration
             $table->string('prs_job', 50);
             $table->string('prs_office', 50)->nullable();
             $table->tinyInteger('is_negotiation')->nullable();
-            $table->dateTime('created_at', 4);
-            $table->dateTime('updated_at', 4);
-          //  $table->timestamps();
+//            $table->dateTime('created_at', 4);
+//            $table->dateTime('updated_at', 4);
+            $table->timestamps();
         });
     }
 

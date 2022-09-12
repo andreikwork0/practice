@@ -26,9 +26,9 @@ class CreateAgreementsTable extends Migration
 
             $table->tinyInteger('is_actual')->nullable();
 
-            $table->dateTime('created_at', 4);
-            $table->dateTime('updated_at', 4);
-            //$table->timestamps();
+//            $table->dateTime('created_at', 4);
+//            $table->dateTime('updated_at', 4);
+            $table->timestamps();
         });
     }
 

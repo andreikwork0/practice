@@ -23,9 +23,9 @@ class CreateGrnLettersTable extends Migration
 
             $table->string('note_letter',300);
 
-            $table->dateTime('created_at', 4);
-            $table->dateTime('updated_at', 4);
-            //$table->timestamps();
+//            $table->dateTime('created_at', 4);
+//            $table->dateTime('updated_at', 4);
+            $table->timestamps();
         });
     }
 
