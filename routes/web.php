@@ -5,6 +5,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ContactPersonController;
 use App\Http\Controllers\GrnLetterController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +20,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+
+
+
+
+
+    //dd($collection_practice);
+    //\App\Models\Practice::insert( $pr_arr);
     return view('welcome');
 });
 
