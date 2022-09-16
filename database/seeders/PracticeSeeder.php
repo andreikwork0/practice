@@ -72,7 +72,7 @@ class PracticeSeeder extends Seeder
     order by pp.id_plan;";
 
 
-        $practices = DB::connection('mysql_load')->select($sql2, ["year_f" => $years[1] ]);
+        $practices = DB::connection($connection)->select($sql2, ["year_f" => $years[1] ]);
         $pr_arr = [];
         foreach( $practices as $practice){
             $tmp_practice = (array)$practice;
