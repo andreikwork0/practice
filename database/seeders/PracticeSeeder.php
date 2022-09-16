@@ -76,7 +76,7 @@ class PracticeSeeder extends Seeder
         $pr_arr = [];
         foreach( $practices as $practice){
             $tmp_practice = (array)$practice;
-            $tmp_practice['education_type_id']  = 1; // vo
+            $tmp_practice['education_type_id']  = $education_type_id; // vo
             Practice::create($tmp_practice );
         }
 
