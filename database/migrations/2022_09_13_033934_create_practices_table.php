@@ -24,7 +24,7 @@ class CreatePracticesTable extends Migration
             $table->integer('semester');
 
             $table->float('hours')->nullable();
-            $table->float('day');
+            $table->float('day')->nullable();
             $table->float('week');
 
             $table->date('date_start')->nullable();
@@ -36,6 +36,9 @@ class CreatePracticesTable extends Migration
             $table->string('spec');
             $table->string('agroup');
             $table->integer('contingent');
+
+
+            $table->integer('l_pr_plan_id');
 
             $table->integer('id_pulpit');
             $table->integer('id_year_learning');

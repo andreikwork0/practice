@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             ContactPersonSeeder::class,
             AgreementSeeder::class,
             GrnLetterSeeder::class,
+            EducationTypeSeeder::class,
             PracticeSeeder::class
        ]);
         //DB::statement('SET FOREIGN_KEY_CHECKS=1;');

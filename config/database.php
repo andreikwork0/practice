@@ -80,6 +80,28 @@ return [
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
+
+        ],
+
+        'mysql_load_spo' => [
+            'driver' => 'mysql',
+            'url' => env('DATABASE_URL_LOAD_SPO'),
+            'host' => env('DB_HOST_LOAD_SPO', '127.0.0.1'),
+            'port' => env('DB_PORT_LOAD_SPO', '3306'),
+            'database' => env('DB_DATABASE_LOAD_SPO', 'forge'),
+            'username' => env('DB_USERNAME_LOAD_SPO', 'forge'),
+            'password' => env('DB_PASSWORD_LOAD_SPO', ''),
+            'unix_socket' => env('DB_SOCKET_LOAD_SPO', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+
         ],
 
         'pgsql' => [
