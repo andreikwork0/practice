@@ -15,6 +15,10 @@ class CreateYearLearningsTable extends Migration
     {
         Schema::create('year_learnings', function (Blueprint $table) {
             $table->id();
+            $table->string('year');
+            $table->tinyInteger('active')->default(0);
+            $table->integer('id_vo')->nullable();
+            $table->integer('id_spo')->nullable();
             $table->timestamps();
         });
     }

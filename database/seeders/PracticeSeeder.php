@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Practice;
+use App\Models\YearLearning;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -19,26 +20,23 @@ class PracticeSeeder extends Seeder
         $this->mySeed('mysql_load',  1);
         $this->mySeed('mysql_load_spo',  2);
 
-
     }
     private function mySeed($connection = 'mysql_load', $education_type_id = 1 ){
 
-        $sq1 = "SELECT *
-            FROM year_learning
-            WHERE  active = 'y'
-            ";
+        $year_learning = YearLearning::activeYear();
 
-
-        $year_learning = DB::connection('mysql_load')->select($sq1);
-
-        $years = explode('-', $year_learning[0]->year );
+        $years = explode('-', $year_learning->year );
 
         if ($education_type_id ==  1) {
             $day_sql = "pp.day as day,";
+            $id_year_learning = $year_learning->id_vo;
         } else{
             $day_sql = "";
+            $id_year_learning = $year_learning->id_spo;
         }
+        //var_dump($years);
 
+        //var_dump($year_learning->id_spo);
 
 
         $sql2 = "
@@ -66,10 +64,11 @@ class PracticeSeeder extends Seeder
         join ( groups gr join (profile pf join direction dr on pf.id_direction=dr.id)
         on gr.id_profile=pf.id) on pp.id_plan =gr.id_plan
         join plan_title pt on pp.id_plan = pt.id
-    where gr.id_year_learning=(select max(year_learning.id) from year_learning)
+    where gr.id_year_learning=".$id_year_learning."
         and (pp.type in ('p', 'l') )
         and (pt.year_begin + pp.course) =  :year_f
     order by pp.id_plan;";
+
 
 
         $practices = DB::connection($connection)->select($sql2, ["year_f" => $years[1] ]);
@@ -77,6 +76,7 @@ class PracticeSeeder extends Seeder
         foreach( $practices as $practice){
             $tmp_practice = (array)$practice;
             $tmp_practice['education_type_id']  = $education_type_id; // vo
+            $tmp_practice['id_year_learning'] =  $year_learning->id;
             Practice::create($tmp_practice );
         }
 

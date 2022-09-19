@@ -26,9 +26,14 @@ class PracticesForeignKeys extends Migration
     public function down()
     {
         Schema::table('practices', function (Blueprint $table) {
+
             $table->dropForeign('practices_education_type_id_foreign');
-            $table->dropIndex('practices_education_type_id_index');
             $table->dropColumn('education_type_id');
+
+//            $table->dropIndex('practices_education_type_id_index');
+//            constraint practices_education_type_id_foreign
+//        foreign key (education_type_id) references education_types (id)
+//            on update cascade on delete cascade
         });
 
     }
