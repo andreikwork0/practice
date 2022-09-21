@@ -29,10 +29,10 @@ class PracticeSeeder extends Seeder
 
         if ($education_type_id ==  1) {
             $day_sql = "pp.day as day,";
-            $id_year_learning = $year_learning->id_vo;
+            $id_year_learning = $year_learning->l_id_vo;
         } else{
             $day_sql = "";
-            $id_year_learning = $year_learning->id_spo;
+            $id_year_learning = $year_learning->l_id_spo;
         }
         //var_dump($years);
 

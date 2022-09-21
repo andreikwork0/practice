@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Company;
 use App\Models\ContactPerson;
 use App\Models\Practice;
+use App\Models\Pulpit;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -27,7 +28,9 @@ class DatabaseSeeder extends Seeder
             GrnLetterSeeder::class,
             EducationTypeSeeder::class,
             YearLearningSeeder::class,
-            PracticeSeeder::class,
+            PulpitSeeder::class,
+            PracticeTypeSeeder::class,
+            //PracticeSeeder::class,
        ]);
         //DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }

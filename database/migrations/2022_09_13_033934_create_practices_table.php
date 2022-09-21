@@ -33,6 +33,8 @@ class CreatePracticesTable extends Migration
             /*
              * Группа
              */
+            $table->string('depart_name');
+
             $table->string('spec');
             $table->string('agroup');
             $table->integer('contingent');
@@ -40,8 +42,8 @@ class CreatePracticesTable extends Migration
 
             $table->integer('l_pr_plan_id');
 
-            $table->integer('id_pulpit');
-            $table->integer('id_year_learning');
+
+
             $table->integer('id_plan');
 
             $table->timestamps();

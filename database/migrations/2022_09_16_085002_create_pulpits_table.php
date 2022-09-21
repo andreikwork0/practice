@@ -15,6 +15,12 @@ class CreatePulpitsTable extends Migration
     {
         Schema::create('pulpits', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+
+            $table->foreignId('education_type_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('year_learning_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('l_pulpit_id');
+            $table->integer('code');
             $table->timestamps();
         });
     }
