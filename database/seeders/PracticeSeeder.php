@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Practice;
+use App\Models\Pulpit;
 use App\Models\YearLearning;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -40,29 +41,24 @@ class PracticeSeeder extends Seeder
 
 
         $sql2 = "
-        SELECT
+       SELECT
        pp.id as l_pr_plan_id,
-       pp.type as type,
        pp.name as name,
        pt.name as plan_title,
        pp.course as course,
        pp.semester as semester,".$day_sql."
-
        pp.week as week,
-
-
        concat(dr.code, ' ', dr.name, ' ', pf.name) as spec,
-
        concat(gr.name, '-', gr.year, '-',gr.number) as agroup,
        gr.contingent as  contingent,
-
-       gr.id_year_learning as  id_year_learning,
        pp.id_pulpit as id_pulpit,
-       pp.id_plan as id_plan
+       pp.id_plan as l_id_plan,
+       d.name as depart_name
 
     FROM plan_practice pp
         join ( groups gr join (profile pf join direction dr on pf.id_direction=dr.id)
         on gr.id_profile=pf.id) on pp.id_plan =gr.id_plan
+        join (department as d join department_and_pulpit as dp on d.id=dp.id_department  ) on dp.id = gr.id_department_and_pulpit
         join plan_title pt on pp.id_plan = pt.id
     where gr.id_year_learning=".$id_year_learning."
         and (pp.type in ('p', 'l') )
@@ -76,7 +72,18 @@ class PracticeSeeder extends Seeder
         foreach( $practices as $practice){
             $tmp_practice = (array)$practice;
             $tmp_practice['education_type_id']  = $education_type_id; // vo
-            $tmp_practice['id_year_learning'] =  $year_learning->id;
+            $tmp_practice['year_learning_id'] =  $year_learning->id;
+
+
+            $pulpit = Pulpit::where('year_learning_id',   '=',    $year_learning->id)
+                            ->where(  'l_pulpit_id',        '=',    $practice->id_pulpit)
+                            ->where(  'education_type_id',  '=',    $education_type_id)
+                            ->first();
+
+            unset($tmp_practice['id_pulpit']);
+
+            $tmp_practice['pulpit_id'] =  $pulpit->id;
+
             Practice::create($tmp_practice );
         }
 

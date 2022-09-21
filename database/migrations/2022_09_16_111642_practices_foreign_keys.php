@@ -14,9 +14,9 @@ class PracticesForeignKeys extends Migration
     public function up()
     {
         Schema::table('practices', function (Blueprint $table) {
-            $table->foreignId('education_type_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('year_learning_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('pulpit_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('education_type_id')->constrained()->onUpdate('cascade');
+            $table->foreignId('year_learning_id')->constrained()->onUpdate('cascade');
+            $table->foreignId('pulpit_id')->constrained()->onUpdate('cascade');
         });
     }
 
@@ -38,6 +38,9 @@ class PracticesForeignKeys extends Migration
 
             $table->dropForeign('practices_pulpit_id_foreign');
             $table->dropColumn('pulpit_id');
+
+
+
 
 //            $table->dropIndex('practices_education_type_id_index');
 //            constraint practices_education_type_id_foreign

@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
             YearLearningSeeder::class,
             PulpitSeeder::class,
             PracticeTypeSeeder::class,
-            //PracticeSeeder::class,
+            PracticeSeeder::class,
        ]);
         //DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }

@@ -16,16 +16,14 @@ class CreatePracticesTable extends Migration
         Schema::create('practices', function (Blueprint $table) {
             $table->id();
 
-            $table->string('type');
             $table->string('name', 300);
             $table->string('plan_title');
 
-            $table->float('course');
+            $table->integer('course');
             $table->integer('semester');
 
-            $table->float('hours')->nullable();
             $table->float('day')->nullable();
-            $table->float('week');
+            $table->float('week')->nullable();
 
             $table->date('date_start')->nullable();
             $table->date('date_end')->nullable();
@@ -39,12 +37,8 @@ class CreatePracticesTable extends Migration
             $table->string('agroup');
             $table->integer('contingent');
 
-
             $table->integer('l_pr_plan_id');
-
-
-
-            $table->integer('id_plan');
+            $table->integer('l_id_plan');
 
             $table->timestamps();
         });
