@@ -20,7 +20,7 @@ class CreatePracticeTeachersTable extends Migration
             $table->string('mname');
             $table->string('post');
             $table->float('hours');
-            $table->foreignId('practice_id')->nullable()->constrained()->onUpdate('cascade');
+            $table->foreignId('practice_id')->constrained()->onUpdate('cascade');
             $table->timestamps();
         });
     }
