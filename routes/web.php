@@ -22,12 +22,66 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
 
-
-
-
-    foreach (['andrei.kinder170@gmail.com', 'sasuke.uchiha.2426@gmail.com'] as $recipient) {
-        Mail::to($recipient)->send(new App\Mail\OrderShipped());
-    }
+//
+//    function connect_AD()
+//    {
+//        $ldap_server = "ldap://192.168.20.10";
+//        $ldap_user   = "AdminLMS";
+//        $ldap_pass   = '1v$7$%vd2I';
+//
+//        $ad = ldap_connect($ldap_server) ;
+//
+//        ldap_set_option($ad, LDAP_OPT_PROTOCOL_VERSION, 3) ;
+//        try {
+//            $bound = ldap_bind($ad, $ldap_user, $ldap_pass);
+//
+//            $username = 'l.kurzaeva';
+//            $filter="(sAMAccountName=$username)";
+//
+//            $ldap_search = "ou=образовательные структуры,dc=vuz,dc=magtu,dc=ru";
+//            $dn=$ldap_search; //even if it seems obvious I note here that the dn is just an example, you'll have to provide an OU and DC of your own
+//
+//
+//            $res = ldap_search($ad, $ldap_search, $filter);
+//            var_dump($res);
+//
+//            if ($res){
+//
+//                $info = ldap_get_entries($ad, $res);
+//
+//
+//                echo '<pre>';
+//                print_r($info[0]["perscode"][0]);
+//                echo '</pre>';
+////                $data = ldap_get_dn($ad, $first);
+//
+//            }
+//
+//
+//
+//        }
+//        catch (\Exception $e){
+//
+//            echo "<br>";
+//            echo 'erorr';
+//            print_r($e->getCode());
+//            print_r($e->getMessage());
+//        }
+//
+//
+//        return $ad ;
+//    }
+//
+//
+//
+//    $ldap=connect_AD();
+//
+//
+//    var_dump(  get_resource_type($ldap)  );
+//
+//    foreach (['andrei.kinder170@gmail.com', 'sasuke.uchiha.2426@gmail.com'] as $recipient) {
+//        Mail::to($recipient)->send(new App\Mail\OrderShipped());
+//    }
 
     //dd($collection_practice);
     //\App\Models\Practice::insert( $pr_arr);
