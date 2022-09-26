@@ -19,7 +19,21 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-
+                            {{ Auth::user()->fname }}
+                            {{ Auth::user()->lname }}
+                            {{ Auth::user()->mname }}
+                            {{ Auth::user()->education_type_id }}
+                            {{'Выберите кафедру'}}
+                            @if(!Auth::user()->code_pulpit)
+                                @php $pulplits = \App\Models\Pulpit::where('education_type_id' ,'=' , 1)->get();  @endphp
+                                <select name="" id="" class="custom-select js-example-basic-single form-control">
+                                    <option value="">Ничего не выбрано</option>
+                                    @foreach($pulplits as $pulpit)
+                                        <option value="{{$pulpit->code}}">{{$pulpit->name}}</option>
+                                    @endforeach
+                                </select>
+                                <button class="btn btn-primary my-3">сохранить</button>
+                            @endif
                         {{ __('You are logged in!') }}
                     </div>
                 </div>
