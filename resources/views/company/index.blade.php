@@ -54,14 +54,10 @@
                         <div class="d-flex justify-content-end">
                             <a class="p-2 mx-1"  href="{{route('companies.show', $company->id)}}">@svg('eye', 'w-30 h-6 text-dark icon-index')</a>
                             <a  class="p-2 mx-1" href="{{route('companies.edit', $company->id)}}">@svg('pencil-square', 'w-6 h-6 text-dark icon-index')</a>
-                            <a class="p-2 mx-1"   >
-                                <form action="{{route('companies.destroy', $company->id)}}" method="post">
-                                    @method('delete')
-                                    @csrf
-                                    <button type="submit" class="border-0 bg-transparent"> @svg('trash3', 'w-6 h-6 text-dark icon-index') </button>
-                                </form>
-
-                            </a>
+                            <x-modal-delete-btn
+                                text="Организация {{$company->name}} будет удалена"
+                                url="{{route('companies.destroy', $company->id)}}"
+                            />
                         </div>
 
                     </td>

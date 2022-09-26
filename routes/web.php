@@ -4,6 +4,7 @@ use App\Http\Controllers\AgreementController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ContactPersonController;
 use App\Http\Controllers\GrnLetterController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -48,6 +49,8 @@ Route::middleware(['auth'])->group( function (){
     Route::resource('contact_people', ContactPersonController::class);
     Route::resource('agreements',  AgreementController::class);
     Route::resource('grn_letters',   GrnLetterController::class);
+
+    Route::resource('roles',  RoleController::class);
 });
 
 

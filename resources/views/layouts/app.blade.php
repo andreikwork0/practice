@@ -99,12 +99,8 @@
 
         </main>
     </div>
-
+    <x-modal-delete />
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" ></script>
-
-
-
 </body>
-
 </html>

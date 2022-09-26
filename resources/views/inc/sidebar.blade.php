@@ -37,6 +37,13 @@
                 Гарантийные письма
             </a>
         </li>
+
+        <li>
+            <a href="{{route('roles.index')}}" class="nav-link text-white @if(request()->routeIs('roles.*')) {{'active'}} @endif">
+                @svg('person-lines-fill', 'w-16 h-16 bi me-2 text-white')
+                Роли
+            </a>
+        </li>
     </ul>
     <hr>
     <div class="dropdown">
