@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
+
 
 class UserController extends Controller
 {
@@ -31,13 +31,13 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
-        $roles = $user->roles;
+//        $roles = $user->roles;
 
         $cur_role_id =  false;
-
-        if (count($roles)>0) {
-            $cur_role_id = $roles[0]->id;
-        }
+//
+//        if (count($roles)>0) {
+//            $cur_role_id = $roles[0]->id;
+//        }
 
 
         $args = array(

@@ -1,9 +1,9 @@
 @extends('layouts/app')
 
-@section('title-block') Организации @endsection
+@section('title-block') Пользователи @endsection
 
 @section('page-title')
-    <x-page-title>Все организации</x-page-title>
+    <x-page-title>Все пользователи</x-page-title>
 @endsection
 @section('content')
     <div class="container">

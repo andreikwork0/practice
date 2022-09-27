@@ -38,19 +38,6 @@
             </a>
         </li>
 
-        <li>
-            <a href="{{route('roles.index')}}" class="nav-link text-white @if(request()->routeIs('roles.*')) {{'active'}} @endif">
-                @svg('person-lines-fill', 'w-16 h-16 bi me-2 text-white')
-                Роли
-            </a>
-        </li>
-
-{{--        <li>--}}
-{{--            <a href="{{route('permissions.index')}}" class="nav-link text-white @if(request()->routeIs('permissions.*')) {{'active'}} @endif">--}}
-{{--                @svg('person-lines-fill', 'w-16 h-16 bi me-2 text-white')--}}
-{{--                Разрешения--}}
-{{--            </a>--}}
-{{--        </li>--}}
 
                 <li>
                     <a href="{{route('users.index')}}" class="nav-link text-white @if(request()->routeIs('users.*')) {{'active'}} @endif">

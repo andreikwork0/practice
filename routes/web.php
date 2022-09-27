@@ -52,8 +52,7 @@ Route::middleware(['auth'])->group( function (){
     Route::resource('agreements',  AgreementController::class);
     Route::resource('grn_letters',   GrnLetterController::class);
 
-    Route::resource('roles',  RoleController::class);
-//    Route::resource('permissions', PermissionController::class);
+
     Route::resource('users', UserController::class)->except([
         'create', 'store', 'show'
     ]);
