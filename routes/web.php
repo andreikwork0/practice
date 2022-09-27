@@ -4,8 +4,6 @@ use App\Http\Controllers\AgreementController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ContactPersonController;
 use App\Http\Controllers\GrnLetterController;
-use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
