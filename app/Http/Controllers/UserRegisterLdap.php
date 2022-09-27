@@ -85,11 +85,11 @@ class UserRegisterLdap extends Controller
             $args =    array(
                 'username'   => $this->username,
                 'password'  => Hash::make($this->password),
-                'perscode'     => $this->userLdap["perscode"][0],
-                'name'     => $this->userLdap["cn"][0],
-                'lname'     => $this->userLdap["sn"][0],
-                'fname'     => $givename[0],
-                'mname'     => $givename[1],
+                'perscode'     => $this->userLdap["perscode"][0] ?? '',
+                'name'     => $this->userLdap["cn"][0] ?? '',
+                'lname'     => $this->userLdap["sn"][0] ?? '',
+                'fname'     => $givename[0] ?? '',
+                'mname'     => $givename[1] ?? '',
                 'domain'   =>$this->userLdap["dn"]
             );
 

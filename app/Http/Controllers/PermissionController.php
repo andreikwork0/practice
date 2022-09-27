@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
 
-class RoleController extends Controller
+class PermissionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +14,10 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return view('role.index', ['roles' =>
-            Role::paginate(10)
+
+
+        return view('permission.index', ['permissions' =>
+            Permission::paginate(10)
         ]);
     }
 
@@ -27,7 +28,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view('role.create');
+        return view('permission.create');
     }
 
     /**
@@ -38,8 +39,8 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $role = Role::create($request->all());
-        return redirect()->route('roles.index')->with('success', "Роль $role->name добавлена");
+        $permission = Permission::create($request->all());
+        return redirect()->route('permissions.index')->with('success', "Разрешение $permission->name добавлено");
     }
 
     /**
@@ -50,7 +51,7 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        return view('role.show', ['role' => Role::find($id)]);
+        return view('permission.show', ['permission' => Permission::find($id)]);
     }
 
     /**
@@ -61,10 +62,7 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        return view('role.edit', [
-            'role'          => Role::findOrFail($id),
-//            'permissions'   => Permission::all()
-            ]);
+        return view('permission.edit', ['permission' => Permission::findOrFail($id)]);
     }
 
     /**
@@ -76,9 +74,9 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $role = Role::findOrFail($id);
-        $role->update($request->all());
-        return redirect()->route('roles.edit', $role)->with('success', "Организация обновлена");
+        $permission = Permission::findOrFail($id);
+        $permission->update($request->all());
+        return redirect()->route('permissions.edit', $permission)->with('success', "Разрешение обновлено");
     }
 
     /**
@@ -89,15 +87,10 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        $role = Role::find($id);
-        $name = $role->name;
-        $role->delete();
-        return redirect()->route('roles.index')->with('success', "Роль удалена $name");
+        $permission = Permission::find($id);
+        $name = $permission->name;
+        $permission->delete();
+        return redirect()->route('permissions.index')->with('success', "Разрешение удалено $name");
     }
-
-
-
-
-
 
 }
