@@ -34,6 +34,8 @@
                 <th scope="col">Логин</th>
                 <th scope="col">Имя пользователя</th>
                 <th scope="col">ФИО</th>
+                <th scope="col">Роль</th>
+                <th scope="col">Тип</th>
                 <th scope="col"></th>
             </tr>
             </thead>
@@ -43,7 +45,9 @@
                     <td>{{$user->id}}</td>
                     <td>{{$user->username}}</td>
                     <td>{{$user->name}}</td>
-                    <td>   {{$user->sname ?? ''}} {{$user->fname}}  {{$user->mname ?? ''}}</td>
+                    <td>   {{$user->lname ?? ''}} {{$user->fname}}  {{$user->mname ?? ''}}</td>
+                    <td>   {{$user->role->name ?? '-'}}</td>
+                    <td>   {{$user->education_type->short_name ?? '-'}}</td>
                     <td class="">
                         <div class="d-flex justify-content-end">
                             <a  class="p-2 mx-1" href="{{route('users.edit', $user->id)}}">@svg('pencil-square', 'w-6 h-6 text-dark icon-index')</a>

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 class UserController extends Controller
@@ -31,22 +33,17 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
-//        $roles = $user->roles;
+        $role = $user->role;
 
         $cur_role_id =  false;
-//
-//        if (count($roles)>0) {
-//            $cur_role_id = $roles[0]->id;
-//        }
-
-
+        if ($role) {
+            $cur_role_id = $role->id;
+        }
         $args = array(
             'user'      => User::find($id),
             'roles'     => Role::all(),
             'cur_role' => $cur_role_id
         );
-
-
 
         return view('user.edit', $args);
     }
@@ -61,16 +58,9 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
-        $user = User::findOrFail($id);
-        $user->update($request->except('role_id'));
-        //dd($request->input('role_id'));
-        if ($request->input('role_id')) {
-            $role = Role::findById($request->input('role_id'));
-            $user->syncRoles($role);
-        } else {
-            $user->syncRoles();
-        }
 
+        $user = User::findOrFail($id);
+        $user->update($request->all());
         return redirect()->route('users.edit', $user)->with('success', "Пользователь обновлен");
     }
 
