@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EducationType;
+use App\Models\Pulpit;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -18,7 +20,7 @@ class UserController extends Controller
     public function index()
     {
         return view('user.index', ['users' =>
-            User::paginate(10)
+            User::filter(request(['search'] ))->paginate(10)->withQueryString()
         ]);
     }
 
@@ -33,16 +35,23 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
-        $role = $user->role;
 
-        $cur_role_id =  false;
-        if ($role) {
-            $cur_role_id = $role->id;
+        $p_filters = array();
+        $ed_type = $user->education_type;
+        if ($ed_type) {
+            $p_filters = array('ed_type' => $ed_type->id );
+            $pulpits = Pulpit::filter($p_filters)->get();
+        } else {
+            $pulpits =  array();
         }
+
+
+
         $args = array(
             'user'      => User::find($id),
             'roles'     => Role::all(),
-            'cur_role' => $cur_role_id
+            'ed_types'  => EducationType::all(),
+            'pulpits'   => $pulpits,
         );
 
         return view('user.edit', $args);
@@ -60,6 +69,7 @@ class UserController extends Controller
     {
 
         $user = User::findOrFail($id);
+//        dd($request->all());
         $user->update($request->all());
         return redirect()->route('users.edit', $user)->with('success', "Пользователь обновлен");
     }

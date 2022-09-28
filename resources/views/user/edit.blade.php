@@ -16,8 +16,8 @@
                 @csrf
                 @method('PUT')
                 <div class="row">
-                    <div class="col-md-7">
-                        <x-form.fieldgroup title="Организация">
+                    <div class="col-md-6">
+                        <x-form.fieldgroup title="Пользователь">
                             <x-form.input
 
                                 disabled
@@ -42,14 +42,20 @@
                                 label="Имя"
                                 name="fname"/>
 
-
-
                             <x-form.input
-
                                 dfvalue="{{$user->mname}}"
                                 label="Отчество"
                                 name="mname"/>
+                        </x-form.fieldgroup>
+                    </div>
+                    <div class="col-md-6">
+                        <x-form.fieldgroup title="Организация">
 
+                            <x-form.input
+
+                                dfvalue="{{$user->username}}"
+                                label="Логин"
+                                name="username"/>
                             <x-form.input
 
                                 dfvalue="{{$user->domain}}"
@@ -58,12 +64,24 @@
 
                             <x-form.select
                                 :options=$roles
-                                @if($cur_role)   dfvalue="{{$cur_role}}"  @endif
+                                dfvalue="{{$user->role_id}}"
                                 name="role_id"
                                 label="Роль"
                             />
 
 
+                            <x-form.select
+                                :options=$ed_types
+                                dfvalue="{{$user->education_type_id}}"
+                                name="education_type_id"
+                                label="Тип"
+                            />
+                            <x-form.select
+                                :options=$pulpits
+                                name="pulpit_id"
+                                dfvalue="{{$user->pulpit_id}}"
+                                label="Кафедра"
+                            />
 
 
 

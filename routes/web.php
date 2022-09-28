@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AgreementController;
+use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ContactPersonController;
 use App\Http\Controllers\GrnLetterController;
@@ -46,14 +47,20 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 
 Route::middleware(['auth'])->group( function (){
     Route::resource('companies', CompanyController::class);
+    // umu
+
     Route::resource('contact_people', ContactPersonController::class);
+
     Route::resource('agreements',  AgreementController::class);
+
     Route::resource('grn_letters',   GrnLetterController::class);
 
 
     Route::resource('users', UserController::class)->except([
         'create', 'store', 'show'
-    ]);
+    ]); // может только админ или менеджер
+
+    Route::get('/ajax/pulpitbyedtype/{id}', [AjaxController::class, 'getPulptitByEdType']);
 });
 
 

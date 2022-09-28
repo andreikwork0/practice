@@ -34,5 +34,41 @@ $(document).ready(function() {
         modalBodyForm.action = action
         modalBodyP.innerHTML = textModale
     })
+
+    try {
+        $('#education_type_id').on('select2:select', function (e) {
+
+            var data = e.params.data;
+            var pulpitSelect =    $('#pulpit_id');
+            pulpitSelect.val(null).trigger('change');
+            $('#pulpit_id option').remove();
+
+            axios({
+                method: 'get',
+                url: '/ajax/pulpitbyedtype/'+data.id,
+                responseType: 'stream'
+            })
+            .then(function (response) {
+                pulpits = JSON.parse(response.data.data)
+                pulpits.forEach((pulpit) => {
+                    var option = new Option(pulpit.name, pulpit.id, false, false);
+                    pulpitSelect.append(option).trigger('change');
+                });
+
+                 pulpitSelect.val(null).trigger('change');
+            });
+        });
+
+        // $('#education_type_id').on('select2:clear', function (e) {
+        //     $('#pulpit_id').val(null).trigger('change');
+        //     $('#pulpit_id option').remove();
+        //     var option = new Option('', '', false, false);
+        //     $('#pulpit_id option').append(option).trigger('change');
+        // })
+
+
+    } catch (e){
+        console.log(e.message)
+    }
 });
 

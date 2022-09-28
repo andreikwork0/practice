@@ -55,4 +55,21 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsTo(EducationType::class);
     }
+
+    public function pulpit()
+    {
+        return $this->belongsTo(Pulpit::class);
+    }
+
+    public function scopeFilter($query, array  $filters){
+
+        $query->when($filters['search'] ?? false, function($query, $search){
+            $query->where( fn($query) =>
+                $query->where('fname', 'like',  "%$search%"  )
+                       ->orWhere('lname', 'like',  "%$search%"  )
+                       ->orWhere('mname', 'like',  "%$search%"  )
+            );
+        });
+    }
+
 }
