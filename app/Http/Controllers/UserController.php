@@ -8,6 +8,7 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 
 class UserController extends Controller
@@ -19,6 +20,7 @@ class UserController extends Controller
      */
     public function index()
     {
+
         return view('user.index', ['users' =>
             User::filter(request(['search'] ))->paginate(10)->withQueryString()
         ]);
@@ -44,6 +46,7 @@ class UserController extends Controller
         } else {
             $pulpits =  array();
         }
+
 
 
 

@@ -8,63 +8,121 @@
 
 @section('content')
     <div class="container">
-        <div class="d-flex justify-content-between  mb-3">
-            <div class="input-group  w-50">
-                <form method="GET" action="{{route('companies.index')}}" class="w-100">
-                    <div class="d-flex">
-                        <input
-                            name="search"
-                            value="{{request('search')}}"
-                            width="400px"
-                            type="text" class="form-control" placeholder="Поиск ...">
-                        <button class="btn btn-primary " type="submit">
-                            @svg('search', 'w-16 h-16 text-white')</button>
 
-                        @if(request('search'))
-                            <a href="{{route('companies.index')}}"  class="btn btn-outline-danger mx-3"> Сбросить</a>
-                        @endif
+        <div class="row">
+            <div class="col-md-12">
+                <x-form.fieldgroup title="Фильтр">
+                <form action="{{route('practices.index')}}" method="get">
+                    <div class="row">
+                        @roleis('umu')
+                        <div class="col-md-6">
+
+                            <x-form.select
+                                :options=$ed_types
+                                dfvalue="{{request('ed_type')}}"
+                                name="ed_type"
+                                label="Тип"
+                            />
+                        </div>
+                        <div class="col-md-6">
+                            <x-form.select
+                                :options=$pulpits
+                                name="pulpit"
+                                dfvalue="{{request('pulpit')}}"
+                                label="Кафедра"
+                            />
+                        </div>
+                        @endroleis('umu')
+                        <div class="col-md-6">
+
+                            <x-form.select
+                                :options=$semesters
+                                dfvalue="{{request('semester')}}"
+                                name="semester"
+                                label="Семестр"
+                            />
+                        </div>
+                        <div class="col-md-6">
+                            <x-form.select
+                                :options=$courses
+                                dfvalue="{{request('course')}}"
+                                name="course"
+                                label="Курс"
+                            /></div>
                     </div>
 
+
+
+
+
+
+                    <div class="d-flex justify-content-center my-3">
+                        <button type="submit" class="btn btn-primary">Применить</button>
+
+                        @if(request('ed_type') ||  request('pulpit') || request('semester') || request('course') )
+                            <a href="{{route('practices.index')}}"  class="btn btn-outline-danger mx-3"> Сбросить</a>
+                            <a href="{{request()->fullUrl()}}"  class="btn btn-outline-success mx-3"> Обновить</a>
+                        @endif
+
+                    </div>
+
+
+
+
+
+
                 </form>
+                </x-form.fieldgroup>
             </div>
-            <a href="{{route('companies.create')}}"  class="btn btn-primary"> Добавить новую</a>
         </div>
-        @if(count($companies)>0)
+
+
+
+
+        @if(count($practices)>0)
         <table class="table  border table-striped">
             <thead>
             <tr>
 {{--                <th scope="col">ID</th>--}}
-                <th scope="col">Название</th>
+                <th style="width: 50%" scope="col">Название</th>
                 <th scope="col">Группа</th>
-                <th scope="col">Контингент</th>
-                <th scope="col">Дата с</th>
-                <th scope="col">Дата по</th>
+
+                <th scope="col">Начало</th>
+                <th scope="col">Окончание</th>
+
+                <th scope="col">Курс</th>
+                <th scope="col">Семестр</th>
+
+
                 <th scope="col">Дней</th>
                 <th scope="col">Недель</th>
                 <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
-            @foreach($companies as $company)
+            @foreach($practices as $practice)
                 <tr>
-{{--                    <td>{{$company->id}}</td>--}}
-                    <td>{{$company->name}}</td>
-                    <td>{{$company->legal_adress}}</td>
-                    <td>{{$company->inn}}</td>
-                    <td>{{$company->kpp}}</td>
+{{--                    <td>{{$practice->id}}</td>--}}
+                    <td style="width: 50%">{{$practice->name}}</td>
+                    <td>{{$practice->agroup}}</td>
+
+                    <td>{{$practice->date_start ? date('d.m.Y', strtotime($practice->date_start)) : '-'}}</td>
+                    <td>{{$practice->date_end ? date('d.m.Y', strtotime($practice->date_end)) : '-'}}</td>
+
+                    <td>{{$practice->course }}</td>
+                    <td>{{$practice->semester }}</td>
+
+                    <td>{{$practice->day ?? '-' }}</td>
+                    <td>{{$practice->week ?? '-' }}</td>
 
                     <td class="">
                         <div class="d-flex justify-content-end">
-                            <a class="p-2 mx-1"  href="{{route('companies.show', $company->id)}}">@svg('eye', 'w-30 h-6 text-dark icon-index')</a>
-                            <a  class="p-2 mx-1" href="{{route('companies.edit', $company->id)}}">@svg('pencil-square', 'w-6 h-6 text-dark icon-index')</a>
-                            <a class="p-2 mx-1"   >
-                                <form action="{{route('companies.destroy', $company->id)}}" method="post">
-                                    @method('delete')
-                                    @csrf
-                                    <button type="submit" class="border-0 bg-transparent"> @svg('trash3', 'w-6 h-6 text-dark icon-index') </button>
-                                </form>
-
-                            </a>
+                            <a class="p-2 mx-1"  href="{{route('practices.show', $practice->id)}}">@svg('eye', 'w-30 h-6 text-dark icon-index')</a>
+                            <a  target="_blank" class="p-2 mx-1" href="{{route('practices.edit', $practice->id)}}">@svg('pencil-square', 'w-6 h-6 text-dark icon-index')</a>
+{{--                            <x-modal-delete-btn--}}
+{{--                                text="Практика {{$practice->name}} будет удалена"--}}
+{{--                                url="{{route('practices.destroy', $practice->id)}}"--}}
+{{--                            />--}}
                         </div>
 
                     </td>
@@ -74,19 +132,13 @@
         </table>
 
         <div class="my-4">
-            {{$companies->links()}}
+            {{$practices->links()}}
         </div>
-        @elseif(request('search'))
-            <h2>Ничего не найдно</h2>
-            <h3>Условие поиска : {{request('search')}}</h3>
-            <p>Нет организаций соответствующих условиям поиска. Попробуйте изменить условие поиска</p>
+
         @else
-       <h2>Нет Организаций</h2>
+       <h2>Нет Практик</h2>
         <p>
-            Еще недобавлено ни одной организации.
-        </p>
-        <p>
-            Добавьте новую  <a href="{{route('companies.create')}}"  class="btn btn-primary"> Добавить новую</a>
+           Нет практик  соответствующим вашим условиям поиска
         </p>
         @endif
     </div>

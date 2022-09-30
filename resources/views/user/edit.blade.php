@@ -52,12 +52,12 @@
                         <x-form.fieldgroup title="Организация">
 
                             <x-form.input
-
+                                disabled
                                 dfvalue="{{$user->username}}"
                                 label="Логин"
                                 name="username"/>
                             <x-form.input
-
+                                disabled
                                 dfvalue="{{$user->domain}}"
                                 label="Домен"
                                 name="domain"/>

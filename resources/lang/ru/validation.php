@@ -24,6 +24,9 @@ return [
         'ch_account'               => 'Расчетный счет',
         'cr_account'               => 'К/C',
         'bik'                       => 'БИК',
+        'date_start'                =>  'Дата начала',
+        'date_end'                  =>  'Дата окончания',
+        'practice_type_id'          =>  'Тип практики'
     ],
     'accepted'             => 'Вы должны принять :attribute.',
     'accepted_if'          => 'Поле :attribute должно быть принято, когда :other соответствует :value.',

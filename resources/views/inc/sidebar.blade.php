@@ -5,12 +5,7 @@
     </a>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
-        <li class="nav-item">
-            <a href="#" class="nav-link  "  >
-                <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-                Home
-            </a>
-        </li>
+        @roleis('umu')
         <li class="nav-item">
             <a href="{{route('companies.index')}}" class="nav-link text-white     @if(request()->routeIs('companies.*')) {{'active'}} @endif ">
 
@@ -18,26 +13,46 @@
                 Организации
             </a>
         </li>
-        <li>
-            <a href="{{route('contact_people.index')}}" class="nav-link text-white   @if(request()->routeIs('contact_people.*')) {{'active'}} @endif ">
-                @svg('people', 'w-16 h-16 bi me-2 text-white')
-                Контактные лица
-            </a>
-        </li>
+        @endroleis('umu')
 
-        <li>
-            <a href="{{route('agreements.index')}}" class="nav-link text-white @if(request()->routeIs('agreements.*')) {{'active'}} @endif">
-                @svg('file-text', 'w-16 h-16 bi me-2 text-white')
-                Договоры
-            </a>
-        </li>
-        <li>
-            <a href="{{route('grn_letters.index')}}" class="nav-link text-white @if(request()->routeIs('grn_letters.*')) {{'active'}} @endif">
-                @svg('envelope', 'w-16 h-16 bi me-2 text-white')
-                Гарантийные письма
-            </a>
-        </li>
+        @roleis('umu', 'kaf')
+        <li class="nav-item">
+            <a href="{{route('practices.index')}}" class="nav-link text-white     @if(request()->routeIs('practices.*')) {{'active'}} @endif ">
 
+                @svg('file-earmark-spreadsheet', 'w-16 h-16 bi me-2 text-white')
+                Практики
+            </a>
+        </li>
+        @endroleis('umu')
+
+{{--        @roleis('kaf')--}}
+{{--        <li>--}}
+{{--            <a href="{{route('contact_people.index')}}" class="nav-link text-white   @if(request()->routeIs('contact_people.*')) {{'active'}} @endif ">--}}
+{{--                @svg('people', 'w-16 h-16 bi me-2 text-white')--}}
+{{--                Контактные лица--}}
+{{--            </a>--}}
+{{--        </li>--}}
+{{--        @endroleis('kaf')--}}
+
+{{--        @roleis('umu')--}}
+{{--        <li>--}}
+{{--            <a href="{{route('agreements.index')}}" class="nav-link text-white @if(request()->routeIs('agreements.*')) {{'active'}} @endif">--}}
+{{--                @svg('file-text', 'w-16 h-16 bi me-2 text-white')--}}
+{{--                Договоры--}}
+{{--            </a>--}}
+{{--        </li>--}}
+{{--        @endroleis('umu')--}}
+
+{{--        @roleis('kaf')--}}
+{{--        <li>--}}
+{{--            <a href="{{route('grn_letters.index')}}" class="nav-link text-white @if(request()->routeIs('grn_letters.*')) {{'active'}} @endif">--}}
+{{--                @svg('envelope', 'w-16 h-16 bi me-2 text-white')--}}
+{{--                Гарантийные письма--}}
+{{--            </a>--}}
+{{--        </li>--}}
+{{--        @endroleis('kaf')--}}
+
+        @roleis('umu')
 
                 <li>
                     <a href="{{route('users.index')}}" class="nav-link text-white @if(request()->routeIs('users.*')) {{'active'}} @endif">
@@ -45,29 +60,7 @@
                         Пользователи
                     </a>
                 </li>
+        @endroleis
     </ul>
-    <hr>
-    <div class="dropdown">
-        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-            <strong>mdo</strong>
-        </a>
-        <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1" style="">
 
-
-            <li><a class="dropdown-item" href="#">New project...</a></li>
-            <li><a class="dropdown-item" href="#">Settings</a></li>
-            <li><a class="dropdown-item" href="#">Profile</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li>
-                <form action="{{route('logout')}}" method="POST">
-                    @csrf
-                    <button type="submit" class="dropdown-item">
-                        {{__('Logout')}}
-                    </button>
-                </form>
-
-            </li>
-        </ul>
-    </div>
 </div>

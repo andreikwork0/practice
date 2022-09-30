@@ -5,6 +5,7 @@ use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ContactPersonController;
 use App\Http\Controllers\GrnLetterController;
+use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -46,8 +47,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 //});
 
 Route::middleware(['auth'])->group( function (){
-    Route::resource('companies', CompanyController::class);
-    // umu
+    Route::resource('companies', CompanyController::class)->middleware( 'role:umu'); // umu
 
     Route::resource('contact_people', ContactPersonController::class);
 
@@ -56,9 +56,14 @@ Route::middleware(['auth'])->group( function (){
     Route::resource('grn_letters',   GrnLetterController::class);
 
 
+    Route::resource('practices', PracticeController::class)
+        ->except([
+            'create', 'store', 'destroy'
+        ])->middleware('role:umu,kaf');
+
     Route::resource('users', UserController::class)->except([
         'create', 'store', 'show'
-    ]); // может только админ или менеджер
+    ])->middleware('role:umu'); // может только админ или менеджер
 
     Route::get('/ajax/pulpitbyedtype/{id}', [AjaxController::class, 'getPulptitByEdType']);
 });

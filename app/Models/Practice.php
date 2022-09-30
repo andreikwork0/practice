@@ -9,4 +9,41 @@ class Practice extends Model
 {
     use HasFactory;
     protected $guarded = [];
+//    protected  $dates = ['date_start', 'date_end'];
+//
+//    protected $dateFormat = 'd.m.Y';
+    public function scopeFilter($query, array  $filters){
+
+        $active_year = YearLearning::activeYear();
+        $query->when($filters['ed_type'] ?? false, function($query, $ed_type){
+            $query->where( fn($query) =>
+            $query->where('education_type_id', '=', $ed_type  )
+            );
+        });
+
+        $query->when($filters['year'] ?? $active_year->id, function($query, $year){
+            $query->where( fn($query) =>
+            $query->where('year_learning_id', '=', $year  )
+            );
+        });
+        $query->when($filters['pulpit'] ?? false, function($query, $pulpit){
+            $query->where( fn($query) =>
+            $query->where('pulpit_id', '=', $pulpit  )
+            );
+        });
+
+        $query->when($filters['course'] ?? false, function($query, $course){
+            $query->where( fn($query) =>
+            $query->where('course', '=', $course  )
+            );
+        });
+
+        $query->when($filters['semester'] ?? false, function($query, $semester){
+            $query->where( fn($query) =>
+            $query->where('semester', '=', $semester  )
+            );
+        });
+
+    }
+
 }

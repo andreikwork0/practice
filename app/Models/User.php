@@ -46,6 +46,18 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    public function isRole($name){
+
+//        if ($name == 'kaf' && !($this->pulpit_id)) return false;
+
+        $role =   $this->role;
+        if ($role) {
+            if ($role->name == $name) return true;
+        }
+
+        return false;
+    }
+
     public function role()
     {
         return $this->belongsTo(Role::class);
