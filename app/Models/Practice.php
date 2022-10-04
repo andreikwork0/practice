@@ -12,6 +12,19 @@ class Practice extends Model
 //    protected  $dates = ['date_start', 'date_end'];
 //
 //    protected $dateFormat = 'd.m.Y';
+
+
+
+    public function type()
+    {
+        return $this->belongsTo(PracticeType::class, 'practice_type_id', 'id', 'practice_types');
+    }
+
+    public function distributes()
+    {
+        return $this->hasMany(DistributionPractice::class);
+    }
+
     public function scopeFilter($query, array  $filters){
 
         $active_year = YearLearning::activeYear();
