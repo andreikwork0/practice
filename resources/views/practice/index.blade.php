@@ -19,6 +19,7 @@
 
                             <x-form.select
                                 :options=$ed_types
+                                ids="education_type_id"
                                 dfvalue="{{request('ed_type')}}"
                                 name="ed_type"
                                 label="Тип"
@@ -28,6 +29,7 @@
                             <x-form.select
                                 :options=$pulpits
                                 name="pulpit"
+                                ids="pulpit_id"
                                 dfvalue="{{request('pulpit')}}"
                                 label="Кафедра"
                             />

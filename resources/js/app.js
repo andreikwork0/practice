@@ -35,6 +35,8 @@ $(document).ready(function() {
         modalBodyP.innerHTML = textModale
     })
 
+
+
     try {
         $('#education_type_id').on('select2:select', function (e) {
 
