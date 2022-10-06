@@ -4,6 +4,7 @@ use App\Http\Controllers\AgreementController;
 use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ContactPersonController;
+use App\Http\Controllers\DistributionPracticeController;
 use App\Http\Controllers\GrnLetterController;
 use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\UserController;
@@ -55,6 +56,14 @@ Route::middleware(['auth'])->group( function (){
 
     Route::resource('grn_letters',   GrnLetterController::class);
 
+
+    Route::resource('distribution_practices',   DistributionPracticeController::class)
+        ->except([
+            'show', 'create', 'store'
+        ])->middleware('role:umu,kaf');
+
+    Route::post('/practices/{pr_id}/distribution/', [DistributionPracticeController::class, 'store'])->name('distribution_practices.store')
+        ->middleware('role:umu,kaf');;
 
     Route::resource('practices', PracticeController::class)
         ->except([

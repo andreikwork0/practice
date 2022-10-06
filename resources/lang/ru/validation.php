@@ -26,7 +26,9 @@ return [
         'bik'                       => 'БИК',
         'date_start'                =>  'Дата начала',
         'date_end'                  =>  'Дата окончания',
-        'practice_type_id'          =>  'Тип практики'
+        'practice_type_id'          =>  'Тип практики',
+        'company_id'                =>  'Организация',
+        'num_plan'                  =>   'План мест'
     ],
     'accepted'             => 'Вы должны принять :attribute.',
     'accepted_if'          => 'Поле :attribute должно быть принято, когда :other соответствует :value.',
