@@ -16,12 +16,16 @@ class PracticeTypeSeeder extends Seeder
     {
         $args = array(
             array(
-               'name' => 'Концентрированная',
-               'short_name' => 'к',
+               'name' => 'Учебная практика',
+               'short_name' => 'У',
             ),
             array(
-                'name' => 'Распределенная',
-                'short_name' => 'р',
+                'name' => 'Производственная практика',
+                'short_name' => 'П',
+            ),
+            array(
+                'name' => 'Преддипломная практика',
+                'short_name' => 'Пд',
             ),
         );
 
