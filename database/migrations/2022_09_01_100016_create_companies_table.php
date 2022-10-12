@@ -18,7 +18,7 @@ class CreateCompaniesTable extends Migration
             $table->id();
             $table->string('name', 100);
             $table->string('legal_adress', 200);
-            $table->string('fact_adress', 200);
+            $table->string('fact_adress', 200)->nullable();
 
 
             $table->string('mng_surname', 40);
@@ -28,10 +28,10 @@ class CreateCompaniesTable extends Migration
             $table->string('inn', 15);
             $table->string('kpp', 15);
 
-            $table->string('ch_account', 70);
-            $table->string('cr_account', 30);
+            $table->string('ch_account', 70)->nullable();;
+            $table->string('cr_account', 30)->nullable();;
 
-            $table->string('bik');
+            $table->string('bik')->nullable();;
 
             $table->unsignedBigInteger('parent_id')->nullable();
 //

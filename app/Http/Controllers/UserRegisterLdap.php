@@ -26,11 +26,7 @@ class UserRegisterLdap extends Controller
     public function findUserLdap(){
 
         $filter="(sAMAccountName=".$this->username.")";
-        $dns = [
-            'vo'    => 'ou=образовательные структуры,dc=vuz,dc=magtu,dc=ru',
-            'spo'  => 'ou=многопрофильный колледж (ук№3),dc=vuz,dc=magtu,dc=ru',
-            'def'   =>'ou=общеуниверситетские службы,dc=vuz,dc=magtu,dc=ru',
-        ];
+        $dns = config('ldap.ldap.dns');
         foreach ($dns as $key =>  $dn ){
             try {
 //                var_dump($dn);
@@ -49,9 +45,9 @@ class UserRegisterLdap extends Controller
     }
 
     public function connectionLdap(){
-        $ldap_server = "ldap://192.168.20.10";
-        $ldap_user   = "AdminLMS";
-        $ldap_pass   = '1v$7$%vd2I';
+        $ldap_server = 'ldap://' . config('ldap.ldap.host');
+        $ldap_user   = config('ldap.ldap.username');
+        $ldap_pass   = config('ldap.ldap.password');
 
         $ad = ldap_connect($ldap_server) ;
         ldap_set_option($ad, LDAP_OPT_PROTOCOL_VERSION, 3) ;

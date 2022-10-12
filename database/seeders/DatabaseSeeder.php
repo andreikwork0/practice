@@ -22,10 +22,10 @@ class DatabaseSeeder extends Seeder
 
         //DB::statement('SET FOREIGN_KEY_CHECKS=0;');
        $this->call([
-            CompanySeeder::class,
-            ContactPersonSeeder::class,
-            AgreementSeeder::class,
-            GrnLetterSeeder::class,
+           // CompanySeeder::class,
+           // ContactPersonSeeder::class,
+           // AgreementSeeder::class,
+           // GrnLetterSeeder::class,
             EducationTypeSeeder::class,
             YearLearningSeeder::class,
             PulpitSeeder::class,
