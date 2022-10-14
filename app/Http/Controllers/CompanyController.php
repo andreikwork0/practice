@@ -99,7 +99,7 @@ class CompanyController extends Controller
 
     public function valideRequest(Request $request){
         $request->validate([
-            'name' => 'required|max:100',
+            'name' => 'required|max:255',
             'legal_adress' => 'required|max:200',
             'fact_adress' => 'max:200',
             'mng_surname' => 'required|max:20',

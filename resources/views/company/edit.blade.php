@@ -34,6 +34,12 @@
                                 label="Название"
                                 name="name"/>
 
+
+                            <x-form.input
+                                dfvalue="{!! $company->name_full !!}"
+                                label="Полное название"
+                                name="name_full"/>
+
                             <x-form.input
                                 required
                                 dfvalue="{{$company->legal_adress}}"

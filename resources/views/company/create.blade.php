@@ -18,6 +18,11 @@
                             required
                             label="Название"
                             name="name"/>
+
+                        <x-form.input
+                            label="Полное название"
+                            name="name_full"/>
+
                         <x-form.input
                             required
                             label="Юридический адрес"
