@@ -52,9 +52,23 @@ Route::middleware(['auth'])->group( function (){
 
     Route::resource('contact_people', ContactPersonController::class);
 
-    Route::resource('agreements',  AgreementController::class);
-
     Route::resource('grn_letters',   GrnLetterController::class);
+
+
+
+    // store -  /companies/{com_id}/agreement/ - post
+
+    // edit
+    // update
+    // delete
+
+    // show
+    // доп соглашения
+
+    Route::resource('agreements',  AgreementController::class)->except('create', 'store')->middleware('role:umu');
+    Route::post('/companies/{com_id}/agreements/', [AgreementController::class, 'store'])->name('agreements.store')
+        ->middleware('role:umu');
+
 
 
     Route::resource('distribution_practices',   DistributionPracticeController::class)

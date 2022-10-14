@@ -30,7 +30,7 @@
 
                             <x-form.input
                                 required
-                                dfvalue="{{$company->name}}"
+                                dfvalue="{!! $company->name !!}"
                                 label="Название"
                                 name="name"/>
 
@@ -95,7 +95,6 @@
                                 name="kpp"/>
 
                             <x-form.input
-                                required
                                 type="number"
                                 dfvalue="{{$company->bik}}"
                                 name="bik"
@@ -103,14 +102,12 @@
                         </div>
                         <div class="col-md-6">
                             <x-form.input
-                                required
                                 type="number"
                                 dfvalue="{{$company->ch_account}}"
                                 name="ch_account"
                                 label="Расчетный счет" />
 
                             <x-form.input
-                                required
                                 type="number"
                                 dfvalue="{{$company->cr_account}}"
                                 name="cr_account"

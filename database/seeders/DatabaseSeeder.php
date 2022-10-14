@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
             PracticeTypeSeeder::class,
             PracticeSeeder::class,
             RoleSeeder::class,
+            AgrStatusSeeder::class
        ]);
         //DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
