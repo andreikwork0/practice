@@ -26,13 +26,13 @@ class DatabaseSeeder extends Seeder
            // ContactPersonSeeder::class,
            // AgreementSeeder::class,
            // GrnLetterSeeder::class,
+            AgrStatusSeeder::class,
             EducationTypeSeeder::class,
             YearLearningSeeder::class,
             PulpitSeeder::class,
             PracticeTypeSeeder::class,
             PracticeSeeder::class,
             RoleSeeder::class,
-            AgrStatusSeeder::class
        ]);
         //DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
