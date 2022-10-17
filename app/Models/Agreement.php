@@ -9,7 +9,12 @@ class Agreement extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function company(){
         return $this->belongsTo(Company::class);
+    }
+    public function status(){
+        return $this->belongsTo(AgrStatus::class, 'agr_status_id', 'id');
     }
 }

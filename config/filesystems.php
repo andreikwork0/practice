@@ -42,6 +42,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'agreements' => [
+            'driver' => 'local',
+            'root' => storage_path('app/agreements'),
+            'url' => env('APP_URL').'/agreements',
+            'visibility' => 'private',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

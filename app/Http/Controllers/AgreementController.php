@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Agreement;
+use App\Models\AgrStatus;
+use App\Models\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AgreementController extends Controller
 {
@@ -22,9 +25,12 @@ class AgreementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request, $com_id)
     {
-        //
+        $company = Company::findOrFail($com_id);
+        $statuses = AgrStatus::all();
+
+        return view('agreement.create', ['statuses' => $statuses, "company" => $company]);
     }
 
     /**
@@ -33,9 +39,46 @@ class AgreementController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $com_id)
     {
         //
+//        dd($request->file('agreement_f'));
+
+
+        $company = Company::findOrFail($com_id);
+
+
+
+        $ars_is_active = array('is_actual' => $request->input('is_actual') ? 1 : 0);
+        $agreement = $company->agreements()->create(
+         array_merge(    $request->except('agreement_f'), $ars_is_active)
+        );
+
+
+        if ($request->hasFile('agreement_f')) {
+            $file =  $request->file('agreement_f');
+            $hash_name = $file->hashName();
+            $content = $file->getContent();
+
+            $path = $agreement->id .'/'.$hash_name;
+
+            $is_upload =     Storage::disk('agreements')->put(
+                $agreement->id .'/'.$hash_name, $content);
+
+        }
+
+        if ($is_upload) {
+
+            $agreement->path = $path;
+            $agreement->save();
+        }
+
+
+        return redirect(route('companies.show', $company->id))->with('success', 'Договор успешно добавлен');
+
+
+//        dd($agreement);
+
     }
 
     /**
@@ -82,4 +125,6 @@ class AgreementController extends Controller
     {
         //
     }
+
+    // download linker
 }

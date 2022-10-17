@@ -69,6 +69,9 @@ Route::middleware(['auth'])->group( function (){
     Route::post('/companies/{com_id}/agreements/', [AgreementController::class, 'store'])->name('agreements.store')
         ->middleware('role:umu');
 
+    Route::get('/companies/{com_id}/agreements/', [AgreementController::class, 'create'])->name('agreements.create')
+        ->middleware('role:umu');
+
 
 
     Route::resource('distribution_practices',   DistributionPracticeController::class)
