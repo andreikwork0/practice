@@ -17,4 +17,9 @@ class Agreement extends Model
     public function status(){
         return $this->belongsTo(AgrStatus::class, 'agr_status_id', 'id');
     }
+
+    public function generateNum()
+    {
+        return    $this->id . '/' .'ОП'. '/'. date("y");
+    }
 }

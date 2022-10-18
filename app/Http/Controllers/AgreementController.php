@@ -8,6 +8,8 @@ use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
+
+
 class AgreementController extends Controller
 {
     /**
@@ -54,6 +56,7 @@ class AgreementController extends Controller
          array_merge(    $request->except('agreement_f'), $ars_is_active)
         );
 
+        $is_upload = false;
 
         if ($request->hasFile('agreement_f')) {
             $file =  $request->file('agreement_f');
@@ -73,6 +76,9 @@ class AgreementController extends Controller
             $agreement->save();
         }
 
+        $num = $agreement->generateNum();
+        $agreement->num_agreement = $num;
+        $agreement->save();
 
         return redirect(route('companies.show', $company->id))->with('success', 'Договор успешно добавлен');
 
@@ -127,4 +133,16 @@ class AgreementController extends Controller
     }
 
     // download linker
+    public function download($id) {
+
+        // check
+
+        $agreement = Agreement::find($id);
+        $path = $agreement->path;
+        $extension =  'docx'; //\extension( $path);
+
+        return Storage::disk('agreements')->download($path, "Договор.$extension" );
+
+
+    }
 }

@@ -13,15 +13,14 @@
             <div class="row">
                 <div class="col-md-6">
                     <x-form.fieldgroup title="Договор">
-                        <x-form.input
-                            required
-                            label="Название"
-                            name="name"/>
+{{--                        <x-form.input--}}
+{{--                            label="Название"--}}
+{{--                            name="name"/>--}}
 
-                        <x-form.input
-                            required
-                            label="Номер"
-                            name="num_agreement"/>
+{{--                        <x-form.input--}}
+{{--                            required--}}
+{{--                            label="Номер"--}}
+{{--                            name="num_agreement"/>--}}
                         <x-form.checkbox
                             label="Актуальность"
                             name="is_actual"/>

@@ -65,12 +65,18 @@ Route::middleware(['auth'])->group( function (){
     // show
     // доп соглашения
 
+
+    Route::post('/agreements/{id}/download', [AgreementController::class , 'download'])->middleware('role:umu')->name('agreements.download');
+
+
     Route::resource('agreements',  AgreementController::class)->except('create', 'store')->middleware('role:umu');
     Route::post('/companies/{com_id}/agreements/', [AgreementController::class, 'store'])->name('agreements.store')
         ->middleware('role:umu');
 
     Route::get('/companies/{com_id}/agreements/', [AgreementController::class, 'create'])->name('agreements.create')
         ->middleware('role:umu');
+
+
 
 
 

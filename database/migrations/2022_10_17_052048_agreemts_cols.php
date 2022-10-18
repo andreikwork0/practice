@@ -18,6 +18,8 @@ class AgreemtsCols extends Migration
             $table->dateTime('date_agreement', 4)->nullable()->change();
             $table->dateTime('date_bg', 4)->nullable()->change();
             $table->dateTime('date_end', 4)->nullable()->change();
+            $table->string('name')->nullable()->change();
+            $table->string('num_agreement')->nullable()->change();
         });
 
     }
@@ -34,6 +36,9 @@ class AgreemtsCols extends Migration
             $table->dateTime('date_agreement', 4)->change();
             $table->dateTime('date_bg', 4)->change();
             $table->dateTime('date_end', 4)->change();
+
+            $table->string('name')->change();
+            $table->string('num_agreement')->change();
         });
     }
 }

@@ -23,7 +23,7 @@
         </div>
 
         <div class="d-flex justify-content-between align-content-center mt-5 mb-3" >
-            <h2 class="">Договора</h2>
+            <h2 class="">Договоры</h2>
             <div>
                 <a href="{{route('agreements.create', $company->id) }}" class="btn btn-primary d-block">Добавить новый</a>
             </div>
@@ -34,7 +34,7 @@
                 <thead>
                 <tr>
 
-                    <th scope="col">Название</th>
+
                     <th scope="col">Номер</th>
                     <th scope="col">Дата договора</th>
                     <th scope="col">Начало действие</th>
@@ -45,29 +45,30 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($company->agreements as $agreement)
+                @foreach($company->agreements()->orderBy('id', 'desc')->get() as $agreement)
                     <tr>
-
-
-                        <td>{{$agreement->name}} </td>
                         <td>{{$agreement->num_agreement}} </td>
-
-                        <td>{{$agreement->date_agreement}}</td>
-                        <td>{{$agreement->date_bg}}</td>
-                        <td>{{$agreement->date_end}}</td>
+                        <td> {{$agreement->date_agreement ? date('d.m.Y', strtotime($agreement->date_agreement)) : '-'}}</td>
+                        <td> {{$agreement->date_bg ? date('d.m.Y', strtotime($agreement->date_bg)) : '-'}}</td>
+                        <td> {{$agreement->date_end ? date('d.m.Y', strtotime($agreement->date_end)) : '-'}}</td>
                         <td>{{$agreement->status->name}}</td>
-
-                        <td>{{$agreement->is_actual}}</td>
-
+                        <td>{{ $agreement->is_actual == 1 ? 'Да' : 'Нет'}}</td>
                         <td class="">
                             <div class="d-flex justify-content-end">
-
                                 <a data-bs-toggle="collapse"
                                    data-bs-target="#collapse_ag_{{$agreement->id}}"
                                    aria-expanded="false"
                                    aria-controls="collapse_ag_{{$agreement->id}}"
                                    class="p-2 mx-1"  href="{{route('agreements.show', $agreement->id)}}">@svg('three-dots', 'w-30 h-6 text-dark icon-index')</a>
-                                <a class="p-2 mx-1"  href="{{route('agreements.show', $agreement->id)}}">@svg('download', 'w-30 h-6 text-dark icon-index')</a>
+
+                                @if($agreement->path)
+                                <a class="p-2 mx-1" >
+                                    <form action="{{route('agreements.download', $agreement->id)}}" method="post">
+                                        @csrf
+                                        <button type="submit" class="border-0 bg-transparent"> @svg('download', 'w-30 h-6 text-dark icon-index') </button>
+                                    </form>
+                                </a>
+                                @endif
                                 <a class="p-2 mx-1"  href="{{route('agreements.show', $agreement->id)}}">@svg('file-earmark-arrow-down', 'w-30 h-6 text-dark icon-index')</a>
                                 <a  class="p-2 mx-1" href="{{route('agreements.edit', $agreement->id)}}">@svg('pencil-square', 'w-6 h-6 text-dark icon-index')</a>
                                 <a class="p-2 mx-1"   >
