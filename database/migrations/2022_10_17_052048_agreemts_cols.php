@@ -15,9 +15,9 @@ class AgreemtsCols extends Migration
     {
         Schema::table('agreements', function (Blueprint $table) {
            $table->string('path')->nullable();
-            $table->dateTime('date_agreement', 4)->nullable()->change();
-            $table->dateTime('date_bg', 4)->nullable()->change();
-            $table->dateTime('date_end', 4)->nullable()->change();
+            $table->date('date_agreement')->nullable()->change();
+            $table->date('date_bg')->nullable()->change();
+            $table->date('date_end')->nullable()->change();
             $table->string('name')->nullable()->change();
             $table->string('num_agreement')->nullable()->change();
         });

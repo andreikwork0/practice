@@ -36,11 +36,11 @@
 
 
                     <th scope="col">Номер</th>
-                    <th scope="col">Дата договора</th>
+                    <th scope="col">Дата подписания</th>
                     <th scope="col">Начало действие</th>
                     <th scope="col">Окончание действия</th>
                     <th scope="col">Статус</th>
-                    <th scope="col">Актуальный</th>
+                    <th scope="col">Действующий</th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
@@ -71,14 +71,12 @@
                                 @endif
                                 <a class="p-2 mx-1"  href="{{route('agreements.show', $agreement->id)}}">@svg('file-earmark-arrow-down', 'w-30 h-6 text-dark icon-index')</a>
                                 <a  class="p-2 mx-1" href="{{route('agreements.edit', $agreement->id)}}">@svg('pencil-square', 'w-6 h-6 text-dark icon-index')</a>
-                                <a class="p-2 mx-1"   >
-                                    <form action="{{route('agreements.destroy', $agreement->id)}}" method="post">
-                                        @method('delete')
-                                        @csrf
-                                        <button type="submit" class="border-0 bg-transparent"> @svg('trash3', 'w-6 h-6 text-dark icon-index') </button>
-                                    </form>
 
-                                </a>
+                                <x-modal-delete-btn
+                                    text="Договор № {{$agreement->num_agreement}} будет удален"
+                                    url="{{route('agreements.destroy', $agreement->id)}}"
+                                />
+
                             </div>
 
                         </td>

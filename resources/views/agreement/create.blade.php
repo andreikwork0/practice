@@ -11,44 +11,16 @@
         <form action="{{route('agreements.store', $company->id)}}" method="post"  enctype="multipart/form-data" >
             @csrf
             <div class="row">
-                <div class="col-md-6">
-                    <x-form.fieldgroup title="Договор">
-{{--                        <x-form.input--}}
-{{--                            label="Название"--}}
-{{--                            name="name"/>--}}
-
-{{--                        <x-form.input--}}
-{{--                            required--}}
-{{--                            label="Номер"--}}
-{{--                            name="num_agreement"/>--}}
-                        <x-form.checkbox
-                            label="Актуальность"
-                            name="is_actual"/>
-
-
-                        <x-form.input
-                            type="file"
-                            label="Файл"
-                            name="agreement_f"/>
-
-                        <x-form.select
-                            required
-                            :options=$statuses
-                            name="agr_status_id"
-                            dfvalue="1"
-                            label="Статус"
-                        />
-                    </x-form.fieldgroup>
-                    </div>
                     <div class="col-md-6">
                         <x-form.fieldgroup title="Даты">
                             <x-form.input
                                 type="date"
-                                label="Дата договора"
+                                label="Дата подписания"
                                 name="date_agreement"/>
 
                             <x-form.input
                                 type="date"
+                                required
                                 label="Начало действия"
                                 name="date_bg"/>
 

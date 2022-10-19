@@ -28,7 +28,9 @@ return [
         'date_end'                  =>  'Дата окончания',
         'practice_type_id'          =>  'Тип практики',
         'company_id'                =>  'Организация',
-        'num_plan'                  =>   'План мест'
+        'num_plan'                  =>   'План мест',
+        'date_bg'                   => 'Начало действия',
+        'date_agreement'            => 'Дата подписания'
     ],
     'accepted'             => 'Вы должны принять :attribute.',
     'accepted_if'          => 'Поле :attribute должно быть принято, когда :other соответствует :value.',
