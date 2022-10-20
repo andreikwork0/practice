@@ -29,7 +29,6 @@
                             name="legal_adress"/>
 
                         <x-form.input
-
                             label="Фактический  адрес"
                             name="fact_adress"/>
 
@@ -38,6 +37,15 @@
                             name="parent_id"
                             label="Центральная организация"
                         />
+
+                        <x-form.input
+                            label="Телефон"
+                            name="phone"/>
+
+                        <x-form.input
+                            type="email"
+                            label="Email"
+                            name="email"/>
 
                         </x-form.fieldgroup>
                     </div>
@@ -55,6 +63,16 @@
                             <x-form.input
                                 label="Отчество"
                                 name="mng_patronymic"/>
+
+                            <x-form.input
+                                dfvalue="директор"
+                                label="Пост"
+                                name="mng_job"/>
+
+                            <x-form.input
+                                label="Действует на основании"
+                                name="mng_reason"/>
+
                         </x-form.fieldgroup>
                     </div>
                 </div>

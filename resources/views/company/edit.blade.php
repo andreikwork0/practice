@@ -51,6 +51,17 @@
                                 label="Фактический  адрес"
                                 name="fact_adress"/>
 
+                            <x-form.input
+                                dfvalue="{{$company->phone}}"
+                                label="Телефон"
+                                name="phone"/>
+
+                            <x-form.input
+                                type="email"
+                                dfvalue="{{$company->email}}"
+                                label="Email"
+                                name="email"/>
+
 
                             <x-form.select
                                 :options=$companies
@@ -78,6 +89,16 @@
                                 dfvalue="{{$company->mng_patronymic}}"
                                 label="Отчество"
                                 name="mng_patronymic"/>
+
+                            <x-form.input
+                                dfvalue="{{$company->mng_job}}"
+                                label="Пост"
+                                name="mng_job"/>
+
+                            <x-form.input
+                                dfvalue="{{$company->mng_reason}}"
+                                label="Действует на основании"
+                                name="mng_reason"/>
                         </x-form.fieldgroup>
 
                     </div>

@@ -29,6 +29,7 @@
             </div>
         </div>
 
+        @if(count($company->agreements)>0)
         <div>
             <table class="table  border table-striped">
                 <thead>
@@ -102,6 +103,9 @@
                 </tbody>
             </table>
         </div>
+        @else
+            <p>Упс ... с данной организацией еще не заключено ни одного договора. Нажмите добавить новый, чтобы создать новый договор.</p>
+        @endif
 
 
 
