@@ -69,7 +69,13 @@
                                     </form>
                                 </a>
                                 @endif
-                                <a class="p-2 mx-1"  href="{{route('agreements.show', $agreement->id)}}">@svg('file-earmark-arrow-down', 'w-30 h-6 text-dark icon-index')</a>
+                                <a class="p-2 mx-1" >
+                                    <form action="{{route('agreements.generate', $agreement->id)}}" method="post">
+                                        @csrf
+                                        <button type="submit" class="border-0 bg-transparent">@svg('file-earmark-arrow-down', 'w-30 h-6 text-dark icon-index')</button>
+                                    </form>
+
+                                </a>
                                 <a  class="p-2 mx-1" href="{{route('agreements.edit', $agreement->id)}}">@svg('pencil-square', 'w-6 h-6 text-dark icon-index')</a>
 
                                 <x-modal-delete-btn

@@ -9,7 +9,10 @@ use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
-
+use PhpOffice\PhpWord\TemplateProcessor;
+use Staticall\Petrovich\Petrovich;
+use Staticall\Petrovich\Petrovich\Loader;
+use Staticall\Petrovich\Petrovich\Ruleset;
 
 
 class AgreementController extends Controller
@@ -201,53 +204,71 @@ class AgreementController extends Controller
         return  'ПП' . '-' . $new_num  . '-'. $year;
 
     }
-//    protected function formateDoc(){
-//        try {
-//
-//            $doc_path =('../../report/magtu_antiplagiat/docs/journal_norm.docx');
-//
-//            $templateProcessor = new  TemplateProcessor($doc_path);
-//
-//
-//            $name_kaf = $report->records[0]->name_kaf;
-//            $short_name = $report->records[0]->short_name;
-//
-//            if ($name_kaf){
-//                $templateProcessor->setValue('name_kaf', $name_kaf);
-//            }
-//
-//            if ($short_name){
-//                $templateProcessor->setValue('short_name', $short_name);
-//            }
-//            $rows = [];
-//            foreach ($report->records as $rec){
-//                $row = [];
-//                $row['spec'] = $rec->spec;
-//                $row['namegr'] = $rec->namegr;
-//                $row['fio'] = $rec->fio;
-//                $row['fname'] = $rec->fname;
-//                $row['date_finish'] = $rec->date_finish;
-//                $row['persent'] = $rec->persent . ' %';
-//                $row['res'] = $rec->res;
-//                $rows[] = $row;
-//            }
-//
-//
-//
-//            $templateProcessor->cloneRowAndSetValues('spec', $rows);
-//
-//            header('Content-Disposition: attachment;filename="'.'Журнал регистрации проверок .docx'.'"');
-//
-//            header('Cache-Control: max-age=0');
-//            $templateProcessor->saveAs('php://output');
-//
-//
-//
-//
-//
-//        } catch (Exception $e){
-//            var_dump($e->getMessage());
-//        }
-//    }
+    public function generate($id){
+        try {
+
+            $agreement = Agreement::findOrFail($id);
+            $path = Storage::disk('agreements')->path('/templates/agreement.docx');
+
+            $docs = new  TemplateProcessor($path);
+
+            $docs->setValue('num_agreement',  $agreement->num_agreement  ?? 'XX-XX-XX');
+
+
+            $docs->setValue('date_agreement', $agreement->date_agreement ? date('d.m.Y', strtotime($agreement->date_agreement)) : 'XX-XX-XX');
+
+            $company = $agreement->company;
+
+            // должен быть родительный падеж
+            $com_mng_fio = ($company->mng_surname ?? '') . ' ' . ($company->mng_name ?? '') . ' ' . ($company->mng_patronymic ?? '');
+            if ($company->mng_patronymic) {
+                $gender =  Petrovich::detectGender($company->mng_patronymic);
+                $petrovich = new Petrovich(Loader::load(__DIR__ .'/../../../vendor/cloudloyalty/petrovich-rules/rules.json'));
+                $com_mng_fio = $petrovich->inflectFullName($com_mng_fio, Ruleset::CASE_GENITIVE, $gender);
+            }
+            //
+            $docs->setValue('com_mng_fio', $com_mng_fio);
+
+            if ($company->name_full){
+                $com_name_full  = $company->name_full;
+                $com_name = "($company->name)";
+            } else {
+                $com_name_full  = '';
+                $com_name  = $company->name;
+            }
+            $docs->setValue('com_name', $com_name);
+            $docs->setValue('com_name_full', $com_name_full);
+
+
+
+            $docs->setValue('agr_date_bg', $agreement->date_bg ? date('d.m.Y', strtotime($agreement->date_bg)) : 'XX-XX-XX');
+            $docs->setValue('agr_date_end', $agreement->date_end ? date('d.m.Y', strtotime($agreement->date_end)) : 'XX-XX-XX');
+
+
+
+            $docs->setValue('com_legal_adress',  $company->legal_adress  ?? 'XX-XX-XX');
+            $docs->setValue('com_inn',  $company->inn  ? ('ИНН: ' .  $company->inn) : '');
+            $docs->setValue('com_kpp',  $company->kpp  ? ('КПП: ' .  $company->kpp) : '');
+            $docs->setValue('com_ch_account',  $company->ch_account  ? ('Р/C: ' .  $company->ch_account) : '');
+            $docs->setValue('com_cr_account',  $company->cr_account  ? ('К/С: ' .  $company->cr_account) : '');
+            $docs->setValue('com_bik',  $company->bik  ? ('БИК: ' .  $company->bik) : '');
+
+
+            // фио short name
+            $mng_name = $company->mng_name ?? false;
+            $mng_patronymic = $company->mng_patronymic ?? false;
+            $com_mng_fio_short = ($mng_name ? mb_substr($mng_name, 0, 1, "UTF-8") .'. ' : '') .  ($mng_patronymic ? mb_substr($mng_patronymic, 0, 1, "UTF-8") .'. ' : '') . ' '. ($company->mng_surname ?? '');
+            $docs->setValue('com_mng_fio_short',  $com_mng_fio_short);
+
+            $df = $agreement->date_agreement ? date('d.m.Y', strtotime($agreement->date_agreement)) : 'XX-XX-XX';
+            $name_agr = "Договор № $agreement->num_agreement  c $company->name от $df .docx";
+            header('Content-Disposition: attachment;filename='.$name_agr);
+            header('Cache-Control: max-age=0');
+            $docs->saveAs('php://output');
+
+        } catch (\Exception $e){
+            var_dump($e->getMessage());
+        }
+    }
 
 }

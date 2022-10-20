@@ -66,6 +66,10 @@ Route::middleware(['auth'])->group( function (){
     // доп соглашения
 
 
+
+
+    Route::post('/agreements/{id}/generate', [AgreementController::class , 'generate'])->middleware('role:umu')->name('agreements.generate');
+
     Route::post('/agreements/{id}/download', [AgreementController::class , 'download'])->middleware('role:umu')->name('agreements.download');
 
 
