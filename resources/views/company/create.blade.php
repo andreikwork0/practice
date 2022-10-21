@@ -12,6 +12,11 @@
         <form action="{{route('companies.store')}}" method="post">
             @csrf
             <div class="row">
+
+                <input id="comp_helper"   class="form-control my-3" type="text" placeholder="Поиск  ... " />
+
+
+
                 <div class="col-md-7">
                     <x-form.fieldgroup title="Организация">
                         <x-form.input

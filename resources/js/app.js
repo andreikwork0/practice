@@ -2,6 +2,8 @@ window.$ =  window.jQuery =  require('jquery');
 require('./bootstrap');
 require('select2')
 
+require('suggestions-jquery')
+
 // In your Javascript (external .js resource or <script> tag)
 
 
@@ -70,6 +72,78 @@ $(document).ready(function() {
 
 
     } catch (e){
+        console.log(e.message)
+    }
+
+    try {
+        $("#comp_helper").suggestions({
+            token: "81018a8838b2fde74d0374b83fc2a0b217fc8ffe",
+            type: "PARTY",
+            /* Вызывается, когда пользователь выбирает одну из подсказок */
+            onSelect: function(suggestion) {
+                data = suggestion.data;
+                 console.log(data)
+
+
+
+                if (data.name){
+
+                    name = data.name.full_with_opf
+                    short_with_opf = data.name.short_with_opf
+
+
+                    if (name) {
+                        $('#name_full').val(name);
+                    }
+
+                    if (short_with_opf) {
+                        $('#name').val(short_with_opf);
+                    }
+
+                }
+
+
+                if (data.address) {
+                    address = data.address.unrestricted_value;
+                    if (address) {
+                        $('#legal_adress').val(address);
+                    }
+                }
+
+
+
+                inn = data.inn;
+                kpp = data.kpp;
+
+                if (inn) {
+                    $('#inn').val(inn);
+                }
+
+
+                if (kpp){
+                    $('#kpp').val(kpp);
+                }
+
+                if (data.management){
+                    if (data.management.name) {
+                        mng_f_name = data.management.name
+                        mng_arr = mng_f_name.split(" ")
+                        $('#mng_surname').val(mng_arr[0]);
+                        $('#mng_name').val(mng_arr[1]);
+                        if(mng_arr[2]) {
+                            $('#mng_patronymic').val(mng_arr[2]);
+                        }
+                    }
+                    if (data.management.post) {
+                        mng_post = data.management.post
+                        $('#mng_job').val(mng_post);
+                    }
+                }
+
+
+            }
+        });
+    } catch (e) {
         console.log(e.message)
     }
 });

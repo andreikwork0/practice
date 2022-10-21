@@ -3,7 +3,16 @@
 @section('title-block') Организации {{ $company->name}}  @endsection
 
 @section('page-title')
-    <x-page-title> {{$company->name}}  </x-page-title>
+    <x-page-title>
+        <div class="d-flex justify-content-between">
+            {{$company->name}}
+            <div>
+                <a class="btn btn-outline-secondary mr-3" href="{{route('companies.index')}}">Все организации</a>
+                <a target="_blank" class="btn btn-outline-primary" href="{{route('companies.edit', $company->id)}}">Редактировать</a>
+            </div>
+        </div>
+
+    </x-page-title>
 @endsection
 
 @section('content')

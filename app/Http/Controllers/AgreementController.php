@@ -215,7 +215,7 @@ class AgreementController extends Controller
             $docs->setValue('num_agreement',  $agreement->num_agreement  ?? 'XX-XX-XX');
 
 
-            $docs->setValue('date_agreement', $agreement->date_agreement ? date('d.m.Y', strtotime($agreement->date_agreement)) : 'XX-XX-XX');
+            $docs->setValue('date_agreement', $agreement->date_agreement ? date('d.m.Y', strtotime($agreement->date_agreement)) : '__-__-__');
 
             $company = $agreement->company;
 
@@ -240,9 +240,11 @@ class AgreementController extends Controller
             $docs->setValue('com_name_full', $com_name_full);
 
 
+            $docs->setValue('com_mng_job',  $company->mng_job  ?? 'XX-XX-XX');
+            $docs->setValue('com_mng_reason',  $company->mng_reason  ?? 'XX-XX-XX');
 
-            $docs->setValue('agr_date_bg', $agreement->date_bg ? date('d.m.Y', strtotime($agreement->date_bg)) : 'XX-XX-XX');
-            $docs->setValue('agr_date_end', $agreement->date_end ? date('d.m.Y', strtotime($agreement->date_end)) : 'XX-XX-XX');
+            $docs->setValue('agr_date_bg', $agreement->date_bg ? date('d.m.Y', strtotime($agreement->date_bg)) : '__-__-__');
+            $docs->setValue('agr_date_end', $agreement->date_end ? date('d.m.Y', strtotime($agreement->date_end)) : '__-__-__');
 
 
 
