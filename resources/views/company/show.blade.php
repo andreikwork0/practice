@@ -33,13 +33,14 @@
 
         <hr>
         <nav class="nav nav-pills flex-column flex-sm-row">
-            <a class="flex-sm-fill text-sm-center nav-link active"
-               href="{{route('companies.show', $company->id)}}">
-                @svg('file-text', 'w-16 h-16 bi me-2 text-white')
+            <a class="flex-sm-fill text-sm-center nav-link  @if(request()->routeIs('companies.show')) {{'active'}} @endif  "
+               href="{{route('companies.show', $company->id)}}"
+            >
+                @svg('file-text', 'w-16 h-16 bi me-2')
                 Договоры
             </a>
-            <a class="flex-sm-fill text-sm-center nav-link"
-               href="#">
+            <a class="flex-sm-fill text-sm-center nav-link @if(request()->routeIs('contact_people.list')) {{'active'}} @endif  "
+               href="{{route('contact_people.list', $company->id)}}">
                 @svg('people', 'w-16 h-16 bi me-2')
                 Контактные лица
             </a>

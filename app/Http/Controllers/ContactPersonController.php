@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\ContactPerson;
 use Illuminate\Http\Request;
 
 class ContactPersonController extends Controller
 {
+
+    public function list($id)
+    {
+        $company = Company::findOrFail($id);
+        return view('company.tabs.contact_person', ['company' => $company ]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -22,9 +29,10 @@ class ContactPersonController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request, $com_id)
     {
-        //
+        $company = Company::findOrFail($com_id);
+        return view('contact_person.create', [ "company" => $company]);
     }
 
     /**
@@ -33,9 +41,21 @@ class ContactPersonController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $com_id)
     {
-        //
+
+       // $this->customValidateRequest($request);
+
+        $company = Company::findOrFail($com_id);
+
+        $is_negotiation =  $request->input('is_negotiation') ? 1 : 0;
+        $agrs =   array('is_negotiation' =>    $is_negotiation,);
+        $agreement = $company->contact_people()->create(
+            array_merge(    $request->all(), $agrs)
+        );
+
+        return redirect(route('contact_people.list', $company->id))->with('success', 'Контакт успешно добавлен');
+
     }
 
     /**
@@ -57,7 +77,9 @@ class ContactPersonController extends Controller
      */
     public function edit($id)
     {
-        //
+        $cp = ContactPerson::findOrFail($id);
+        return view('contact_person.edit', [ "cp" => $cp]);
+
     }
 
     /**
@@ -69,7 +91,10 @@ class ContactPersonController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $cp = ContactPerson::findOrFail($id);
+        //$this->valideRequest($request);
+        $cp->update($request->all());
+        return redirect()->route('contact_people.list', $cp->company->id)->with('success', "Контакт обновлен");
     }
 
     /**
@@ -80,6 +105,10 @@ class ContactPersonController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $cp = ContactPerson::find($id);
+        $name = $cp->name;
+        $company = $cp->company;
+        $cp->delete();
+        return redirect()->route('contact_people.list', $company->id )->with('success', "Контакт удален $cp");
     }
 }

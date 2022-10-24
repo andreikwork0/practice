@@ -4,11 +4,11 @@
     <div class="d-flex justify-content-between align-content-center mt-5 mb-3" >
         <h2 class="">Контактные лица</h2>
         <div>
-            <a href="{{route('agreements.create', $company->id) }}" class="btn btn-primary d-block">Добавить контакт</a>
+            <a href="{{route('contact_people.create', $company->id) }}" class="btn btn-primary d-block">Добавить контакт</a>
         </div>
     </div>
 
-    @if(count($company->agreements)>0)
+    @if(count($company->contact_people)>0)
         <div>
             <table class="table  border table-striped">
                 <thead>
@@ -25,7 +25,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($company->agreements()->orderBy('id', 'desc')->get() as $agreement)
+                @foreach($company->contact_people()->orderBy('id', 'desc')->get() as $cp)
                     <tr>
                         <td>{{$agreement->num_agreement}} </td>
                         <td> {{$agreement->date_agreement ? date('d.m.Y', strtotime($agreement->date_agreement)) : '-'}}</td>
@@ -35,20 +35,14 @@
                         <td>{{ $agreement->is_actual == 1 ? 'Да' : 'Нет'}}</td>
                         <td class="">
                             <div class="d-flex justify-content-end">
-
-
-                                <a  class="p-2 mx-1" href="{{route('agreements.edit', $agreement->id)}}">@svg('pencil-square', 'w-6 h-6 text-dark icon-index')</a>
-
+                                <a  class="p-2 mx-1" href="{{route('contact_people.edit', $agreement->id)}}">@svg('pencil-square', 'w-6 h-6 text-dark icon-index')</a>
                                 <x-modal-delete-btn
-                                    text="Договор № {{$agreement->num_agreement}} будет удален"
-                                    url="{{route('agreements.destroy', $agreement->id)}}"
+                                    text="Контакт {{$cp->name}} будет удален"
+                                    url="{{route('contact_people.destroy', $cp->id)}}"
                                 />
-
                             </div>
-
                         </td>
                     </tr>
-
                 @endforeach
                 </tbody>
             </table>

@@ -25,14 +25,7 @@
         </li>
         @endroleis('umu')
 
-{{--        @roleis('kaf')--}}
-{{--        <li>--}}
-{{--            <a href="{{route('contact_people.index')}}" class="nav-link text-white   @if(request()->routeIs('contact_people.*')) {{'active'}} @endif ">--}}
-{{--                @svg('people', 'w-16 h-16 bi me-2 text-white')--}}
-{{--                Контактные лица--}}
-{{--            </a>--}}
-{{--        </li>--}}
-{{--        @endroleis('kaf')--}}
+
 
 {{--        @roleis('umu')--}}
 {{--        <li>--}}

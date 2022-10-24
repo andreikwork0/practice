@@ -50,10 +50,23 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::middleware(['auth'])->group( function (){
     Route::resource('companies', CompanyController::class)->middleware( 'role:umu'); // umu
 
-    Route::resource('contact_people', ContactPersonController::class);
 
-    Route::resource('grn_letters',   GrnLetterController::class);
 
+    Route::resource('grn_letters',   GrnLetterController::class)->middleware('role:umu');
+
+
+    Route::resource('contact_people', ContactPersonController::class)->except('create', 'store', 'index')->middleware( 'role:umu');
+
+    Route::post('/companies/{com_id}/contact_people/', [ContactPersonController::class, 'store'])->name('contact_people.store')
+        ->middleware('role:umu');
+    Route::get('/companies/{com_id}/contact_people/create', [ContactPersonController::class, 'create'])->name('contact_people.create')
+        ->middleware('role:umu');
+
+    Route::get('/companies/{com_id}/contact_people/', [ContactPersonController::class, 'list'])->name('contact_people.list')
+        ->middleware('role:umu');
+
+
+    //companies.show.cp
 
 
     // store -  /companies/{com_id}/agreement/ - post
@@ -68,6 +81,7 @@ Route::middleware(['auth'])->group( function (){
 
 
 
+
     Route::post('/agreements/{id}/generate', [AgreementController::class , 'generate'])->middleware('role:umu')->name('agreements.generate');
 
     Route::post('/agreements/{id}/download', [AgreementController::class , 'download'])->middleware('role:umu')->name('agreements.download');
@@ -76,8 +90,7 @@ Route::middleware(['auth'])->group( function (){
     Route::resource('agreements',  AgreementController::class)->except('create', 'store')->middleware('role:umu');
     Route::post('/companies/{com_id}/agreements/', [AgreementController::class, 'store'])->name('agreements.store')
         ->middleware('role:umu');
-
-    Route::get('/companies/{com_id}/agreements/', [AgreementController::class, 'create'])->name('agreements.create')
+    Route::get('/companies/{com_id}/agreements/create', [AgreementController::class, 'create'])->name('agreements.create')
         ->middleware('role:umu');
 
 
