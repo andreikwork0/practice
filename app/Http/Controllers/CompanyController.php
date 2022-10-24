@@ -53,7 +53,7 @@ class CompanyController extends Controller
      */
     public function show($id)
     {
-        return view('company.show', ['company' => Company::find($id), 'companies' => Company::all()]);
+        return view('company.tabs.agreements', ['company' => Company::find($id), 'companies' => Company::all()]);
     }
 
     /**
