@@ -13,29 +13,25 @@
             <table class="table  border table-striped">
                 <thead>
                 <tr>
-
-
-                    <th scope="col">Номер</th>
-                    <th scope="col">Дата подписания</th>
-                    <th scope="col">Начало действие</th>
-                    <th scope="col">Окончание действия</th>
-                    <th scope="col">Статус</th>
-                    <th scope="col">Действующий</th>
+                    <th scope="col">ФИО</th>
+                    <th scope="col">Должность</th>
+                    <th scope="col">Телефон</th>
+                    <th scope="col">Email</th>
+                    <th scope="col"> В согласовании</th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($company->contact_people()->orderBy('id', 'desc')->get() as $cp)
                     <tr>
-                        <td>{{$agreement->num_agreement}} </td>
-                        <td> {{$agreement->date_agreement ? date('d.m.Y', strtotime($agreement->date_agreement)) : '-'}}</td>
-                        <td> {{$agreement->date_bg ? date('d.m.Y', strtotime($agreement->date_bg)) : '-'}}</td>
-                        <td> {{$agreement->date_end ? date('d.m.Y', strtotime($agreement->date_end)) : '-'}}</td>
-                        <td>{{$agreement->status->name}}</td>
-                        <td>{{ $agreement->is_actual == 1 ? 'Да' : 'Нет'}}</td>
+                        <td>{{$cp->fio()}}</td>
+                        <td>{{$cp->prs_job}} </td>
+                        <td>{{$cp->phone ?? '-'}} </td>
+                        <td>{{$cp->email ?? '-'}} </td>
+                        <td>{{ $cp->is_negotiation == 1 ? 'Да' : 'Нет'}}</td>
                         <td class="">
                             <div class="d-flex justify-content-end">
-                                <a  class="p-2 mx-1" href="{{route('contact_people.edit', $agreement->id)}}">@svg('pencil-square', 'w-6 h-6 text-dark icon-index')</a>
+                                <a  class="p-2 mx-1" href="{{route('contact_people.edit', $cp->id)}}">@svg('pencil-square', 'w-6 h-6 text-dark icon-index')</a>
                                 <x-modal-delete-btn
                                     text="Контакт {{$cp->name}} будет удален"
                                     url="{{route('contact_people.destroy', $cp->id)}}"
@@ -48,6 +44,6 @@
             </table>
         </div>
     @else
-        <p>Упс ... с данной организацией еще не заключено ни одного договора. Нажмите добавить новый, чтобы создать новый договор.</p>
+        <p>Упс ... у данной организацией еще нет ни одного контакта. Нажмите добавить новый, чтобы создать новый контакт.</p>
     @endif
 @endsection
