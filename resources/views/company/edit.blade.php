@@ -69,6 +69,14 @@
                                 name="parent_id"
                                 label="Центральная организация"
                             />
+
+                            <x-form.select
+                                :options=$countries
+                                name="country_id"
+                                required
+                                dfvalue="{{$company->country_id}}"
+                                label="Страна"
+                            />
                         </x-form.fieldgroup>
                     </div>
                     <div class="col-md-5">
@@ -108,14 +116,12 @@
                     <div class="row" >
                         <div class="col-md-6">
                             <x-form.input
-                                required
                                 type="number"
                                 dfvalue="{{$company->inn}}"
                                 label="ИНН"
                                 name="inn"/>
 
                             <x-form.input
-                                required
                                 type="number"
                                 dfvalue="{{$company->kpp}}"
                                 label="КПП"

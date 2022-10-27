@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\Country;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -28,7 +29,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        return view('company.create', ['companies' => Company::all()]);
+        return view('company.create', ['companies' => Company::all(), 'countries' => Country::all() ]);
     }
 
     /**
@@ -65,7 +66,9 @@ class CompanyController extends Controller
     public function edit($id)
     {
         return view('company.edit', ['company' => Company::findOrFail($id),
-                                            'companies' => Company::all()->except($id)]);
+                                            'companies' => Company::all()->except($id),
+                                            'countries' => Country::all()
+        ]);
     }
 
     /**
@@ -98,18 +101,38 @@ class CompanyController extends Controller
     }
 
     public function valideRequest(Request $request){
-        $request->validate([
+
+
+        if(    $request->input('country_id') == 185) { // если страна россия
+            if (empty($request->input('parent_id'))) { // если головная организация
+                $arr_inn = array(
+                    'inn' => 'required|max:12|unique:companies',
+                    'kpp' => 'required|max:12',
+                );
+            } else {
+                // если филиал_подразделение
+                $arr_inn = array(
+                    'inn' => 'required|max:12',
+                    'kpp' => 'required|max:12',
+                );
+            }
+        } else {
+            // если другая страна
+            $arr_inn = array();
+        }
+
+        $args =  array(
             'name' => 'required|max:255',
             'legal_adress' => 'required|max:200',
             'fact_adress' => 'max:200',
-            'mng_surname' => 'required|max:20',
-            'mng_name' => 'required|max:20',
-            'mng_patronymic' => 'max:20',
-            'inn' => 'required|max:12',
-            'kpp' => 'required|max:12',
+            'mng_surname' => 'required|max:40',
+            'mng_name' => 'required|max:40',
+            'mng_patronymic' => 'max:40',
             'ch_account' => 'max:70',
             'cr_account' => 'max:30',
             'bik' => 'max:100'
-        ]);
+        );
+
+        $request->validate( array_merge($arr_inn, $args));
     }
 }

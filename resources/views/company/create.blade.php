@@ -43,6 +43,8 @@
                             label="Центральная организация"
                         />
 
+
+
                         <x-form.input
                             label="Телефон"
                             name="phone"/>
@@ -52,7 +54,15 @@
                             label="Email"
                             name="email"/>
 
-                        </x-form.fieldgroup>
+                        <x-form.select
+                            :options=$countries
+                            name="country_id"
+                            required
+                            dfvalue="185"
+                            label="Страна"
+                        />
+
+                    </x-form.fieldgroup>
                     </div>
                     <div class="col-md-5">
                         <x-form.fieldgroup title="Руководитель">
@@ -85,13 +95,11 @@
                     <div class="row" >
                         <div class="col-md-6">
                             <x-form.input
-                                required
                                 type="number"
                                 label="ИНН"
                                 name="inn"/>
 
                             <x-form.input
-                                required
                                 type="number"
                                 label="КПП"
                                 name="kpp"/>
