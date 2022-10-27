@@ -81,7 +81,7 @@ class CompanyController extends Controller
     public function update(Request $request, $id)
     {
         $company = Company::findOrFail($id);
-        $this->valideRequest($request);
+        $this->valideRequest($request, $company);
         $company->update($request->all());
         return redirect()->route('companies.edit', $company)->with('success', "Организация обновлена");
     }
@@ -100,15 +100,24 @@ class CompanyController extends Controller
         return redirect()->route('companies.index')->with('success', "Организация удалена $name");
     }
 
-    public function valideRequest(Request $request){
+    public function valideRequest(Request $request, Company $company = null){
 
 
         if(    $request->input('country_id') == 185) { // если страна россия
             if (empty($request->input('parent_id'))) { // если головная организация
-                $arr_inn = array(
-                    'inn' => 'required|max:12|unique:companies',
-                    'kpp' => 'required|max:12',
-                );
+
+                if ($company){ // update
+                    $arr_inn = array(
+                        'inn' => 'required|max:12|unique:companies,inn,'. $company->id,
+                        'kpp' => 'required|max:12',
+                    );
+                } else { // store
+                    $arr_inn = array(
+                        'inn' => 'required|max:12|unique:companies',
+                        'kpp' => 'required|max:12',
+                    );
+                }
+
             } else {
                 // если филиал_подразделение
                 $arr_inn = array(
