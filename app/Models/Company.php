@@ -37,4 +37,9 @@ class Company extends Model
     {
         return $this->hasMany(GrnLetter::class);
     }
+
+    public function premises()
+    {
+        return $this->hasMany(Premise::class);
+    }
 }

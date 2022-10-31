@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
+use App\Models\Premise;
 use Illuminate\Http\Request;
 
 class PremiseController extends Controller
 {
+    public function list($id)
+    {
+        $company = Company::findOrFail($id);
+        return view('company.tabs.premises', ['company' => $company ]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -32,10 +39,16 @@ class PremiseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $com_id)
     {
-        //
+
+        $this->customValidateRequest($request);
+        $company = Company::findOrFail($com_id);
+        $premise = $company->premises()->create(  $request->all());
+        return redirect(route('premises.list', $company->id))->with('success', 'Помещение успешно добавлено');
+
     }
+
 
     /**
      * Display the specified resource.
@@ -56,7 +69,8 @@ class PremiseController extends Controller
      */
     public function edit($id)
     {
-        //
+        $premise = Premise::findOrFail($id);
+        return view('premise.edit', [ "pm" => $premise]);
     }
 
     /**
@@ -68,7 +82,14 @@ class PremiseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->customValidateRequest($request);
+        $premise = Premise::findOrFail($id);
+        $company = $premise->company;
+        $premise->update($request->all());
+
+        return redirect()->route('premises.list', $company->id )->with('success', "Помещение обновлено");
+
+
     }
 
     /**
@@ -79,6 +100,19 @@ class PremiseController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $pm = Premise::find($id);
+        $name = $pm->name;
+        $company = $pm->company;
+        $pm->delete();
+        return redirect()->route('premises.list', $company->id )->with('success', "Помещение $name удалено");
+    }
+
+    protected function customValidateRequest(Request $request){
+        $args =  array(
+            'name' => 'required|max:255',
+        );
+
+        $request->validate( $args);
+
     }
 }

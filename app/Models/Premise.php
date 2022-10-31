@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Premise extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
 }

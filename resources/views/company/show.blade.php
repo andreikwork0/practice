@@ -44,6 +44,14 @@
                 @svg('people', 'w-16 h-16 bi me-2')
                 Контактные лица
             </a>
+
+            <a class="flex-sm-fill text-sm-center nav-link @if(request()->routeIs('premises.list')) {{'active'}} @endif  "
+               href="{{route('premises.list', $company->id)}}">
+                @svg('door-closed', 'w-16 h-16 bi me-2')
+                Помещения
+            </a>
+
+
             <a class="flex-sm-fill text-sm-center nav-link"
                href="#">
                 @svg('envelope', 'w-16 h-16 bi me-2')
