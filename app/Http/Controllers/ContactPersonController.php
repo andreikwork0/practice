@@ -44,7 +44,7 @@ class ContactPersonController extends Controller
     public function store(Request $request, $com_id)
     {
 
-       // $this->customValidateRequest($request);
+        $this->customValidateRequest($request);
 
         $company = Company::findOrFail($com_id);
 
@@ -93,7 +93,13 @@ class ContactPersonController extends Controller
     {
         $cp = ContactPerson::findOrFail($id);
         //$this->valideRequest($request);
-        $cp->update($request->all());
+
+
+        $is_negotiation =  $request->input('is_negotiation') ? 1 : 0;
+        $agrs =   array('is_negotiation' =>    $is_negotiation,);
+
+
+        $cp->update(array_merge($request->all(), $agrs));
         return redirect()->route('contact_people.list', $cp->company->id)->with('success', "Контакт обновлен");
     }
 
@@ -106,9 +112,23 @@ class ContactPersonController extends Controller
     public function destroy($id)
     {
         $cp = ContactPerson::find($id);
-        $name = $cp->name;
+        $name = $cp->prs_fname;
         $company = $cp->company;
         $cp->delete();
-        return redirect()->route('contact_people.list', $company->id )->with('success', "Контакт удален $cp");
+        return redirect()->route('contact_people.list', $company->id )->with('success', "Контакт удален $name");
+    }
+
+    protected function customValidateRequest(Request $request){
+        $args =  array(
+            'prs_rule' => 'required|max:50',
+            'prs_lname' => 'required|max:50',
+            'prs_fname' => 'required|max:50',
+            'prs_sname' => 'max:50',
+            'prs_job' => 'required|max:50',
+            'email' => 'nullable|email'
+        );
+
+        $request->validate( $args);
+
     }
 }

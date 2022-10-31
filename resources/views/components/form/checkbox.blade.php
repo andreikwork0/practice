@@ -10,7 +10,7 @@
                     name="{{$name}}"
                     id="{{$name}}"
 
-                    @if ((old($name, $dfvalue)) == 'true')
+                    @if ((old($name, $dfvalue)) == 'on' ||  (old($name, $dfvalue)) == '1')
                         {{'checked'}}
                     @endif
                      >

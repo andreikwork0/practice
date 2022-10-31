@@ -7,6 +7,7 @@ use App\Http\Controllers\ContactPersonController;
 use App\Http\Controllers\DistributionPracticeController;
 use App\Http\Controllers\GrnLetterController;
 use App\Http\Controllers\PracticeController;
+use App\Http\Controllers\PremiseController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -32,38 +33,40 @@ Route::post('/logout', [\App\Http\Controllers\UserLoginLdap::class, 'logout'])->
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-//Route::get('/', function () {
-//
-////
-////
-////    var_dump(  get_resource_type($ldap)  );
-////
-////    foreach (['andrei.kinder170@gmail.com', 'sasuke.uchiha.2426@gmail.com'] as $recipient) {
-////        Mail::to($recipient)->send(new App\Mail\OrderShipped());
-////    }
-//
-//    //dd($collection_practice);
-//    //\App\Models\Practice::insert( $pr_arr);
-//    return redirect('')  //view('welcome');
-//});
-
 Route::middleware(['auth'])->group( function (){
-    Route::resource('companies', CompanyController::class)->middleware( 'role:umu'); // umu
+
+    Route::middleware('role:umu')->group(function (){
+        Route::resource('companies', CompanyController::class);
+        Route::resource('grn_letters',   GrnLetterController::class);
+
+        Route::controller(PremiseController::class)->group(function () {
+            Route::resource('premises', PremiseController::class)->except('index','show','create','store');
+            Route::get('/companies/{com_id}/premises/',  'list')->name('premises.list');
+            Route::post('/companies/{com_id}/premises/', 'store')->name('premises.store');
+        });
+
+        Route::controller(ContactPersonController::class)->group(function () {
+            Route::resource('contact_people', ContactPersonController::class)->except('create', 'store', 'index');
+            Route::post('/companies/{com_id}/contact_people/','store')->name('contact_people.store');
+            Route::get('/companies/{com_id}/contact_people/create', 'create')->name('contact_people.create');
+            Route::get('/companies/{com_id}/contact_people/',  'list')->name('contact_people.list');
+        });
+
+        Route::controller(AgreementController::class)->group(function () {
+            Route::post('/agreements/{id}/generate',  'generate')->name('agreements.generate');
+            Route::post('/agreements/{id}/download','download')->name('agreements.download');
+            Route::resource('agreements',  AgreementController::class)->except('create', 'store');
+            Route::post('/companies/{com_id}/agreements/', 'store')->name('agreements.store');
+            Route::get('/companies/{com_id}/agreements/create',  'create')->name('agreements.create');
+        });
 
 
+        Route::resource('users', UserController::class)->except([
+            'create', 'store', 'show'
+        ]); // может только админ или менеджер
 
-    Route::resource('grn_letters',   GrnLetterController::class)->middleware('role:umu');
+    });
 
-
-    Route::resource('contact_people', ContactPersonController::class)->except('create', 'store', 'index')->middleware( 'role:umu');
-
-    Route::post('/companies/{com_id}/contact_people/', [ContactPersonController::class, 'store'])->name('contact_people.store')
-        ->middleware('role:umu');
-    Route::get('/companies/{com_id}/contact_people/create', [ContactPersonController::class, 'create'])->name('contact_people.create')
-        ->middleware('role:umu');
-
-    Route::get('/companies/{com_id}/contact_people/', [ContactPersonController::class, 'list'])->name('contact_people.list')
-        ->middleware('role:umu');
 
 
     //companies.show.cp
@@ -79,24 +82,6 @@ Route::middleware(['auth'])->group( function (){
     // доп соглашения
 
 
-
-
-
-    Route::post('/agreements/{id}/generate', [AgreementController::class , 'generate'])->middleware('role:umu')->name('agreements.generate');
-
-    Route::post('/agreements/{id}/download', [AgreementController::class , 'download'])->middleware('role:umu')->name('agreements.download');
-
-
-    Route::resource('agreements',  AgreementController::class)->except('create', 'store')->middleware('role:umu');
-    Route::post('/companies/{com_id}/agreements/', [AgreementController::class, 'store'])->name('agreements.store')
-        ->middleware('role:umu');
-    Route::get('/companies/{com_id}/agreements/create', [AgreementController::class, 'create'])->name('agreements.create')
-        ->middleware('role:umu');
-
-
-
-
-
     Route::resource('distribution_practices',   DistributionPracticeController::class)
         ->except([
             'show', 'create', 'store'
@@ -110,9 +95,7 @@ Route::middleware(['auth'])->group( function (){
             'create', 'store', 'destroy'
         ])->middleware('role:umu,kaf');
 
-    Route::resource('users', UserController::class)->except([
-        'create', 'store', 'show'
-    ])->middleware('role:umu'); // может только админ или менеджер
+
 
     Route::get('/ajax/pulpitbyedtype/{id}', [AjaxController::class, 'getPulptitByEdType']);
 });

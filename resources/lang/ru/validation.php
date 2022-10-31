@@ -30,7 +30,13 @@ return [
         'company_id'                =>  'Организация',
         'num_plan'                  =>   'План мест',
         'date_bg'                   => 'Начало действия',
-        'date_agreement'            => 'Дата подписания'
+        'date_agreement'            => 'Дата подписания',
+
+        'prs_rule'                  => 'Ответственность ',
+        'prs_lname'                 => 'Фамилия',
+        'prs_fname'                 => 'Имя',
+        'prs_sname'                 => 'Отчество',
+        'prs_job'                   =>  'Должность'
     ],
     'accepted'             => 'Вы должны принять :attribute.',
     'accepted_if'          => 'Поле :attribute должно быть принято, когда :other соответствует :value.',

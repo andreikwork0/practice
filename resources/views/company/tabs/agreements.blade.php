@@ -63,14 +63,25 @@
                         </td>
                     </tr>
                     <tr   class="collapse " id="collapse_ag_{{$agreement->id}}">
-                        <td>
-                            <ul>
-                                <li>Доп соглашение 1</li>
-                                <li>Доп соглашение 2</li>
-                                <li>Доп соглашение 3</li>
-                                <li>Доп соглашение 4</li>
-                                <li>Доп соглашение 5</li>
-                            </ul>
+                        <td colspan="6">
+                            <div class="d-flex justify-content-between">
+                                <ul>
+                                    <li>Доп соглашение 1</li>
+                                    <li>Доп соглашение 2</li>
+                                    <li>Доп соглашение 3</li>
+                                    <li>Доп соглашение 4</li>
+                                    <li>Доп соглашение 5</li>
+                                </ul>
+                                <div>
+                                    <select name="" id="">
+                                        <option value="">распределени</option>
+                                        <option value="">помещения</option>
+                                        <option value="">другое</option>
+                                    </select>
+                                    <button>+</button>
+                                </div>
+                            </div>
+
                         </td>
                     </tr>
                 @endforeach
