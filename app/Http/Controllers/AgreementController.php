@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Agreement;
 use App\Models\AgrStatus;
+use App\Models\AgrTypes;
 use App\Models\Company;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
@@ -36,8 +37,9 @@ class AgreementController extends Controller
     {
         $company = Company::findOrFail($com_id);
         $statuses = AgrStatus::all();
+        $types = AgrTypes::all();
 
-        return view('agreement.create', ['statuses' => $statuses, "company" => $company]);
+        return view('agreement.create', ['statuses' => $statuses, "company" => $company, "types" => $types]);
     }
 
     /**
@@ -89,7 +91,8 @@ class AgreementController extends Controller
     {
         $agreement = Agreement::findOrFail($id);
         $statuses = AgrStatus::all();
-        return view('agreement.edit', ['agreement' => $agreement, 'statuses' => $statuses]);
+        $types = AgrTypes::all();
+        return view('agreement.edit', ['agreement' => $agreement, 'statuses' => $statuses, "types" => $types]);
     }
 
     /**
@@ -159,6 +162,7 @@ class AgreementController extends Controller
             'date_agreement'  => 'nullable|date|before_or_equal:date_bg',
             'date_bg'  => 'required|date',
             'date_end' =>  'nullable|date|after_or_equal:date_bg',
+            'agr_type_id' => 'required'
         ]);
     }
 
@@ -208,7 +212,8 @@ class AgreementController extends Controller
         try {
 
             $agreement = Agreement::findOrFail($id);
-            $path = Storage::disk('agreements')->path('/templates/agreement.docx');
+            $temp_name = $agreement->type->template;
+            $path = Storage::disk('agreements')->path("/templates/$temp_name");
 
             $docs = new  TemplateProcessor($path);
 

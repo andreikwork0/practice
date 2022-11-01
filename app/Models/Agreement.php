@@ -18,5 +18,9 @@ class Agreement extends Model
         return $this->belongsTo(AgrStatus::class, 'agr_status_id', 'id');
     }
 
+    public function type(){
+        return $this->belongsTo(AgrTypes::class, 'agr_type_id', 'id' );
+    }
+
 
 }

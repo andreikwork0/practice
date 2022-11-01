@@ -13,6 +13,16 @@
             <div class="row">
                     <div class="col-md-6">
                         <x-form.fieldgroup title="Даты">
+
+
+                            <x-form.select
+                                required
+                                :options=$types
+                                name="agr_type_id"
+                                dfvalue="1"
+                                label="Тип"
+                            />
+
                             <x-form.input
                                 type="date"
                                 label="Дата подписания"

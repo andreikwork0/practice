@@ -36,7 +36,10 @@ return [
         'prs_lname'                 => 'Фамилия',
         'prs_fname'                 => 'Имя',
         'prs_sname'                 => 'Отчество',
-        'prs_job'                   =>  'Должность'
+        'prs_job'                   =>  'Должность',
+        'agr_type_id'               =>  'Тип договора',
+
+
     ],
     'accepted'             => 'Вы должны принять :attribute.',
     'accepted_if'          => 'Поле :attribute должно быть принято, когда :other соответствует :value.',

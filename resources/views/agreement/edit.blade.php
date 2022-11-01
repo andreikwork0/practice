@@ -28,6 +28,13 @@
                 <div class="col-md-6">
                     <x-form.fieldgroup title="Договор">
 
+                        <x-form.select
+                            required
+                            :options=$types
+                            name="agr_type_id"
+                            dfvalue="{{$agreement->agr_type_id}}"
+                            label="Тип"
+                        />
 
                         <x-form.checkbox
                             label="Действующий"
