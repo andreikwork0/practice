@@ -33,7 +33,8 @@ class DatabaseSeeder extends Seeder
             PracticeTypeSeeder::class,
             PracticeSeeder::class,
             RoleSeeder::class,
-            CountrySeeder::class
+            CountrySeeder::class,
+            ConvTypeSeeder::class
        ]);
         //DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }

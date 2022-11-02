@@ -18,6 +18,7 @@
                     <th scope="col">Начало действие</th>
                     <th scope="col">Окончание действия</th>
                     <th scope="col">Статус</th>
+                    <th scope="col">Тип</th>
                     <th scope="col">Действующий</th>
                     <th scope="col"></th>
                 </tr>
@@ -30,6 +31,7 @@
                         <td> {{$agreement->date_bg ? date('d.m.Y', strtotime($agreement->date_bg)) : '-'}}</td>
                         <td> {{$agreement->date_end ? date('d.m.Y', strtotime($agreement->date_end)) : '-'}}</td>
                         <td>{{$agreement->status->name}}</td>
+                        <td>{{$agreement->type->name}}</td>
                         <td>{{ $agreement->is_actual == 1 ? 'Да' : 'Нет'}}</td>
                         <td class="">
                             <div class="d-flex justify-content-end">
