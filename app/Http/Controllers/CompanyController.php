@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\ConvType;
 use App\Models\Country;
 use Illuminate\Http\Request;
 
@@ -54,7 +55,10 @@ class CompanyController extends Controller
      */
     public function show($id)
     {
-        return view('company.tabs.agreements', ['company' => Company::find($id), 'companies' => Company::all()]);
+
+        $conv_types = ConvType::all();
+
+        return view('company.tabs.agreements', ['company' => Company::find($id), 'companies' => Company::all(), 'conv_types' => $conv_types ]);
     }
 
     /**

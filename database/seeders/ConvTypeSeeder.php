@@ -19,14 +19,17 @@ class ConvTypeSeeder extends Seeder
         $args = array(
             [
                 'name'      => 'образовательные',
+                'slug'      => 'edu',
                 'template'  => 'convention_edu.docx',
             ],
             [
                 'name'      => 'помещения',
+                'slug'      => 'prem',
                 'template'  => 'convention_prem.docx',
             ],
             [
                 'name'      => 'другие',
+                'slug'      => 'oth',
                 'template'  => 'convention_oth.docx',
             ],
         );

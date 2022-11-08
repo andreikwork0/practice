@@ -65,7 +65,7 @@ class AgreementController extends Controller
         $agreement->num_agreement = $this->getNextNum($request->input('date_bg'));
         $agreement->save();
 
-        return redirect(route('companies.show', $company->id))->with('success', 'Договор успешно добавлен');
+        return redirect(route('companies.show', ["company" => $company->id, 'agr' => $agreement->id]))->with('success', 'Договор успешно добавлен');
 
     }
 
@@ -133,7 +133,7 @@ class AgreementController extends Controller
             $agreement->save();
         }
 
-        return redirect(route('companies.show', $agreement->company->id))->with('success', "Договор $agreement->num_agreement  успешно обновлен");
+        return redirect(route('companies.show', ["company" =>$agreement->company->id, 'agr' => $agreement->id] ))->with('success', "Договор $agreement->num_agreement  успешно обновлен");
 
 
 

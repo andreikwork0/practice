@@ -24,7 +24,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($company->agreements()->orderBy('id', 'desc')->get() as $agreement)
+                @foreach($company->agreements()->orderBy('id', 'desc')->get() as $key => $agreement)
                     <tr>
                         <td>{{$agreement->num_agreement}} </td>
                         <td> {{$agreement->date_agreement ? date('d.m.Y', strtotime($agreement->date_agreement)) : '-'}}</td>
@@ -64,31 +64,92 @@
 
                         </td>
                     </tr>
-                    <tr   class="collapse " id="collapse_ag_{{$agreement->id}}">
+
+                    <tr   class="collapse  @if(request()->get('agr') ?  (request()->get('agr')== $agreement->id) : ($key == 0)) {{'show'}} @endif" id="collapse_ag_{{$agreement->id}}">
+
+
+                        <td></td>
+                        @if(count($agreement->conventions)> 0)
                         <td colspan="6">
-                            <div class="d-flex justify-content-between">
-                                <ul>
-                                    <li>Доп соглашение 1</li>
-                                    <li>Доп соглашение 2</li>
-                                    <li>Доп соглашение 3</li>
-                                    <li>Доп соглашение 4</li>
-                                    <li>Доп соглашение 5</li>
-                                </ul>
-                                <div>
-                                    <select name="" id="">
-                                        <option value="">распределени</option>
-                                        <option value="">помещения</option>
-                                        <option value="">другое</option>
-                                    </select>
-                                    <button>+</button>
-                                </div>
-                            </div>
+                            <h4>Доп соглашения</h4>
+                            <table class="table  border">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Номер</th>
+                                    <th scope="col">Тип</th>
+                                    <th scope="col">Действующий</th>
+                                    <th scope="col">
+
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($agreement->conventions as $convention )
+                                <tr>
+                                    <td>{{$convention->id}}</td>
+                                    <td>{{$convention->type->name}}</td>
+                                    <td>{{$convention->is_actual ? 'да' : 'нет'}}</td>
+                                    <td>
+                                        <div class="d-flex justify-content-end">
+
+                                            @if($convention->path)
+                                                <a class="p-2 mx-1" >
+                                                    <form action="{{route('agreements.download', $convention->id)}}" method="post">
+                                                        @csrf
+                                                        <button type="submit" class="border-0 bg-transparent"> @svg('download', 'w-30 h-6 text-dark icon-index') </button>
+                                                    </form>
+                                                </a>
+                                            @endif
+                                            <a class="p-2 mx-1" >
+                                                <form action="{{route('agreements.generate', $convention->id)}}" method="post">
+                                                    @csrf
+                                                    <button type="submit" class="border-0 bg-transparent">@svg('file-earmark-arrow-down', 'w-30 h-6 text-dark icon-index')</button>
+                                                </form>
+                                            </a>
+                                            <a  class="p-2 mx-1" href="{{route('conventions.edit', $convention->id)}}">@svg('pencil-square', 'w-6 h-6 text-dark icon-index')</a>
+                                            <x-modal-delete-btn
+                                                text="Доп. соглашение № {{$convention->number}} будет удалено"
+                                                url="{{route('conventions.destroy', $convention->id)}}"
+                                            />
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforeach
+
+                                </tbody>
+
+                            </table>
 
                         </td>
+                        @else
+                            <td colspan="6">Упс ... кажется у данного договора еще нет ни одного доп соглашения. Нажмите добавить новое, чтобы создать новое</td>
+                        @endif
+                        <td >
+                            <form method="post" action="{{route('conventions.store', $agreement->id)}}" class="mt-3">
+                                <x-form.fieldgroup title="Добавить новое соглашение">
+                                    @csrf
+                                    <div class="d-flex">
+                                        <x-form.select
+                                            :options=$conv_types
+                                            required
+                                            name="conv_type_id-{{$agreement->id}}"
+                                            label=""
+                                        />
+                                        <div>
+                                            <button type="submit" class="btn btn-primary mt-3">+</button>
+                                        </div>
+                                    </div>
+
+                                </x-form.fieldgroup>
+                            </form>
+                        </td>
                     </tr>
+
                 @endforeach
                 </tbody>
             </table>
+
+
         </div>
     @else
         <p>Упс ... с данной организацией еще не заключено ни одного договора. Нажмите добавить новый, чтобы создать новый договор.</p>

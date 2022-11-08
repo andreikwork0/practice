@@ -17,6 +17,7 @@ class CreateConvTypesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('template');
+            $table->string('slug');
             $table->timestamps();
         });
     }

@@ -22,5 +22,9 @@ class Agreement extends Model
         return $this->belongsTo(AgrTypes::class, 'agr_type_id', 'id' );
     }
 
+    public function conventions(){
+        return $this->hasMany(Convention::class);
+    }
+
 
 }

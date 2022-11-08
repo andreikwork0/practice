@@ -10,6 +10,8 @@ require('suggestions-jquery')
 $(document).ready(function() {
 
 
+
+
     $('.js-example-basic-single').select2({
         allowClear: true,
         placeholder: "Выберите из списка",

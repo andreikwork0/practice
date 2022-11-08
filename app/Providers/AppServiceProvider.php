@@ -2,8 +2,12 @@
 
 namespace App\Providers;
 
+use App\Http\Controllers\Convention\ConventionInterface;
+use App\Http\Controllers\Convention\ConvFactory;
+use App\Models\Convention;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -26,6 +30,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
+        $this->app->bind(ConventionInterface::class, function ($app) {
+            $id =  Route::current()->parameter('convention');
+            $conv=  Convention::find($id);
+            return  ConvFactory::create($conv->type->slug);
+        });
+
+
         Paginator::useBootstrap();
 
         Blade::if('roleis', function (...$roles) {

@@ -11,4 +11,8 @@ class Convention extends Model
 
     protected $guarded = [];
 
+    public function type(){
+        return $this->belongsTo(ConvType::class, 'conv_type_id', 'id');
+    }
+
 }
