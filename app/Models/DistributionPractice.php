@@ -13,9 +13,9 @@ class DistributionPractice extends Model
 
     public function scopeFilter($query, array  $filters){
 
-        $query->when($filters['ag_null'] ?? false, function($query, $ag_null){
+        $query->when($filters['conv_null'] ?? false, function($query, $conv_null){
             $query->where( fn($query) =>
-            $query->whereNull('agreement_id')
+            $query->whereNull('convention_id')
             );
 
         });
@@ -35,6 +35,12 @@ class DistributionPractice extends Model
     public function user(){
 
         return $this->belongsTo(User::class);
+    }
+
+    public function convention(){
+
+        return $this->belongsTo(Convention::class);
+
     }
 
 }

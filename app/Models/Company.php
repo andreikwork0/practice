@@ -46,4 +46,9 @@ class Company extends Model
     public function  dist_pr(){
         return $this->hasMany(DistributionPractice::class);
     }
+
+    public function  dist_pr_new(){
+        return $this->dist_pr()->filter(['conv_null'=> 'on']);
+    }
+
 }

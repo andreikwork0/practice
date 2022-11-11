@@ -17,8 +17,11 @@ class CompanyController extends Controller
     public function index()
     {
         return view('company.index', ['companies' =>
-            Company::orderby('name')
-            ->filter(request(['search'] ))
+            Company::filter(request(['search'] ))
+            ->withCount(['dist_pr as new_dp' => function ($query) {
+                $query->whereNull('convention_id');
+            }])
+            ->orderby('name')
             ->paginate(10)
             ->withQueryString()]);
     }
@@ -57,6 +60,8 @@ class CompanyController extends Controller
     {
 
         $conv_types = ConvType::all();
+
+
 
         return view('company.tabs.agreements', ['company' => Company::find($id), 'companies' => Company::all(), 'conv_types' => $conv_types ]);
     }

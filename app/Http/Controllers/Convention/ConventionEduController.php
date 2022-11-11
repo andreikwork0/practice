@@ -17,20 +17,27 @@ class ConventionEduController extends ConventionController implements Convention
         $company = $conv->company;
 
         // надо получить все c компаниией
-        $dist_pr_null = $company->dist_pr()->filter(['arg_null'=> ''])->get() ?? [];
+        $dist_prs_new      = $company->dist_pr_new;
 
         // надо получить все дитсрибутив связанные с этим соглашением
-        $dist_pr_conv = $conv->dist_pr ?? [];
+        $dist_prs = $conv->dist_pr;
+
 
 
         return view('convention.types.edu',
-            ['convention' => $conv,   'dist_pr_null' => $dist_pr_null ]
+            ['convention' => $conv,   'dist_prs_new' => $dist_prs_new , 'dist_prs' => $dist_prs ]
         );
     }
 
     public function update(Request $request, $id)
     {
         // TODO: Implement update() method.
+
+        // пройтись по всем
+        // по флажку_ update id
+
+        // обновить поля num_fact
+        // обновить поля plan_fact
     }
 
     public function generate($id)

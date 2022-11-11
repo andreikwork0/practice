@@ -14,7 +14,7 @@ class DpConventionKey extends Migration
     public function up()
     {
         Schema::table('distribution_practices', function (Blueprint $table) {
-            $table->foreignId('convention_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('convention_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
 
             $table->dropForeign('distribution_practices_agreement_id_foreign');
             $table->dropColumn('agreement_id');

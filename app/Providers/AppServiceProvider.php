@@ -33,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(ConventionInterface::class, function ($app) {
             $id =  Route::current()->parameter('convention');
-            $conv=  Convention::find($id);
+            $conv=  Convention::findOrFail($id);
             return  ConvFactory::create($conv->type->slug);
         });
 

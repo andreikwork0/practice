@@ -6,6 +6,9 @@
     <x-page-title>
         <div class="d-flex justify-content-between align-content-center">
             Распределение практики
+            <div>
+                <a href="{{route('practices.edit', $practice->id)}}" class="btn btn-outline-primary">Редактировать</a>
+            </div>
         </div>
     </x-page-title>
 @endsection
@@ -83,7 +86,7 @@
 
                                 <th scope="col" class="text-center">Факт</th>
 
-                                <th scope="col" class="text-center">Договор</th>
+                                <th scope="col" class="text-center">Доп соглашение</th>
 
                                 <th scope="col"></th>
                             </tr>
@@ -101,7 +104,7 @@
                                         {{$dp->num_fact ?? '-'}}
                                     </td>
                                     <td  class="text-center">
-                                        {{$dp->num_fact ?? '-'}}
+                                        {{$dp->convention ?  'да': 'нет'}}
                                     </td>
                                     <td class="">
                                         <div class="d-flex justify-content-end">
