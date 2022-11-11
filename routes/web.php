@@ -46,7 +46,10 @@ Route::middleware(['auth'])->group( function (){
 
 
         //Route::resource('conventions',ConventionController::class)->except('index', 'create', 'store', 'edit');
+        Route::put("/conventions/{convention}/update/def", [ConventionController::class, 'updating'])->name('conventions.update.def');
+
         Route::get("/conventions/{convention}", [ConventionInterface::class, 'edit'])->name('conventions.edit');
+        Route::post("/conventions/{convention}/download", [ConventionInterface::class, 'download'])->name('conventions.download');
 
         Route::delete('/conventions/{convention}',[ConventionController::class, 'destroy'])->name('conventions.destroy');
         Route::post('/agreements/{ag_id}/conventions/',[ConventionController::class, 'store'])->name('conventions.store');

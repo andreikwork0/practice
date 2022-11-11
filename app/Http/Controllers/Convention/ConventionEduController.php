@@ -12,8 +12,8 @@ class ConventionEduController extends ConventionController implements Convention
     public function edit($id)
     {
 
-//        $conv = Convention::findOrFail($id);
-        return view('convention.types.edu');
+        $conv = Convention::findOrFail($id);
+        return view('convention.types.edu', ['convention' => $conv ]);
     }
 
     public function update(Request $request, $id)

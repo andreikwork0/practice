@@ -94,7 +94,7 @@
 
                                             @if($convention->path)
                                                 <a class="p-2 mx-1" >
-                                                    <form action="{{route('agreements.download', $convention->id)}}" method="post">
+                                                    <form action="{{route('conventions.download', $convention->id)}}" method="post">
                                                         @csrf
                                                         <button type="submit" class="border-0 bg-transparent"> @svg('download', 'w-30 h-6 text-dark icon-index') </button>
                                                     </form>

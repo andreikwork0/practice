@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Agreement;
 use App\Models\Convention;
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 
 class ConventionController extends Controller
 {
@@ -72,6 +74,46 @@ class ConventionController extends Controller
 //    }
 
 
+    protected function uploadFile(Request  $request, $convention) {
+
+        $file =  $request->file('convention_f');
+
+        $hash_name = $file->hashName();
+
+        $content = $file->getContent();
+        $path = $convention->id .'/'.$hash_name;
+        Storage::disk('agreements')->put($convention->id .'/'.$hash_name, $content);
+
+
+        $convention->path = $path;
+        $convention->save();
+
+
+    }
+    public function updating(Request $request, $id){
+
+
+        $convention = Convention::findOrFail($id);
+        $ars_is_active = array('is_actual' => $request->input('is_actual') ? 1 : 0);
+        $convention->update(
+            array_merge(    $request->except('convention_f'), $ars_is_active)
+        );
+
+
+
+
+        if ($request->hasFile('convention_f')) {
+
+
+            $this->uploadFile($request, $convention);
+        }
+
+
+        return redirect(route('conventions.edit',     ["convention" => $convention->id ]))
+            ->with('success', "Доп соглашение № $convention->number  успешно обновлено");
+
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -83,7 +125,23 @@ class ConventionController extends Controller
 
     }
 
-    public function download($id){
+    public function download( $id){
+
+
+        $convention = Convention::find($id);
+        $agreement = $convention->agreement;
+        $num =  $agreement->num_agreement;
+        $com_name = $agreement->company->name;
+        $com_name = str_replace('"', '', $com_name);
+        $path = $convention->path;
+        $extension = explode('.', $path);
+        $extension = $extension[1];
+//        $extension =  Storage::disk('agreements')->extension( $path); //\extension( $path);
+
+
+        $date_from = date('d.m.Y', strtotime($agreement->date_agreement));
+
+        return Storage::disk('agreements')->download($path, "Доп соглашение № $convention->number к договору № $num  c $com_name от $date_from .$extension" );
 
     }
 

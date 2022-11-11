@@ -15,4 +15,17 @@ class Convention extends Model
         return $this->belongsTo(ConvType::class, 'conv_type_id', 'id');
     }
 
+    public function agreement(){
+        return $this->belongsTo(Agreement::class);
+    }
+
+    public function company()
+    {
+        if ($this->agreement()) {
+            return $this->agreement->company();
+        }
+        return null;
+
+    }
+
 }
