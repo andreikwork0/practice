@@ -86,7 +86,7 @@
                                 <tbody>
                                 @foreach($agreement->conventions as $convention )
                                 <tr>
-                                    <td>{{$convention->id}}</td>
+                                    <td>{{$convention->number}}</td>
                                     <td>{{$convention->type->name}}</td>
                                     <td>{{$convention->is_actual ? 'да' : 'нет'}}</td>
                                     <td>

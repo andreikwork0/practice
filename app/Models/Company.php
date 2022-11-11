@@ -42,4 +42,8 @@ class Company extends Model
     {
         return $this->hasMany(Premise::class);
     }
+
+    public function  dist_pr(){
+        return $this->hasMany(DistributionPractice::class);
+    }
 }
