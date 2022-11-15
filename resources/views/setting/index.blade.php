@@ -18,8 +18,8 @@
                 <th scope="col">ID
                 </th>
                 <th scope="col">Название</th>
-                <th scope="col">Slug</th>
                 <th scope="col">Значение</th>
+                <th scope="col">Slug</th>
                 <th scope="col"></th>
             </tr>
             </thead>
@@ -28,14 +28,10 @@
                 <tr>
                     <td>{{$setting->id}}</td>
                     <td>{{$setting->title}}</td>
-
-                    <td>{{$setting->slug}}</td>
-
                     <td>
                         {{$setting->name}}
                     </td>
-
-
+                    <td>{{$setting->slug}}</td>
                     <td class="">
                         <div class="d-flex justify-content-end">
                             <a  class="p-2 mx-1" href="{{route('settings.edit', $setting->id)}}">@svg('pencil-square', 'w-6 h-6 text-dark icon-index')</a>
