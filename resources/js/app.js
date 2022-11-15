@@ -9,6 +9,14 @@ require('suggestions-jquery')
 
 $(document).ready(function() {
 
+    $('.dp_inc_al').click( function (){
+
+        let checkboxs =  $(this).closest('table').find("input[type='checkbox']")
+        checkboxs.each(function (){
+            checkbox = $(this);
+            checkbox.attr("checked", !checkbox.attr("checked"))
+        })
+    })
 
 
 

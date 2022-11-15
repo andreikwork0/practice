@@ -20,14 +20,20 @@
                         <button class="btn btn-primary " type="submit">
                             @svg('search', 'w-16 h-16 text-white')</button>
 
-                        @if(request('search'))
+                        @if(request('search') || request('dp_new'))
                             <a href="{{route('companies.index')}}"  class="btn btn-outline-danger mx-3"> Сбросить</a>
                         @endif
                     </div>
 
                 </form>
             </div>
+            @if(!request('dp_new'))
+                <a href="{{route('companies.index', ['dp_new' => 'on'])}}"  class="btn btn-danger">Входящие</a>
+            @endif
             <a href="{{route('companies.create')}}"  class="btn btn-primary"> Добавить новую</a>
+
+
+
         </div>
         @if(count($companies)>0)
         <table class="table  border table-striped">

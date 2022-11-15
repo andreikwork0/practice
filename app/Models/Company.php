@@ -16,8 +16,17 @@ class Company extends Model
         $query->when($filters['search'] ?? false, function($query, $search){
             $query->where( fn($query) =>
             $query->where('name', 'like', '%'. $search  .'%')
-
             );
+
+
+        });
+
+        $query->when($filters['dp_new'] ?? false, function($query, $dp_new){
+            $query->where( fn($query) =>
+                $query->whereIn('id', DistributionPractice::select('company_id as id')->filter(['conv_null'=> 'on'])->get())
+            );
+
+            // Company::whereIn('id', DistributionPractice::select('company_id as id')->filter(['conv_null'=> 'on'])->get())->get()
 
         });
     }

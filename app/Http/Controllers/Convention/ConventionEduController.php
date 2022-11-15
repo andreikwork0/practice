@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Convention;
 
 use App\Http\Controllers\Controller;
 use App\Models\Convention;
+use App\Models\DistributionPractice;
 use Illuminate\Http\Request;
 
 class ConventionEduController extends ConventionController implements ConventionInterface
@@ -16,12 +17,11 @@ class ConventionEduController extends ConventionController implements Convention
         $conv = Convention::findOrFail($id);
         $company = $conv->company;
 
-        // надо получить все c компаниией
-        $dist_prs_new      = $company->dist_pr_new;
-
         // надо получить все дитсрибутив связанные с этим соглашением
         $dist_prs = $conv->dist_pr;
 
+        // надо получить все c компаниией
+        $dist_prs_new      = $company->dist_pr_new;
 
 
         return view('convention.types.edu',
@@ -31,13 +31,21 @@ class ConventionEduController extends ConventionController implements Convention
 
     public function update(Request $request, $id)
     {
-        // TODO: Implement update() method.
+        $dprs = $request->input('dp');
+        foreach ($dprs as $key => $dpr) {
+            $distPractice = DistributionPractice::findOrFail($key);
 
-        // пройтись по всем
-        // по флажку_ update id
+            $distPractice->num_fact = $dpr["num_fact"];
 
-        // обновить поля num_fact
-        // обновить поля plan_fact
+            if (!empty($dpr["convention"]) == 'on') {
+                $distPractice->convention_id = $id;
+            } else {
+                $distPractice->convention_id = NULL;
+            }
+            $distPractice->save();
+        }
+
+        return redirect()->route('conventions.edit',$id)->with('success', 'Изменения успешные применены');
     }
 
     public function generate($id)

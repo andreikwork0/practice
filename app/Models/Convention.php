@@ -28,4 +28,8 @@ class Convention extends Model
 
     }
 
+    public function dist_pr(){
+        return $this->hasMany(DistributionPractice::class);
+    }
+
 }

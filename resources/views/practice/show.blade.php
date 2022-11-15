@@ -63,6 +63,7 @@
                                     label=""
                                     required
                                     type="number"
+                                    min="0"
                                     name="num_plan"/>
                             </div>
                             <div class="my-auto mx-3">

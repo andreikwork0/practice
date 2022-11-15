@@ -17,7 +17,7 @@ class CompanyController extends Controller
     public function index()
     {
         return view('company.index', ['companies' =>
-            Company::filter(request(['search'] ))
+            Company::filter(request(['search', 'dp_new'] ))
             ->withCount(['dist_pr as new_dp' => function ($query) {
                 $query->whereNull('convention_id');
             }])
