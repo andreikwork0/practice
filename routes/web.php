@@ -12,6 +12,7 @@ use App\Http\Controllers\DistributionPracticeController;
 use App\Http\Controllers\GrnLetterController;
 use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\PremiseController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
 use App\Models\Convention;
 use Illuminate\Support\Facades\Auth;
@@ -42,6 +43,8 @@ Route::middleware(['auth'])->group( function (){
 
     Route::middleware('role:umu')->group(function (){
 
+
+        Route::resource('settings',   SettingController::class)->except('show');
 
 
 

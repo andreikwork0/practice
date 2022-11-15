@@ -7,10 +7,21 @@
     <ul class="nav nav-pills flex-column mb-auto">
         @roleis('umu')
         <li class="nav-item">
-            <a href="{{route('companies.index')}}" class="nav-link text-white     @if(request()->routeIs('companies.*')) {{'active'}} @endif ">
+            <a href="{{route('companies.index')}}" class="nav-link text-white position-relative start-0   @if(request()->routeIs('companies.*')) {{'active'}} @endif ">
 
                 @svg('building', 'w-16 h-16 bi me-2 text-white')
                 Организации
+
+                @php
+                    $count_new_practice_2 =     App\Http\Controllers\MainController::countNewDistPractice();
+                @endphp
+
+                @if($count_new_practice_2)
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        {{$count_new_practice_2}}
+                        <span class="visually-hidden">новые заявки</span>
+                  </span>
+                @endif
             </a>
         </li>
         @endroleis('umu')
@@ -24,8 +35,6 @@
             </a>
         </li>
         @endroleis('umu')
-
-
 
 {{--        @roleis('umu')--}}
 {{--        <li>--}}
@@ -46,13 +55,21 @@
 {{--        @endroleis('kaf')--}}
 
         @roleis('umu')
+            <li>
+                <a href="{{route('users.index')}}" class="nav-link text-white @if(request()->routeIs('users.*')) {{'active'}} @endif">
+                    @svg('person-lines-fill', 'w-16 h-16 bi me-2 text-white')
+                    Пользователи
+                </a>
+            </li>
+        @endroleis
 
-                <li>
-                    <a href="{{route('users.index')}}" class="nav-link text-white @if(request()->routeIs('users.*')) {{'active'}} @endif">
-                        @svg('person-lines-fill', 'w-16 h-16 bi me-2 text-white')
-                        Пользователи
-                    </a>
-                </li>
+        @roleis('umu')
+        <li>
+            <a href="{{route('settings.index')}}" class="nav-link text-white @if(request()->routeIs('settings.*')) {{'active'}} @endif">
+                @svg('gear', 'w-16 h-16 bi me-2 text-white')
+                Настройки
+            </a>
+        </li>
         @endroleis
     </ul>
 

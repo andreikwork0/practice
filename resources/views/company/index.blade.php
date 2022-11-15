@@ -21,15 +21,26 @@
                             @svg('search', 'w-16 h-16 text-white')</button>
 
                         @if(request('search') || request('dp_new'))
-                            <a href="{{route('companies.index')}}"  class="btn btn-outline-danger mx-3"> Сбросить</a>
+                            <a href="{{route('companies.index')}}"  class="btn btn-danger mx-3"> Сбросить</a>
                         @endif
                     </div>
 
                 </form>
             </div>
-            @if(!request('dp_new'))
-                <a href="{{route('companies.index', ['dp_new' => 'on'])}}"  class="btn btn-danger">Входящие</a>
+
+
+
+            @if($dp_new_c)
+                <a type="button" class="btn btn-outline-danger position-relative p-2 mx-3" href="{{route('companies.index', ['dp_new' => 'on'])}}" >
+                    Входящие
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        {{$dp_new_c}}
+                        <span class="visually-hidden">новые заявки</span>
+                  </span>
+
+                </a>
             @endif
+
             <a href="{{route('companies.create')}}"  class="btn btn-primary"> Добавить новую</a>
 
 

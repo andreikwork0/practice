@@ -23,7 +23,7 @@ class CompanyController extends Controller
             }])
             ->orderby('name')
             ->paginate(10)
-            ->withQueryString()]);
+            ->withQueryString(), 'dp_new_c' => MainController::countNewDistPractice()]);
     }
 
     /**
