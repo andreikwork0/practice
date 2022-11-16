@@ -36,23 +36,6 @@
         </li>
         @endroleis('umu')
 
-{{--        @roleis('umu')--}}
-{{--        <li>--}}
-{{--            <a href="{{route('agreements.index')}}" class="nav-link text-white @if(request()->routeIs('agreements.*')) {{'active'}} @endif">--}}
-{{--                @svg('file-text', 'w-16 h-16 bi me-2 text-white')--}}
-{{--                Договоры--}}
-{{--            </a>--}}
-{{--        </li>--}}
-{{--        @endroleis('umu')--}}
-
-{{--        @roleis('kaf')--}}
-{{--        <li>--}}
-{{--            <a href="{{route('grn_letters.index')}}" class="nav-link text-white @if(request()->routeIs('grn_letters.*')) {{'active'}} @endif">--}}
-{{--                @svg('envelope', 'w-16 h-16 bi me-2 text-white')--}}
-{{--                Гарантийные письма--}}
-{{--            </a>--}}
-{{--        </li>--}}
-{{--        @endroleis('kaf')--}}
 
         @roleis('umu')
             <li>

@@ -11,8 +11,16 @@ class Setting extends Model
 
     protected $guarded = [];
 
-    static public function by_slug($slug)
+
+    static public  function key_val()
     {
-        return  Setting::where('slug', '=', $slug)->first()->name;
+       $arr = [];
+       $settings = Setting::all();
+       foreach ($settings as $setting)
+       {
+           $arr[$setting->slug] =  $setting->name;
+       }
+
+       return $arr;
     }
 }

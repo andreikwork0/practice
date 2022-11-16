@@ -6,6 +6,7 @@ use App\Models\Agreement;
 use App\Models\AgrStatus;
 use App\Models\AgrTypes;
 use App\Models\Company;
+use App\Models\Setting;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -208,6 +209,38 @@ class AgreementController extends Controller
         return  'ПП' . '-' . $new_num  . '-'. $year;
 
     }
+
+
+    public function prepaireSettings(TemplateProcessor &$docs)
+    {
+        $s = Setting::key_val();
+
+        $docs->setValue('org_name_short', $s['org_name_short'] ?? 'XX-XX-XX');
+        $docs->setValue('org_name_full', $s['org_name_full'] ?? 'XX-XX-XX');
+        $docs->setValue('org_reason', $s['org_reason'] ?? 'XX-XX-XX');
+        $docs->setValue('mng_job', $s['mng_job'] ?? 'XX-XX-XX');
+        $docs->setValue('org_agress', $s['org_agress'] ?? 'XX-XX-XX');
+
+        $mng_fio_full = ($s['mng_lname'] ?? '') . ' ' . ($s['mng_fname'] ?? '') . ' ' . ($s['mng_mname'] ?? '');
+        if ($s['mng_mname']) {
+            $gender =  Petrovich::detectGender($s['mng_mname']);
+            $petrovich = new Petrovich(Loader::load(__DIR__ .'/../../../vendor/cloudloyalty/petrovich-rules/rules.json'));
+            $mng_fio_full = $petrovich->inflectFullName($mng_fio_full, Ruleset::CASE_GENITIVE, $gender);
+        }
+        //
+        $docs->setValue('mng_name_full', $mng_fio_full);
+
+
+        // фио short name
+        $mng_name = $s['mng_fname'] ?? false;
+        $mng_patronymic = $s['mng_mname'] ?? false;
+        $mng_fio_short = ($mng_name ? mb_substr($mng_name, 0, 1, "UTF-8") .'. ' : '') .  ($mng_patronymic ? mb_substr($mng_patronymic, 0, 1, "UTF-8") .'. ' : '') . ' '. ($s['mng_lname'] ?? '');
+        $docs->setValue('mng_fio_short',  $mng_fio_short);
+
+    }
+
+
+
     public function generate($id){
         try {
 
@@ -216,6 +249,9 @@ class AgreementController extends Controller
             $path = Storage::disk('agreements')->path("/templates/$temp_name");
 
             $docs = new  TemplateProcessor($path);
+
+
+            $this->prepaireSettings($docs);
 
             $docs->setValue('num_agreement',  $agreement->num_agreement  ?? 'XX-XX-XX');
 

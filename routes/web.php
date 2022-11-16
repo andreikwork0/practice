@@ -51,6 +51,8 @@ Route::middleware(['auth'])->group( function (){
         //Route::resource('conventions',ConventionController::class)->except('index', 'create', 'store', 'edit');
         Route::put("/conventions/{convention}/update/def", [ConventionController::class, 'updating'])->name('conventions.update.def');
 
+        Route::post("/conventions/{convention}/generate", [ConventionInterface::class, 'generate'])->name('conventions.generate');
+
         Route::put("/conventions/{convention}", [ConventionInterface::class, 'update'])->name('conventions.update');
         Route::get("/conventions/{convention}", [ConventionInterface::class, 'edit'])->name('conventions.edit');
         Route::post("/conventions/{convention}/download", [ConventionInterface::class, 'download'])->name('conventions.download');
@@ -89,19 +91,6 @@ Route::middleware(['auth'])->group( function (){
 
     });
 
-
-
-    //companies.show.cp
-
-
-    // store -  /companies/{com_id}/agreement/ - post
-
-    // edit
-    // update
-    // delete
-
-    // show
-    // доп соглашения
 
 
     Route::resource('distribution_practices',   DistributionPracticeController::class)
