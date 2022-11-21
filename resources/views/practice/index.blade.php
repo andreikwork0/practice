@@ -119,7 +119,9 @@
 
                     <td class="">
                         <div class="d-flex justify-content-end">
-                            <a class="p-2 mx-1" target="_blank"  href="{{route('practices.show', $practice->id)}}">@svg('eye', 'w-30 h-6 text-dark icon-index')</a>
+                            @if($practice->date_start)
+                              <a class="p-2 mx-1" target="_blank"  href="{{route('practices.show', $practice->id)}}">@svg('eye', 'w-30 h-6 text-dark icon-index')</a>
+                            @endif
                             <a  target="_blank" class="p-2 mx-1" href="{{route('practices.edit', $practice->id)}}">@svg('pencil-square', 'w-6 h-6 text-dark icon-index')</a>
 {{--                            <x-modal-delete-btn--}}
 {{--                                text="Практика {{$practice->name}} будет удалена"--}}

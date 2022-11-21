@@ -109,10 +109,12 @@
                                     </td>
                                     <td class="">
                                         <div class="d-flex justify-content-end">
-                                            <x-modal-delete-btn
-                                                text="Распределение будет удалено"
-                                                url="{{route('distribution_practices.destroy', $dp->id)}}"
-                                            />
+                                            @if(!$dp->convention)
+                                                <x-modal-delete-btn
+                                                    text="Распределение будет удалено"
+                                                    url="{{route('distribution_practices.destroy', $dp->id)}}"
+                                                />
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>

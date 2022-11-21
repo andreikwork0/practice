@@ -32,6 +32,15 @@
                     </form>
                 </a>
             @endif
+
+                <a class="p-2 mx-1" >
+                    <form action="{{route('conventions.generate', $convention->id)}}" method="post">
+                        @csrf
+                        <button type="submit" class="border-0 bg-transparent">@svg('file-earmark-arrow-down', 'w-30 h-6 text-dark icon-index')
+                            Сгенерировать доп соглашение
+                        </button>
+                    </form>
+                </a>
         </div>
 
         <form action="{{route('conventions.update.def', $convention->id)}}" method="post" enctype="multipart/form-data">
