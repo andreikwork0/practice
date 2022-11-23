@@ -17,7 +17,6 @@ class ConventionEduController extends ConventionController implements Convention
     public function edit($id)
     {
 
-
         $conv = Convention::findOrFail($id);
         $company = $conv->company;
 
@@ -26,7 +25,6 @@ class ConventionEduController extends ConventionController implements Convention
 
         // надо получить все c компаниией
         $dist_prs_new      = $company->dist_pr_new;
-
 
         return view('convention.types.edu',
             ['convention' => $conv,   'dist_prs_new' => $dist_prs_new , 'dist_prs' => $dist_prs ]

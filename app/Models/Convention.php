@@ -32,4 +32,9 @@ class Convention extends Model
         return $this->hasMany(DistributionPractice::class);
     }
 
+    public function premises()
+    {
+        return $this->belongsToMany(Premise::class);
+    }
+
 }
