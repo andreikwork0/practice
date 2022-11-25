@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Convention;
 
 use App\Models\Convention;
+use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpWord\TemplateProcessor;
 
 class ConventionOthController extends ConventionController implements ConventionInterface
 {
@@ -16,11 +19,37 @@ class ConventionOthController extends ConventionController implements Convention
 
     public function update(Request $request, $id)
     {
-        // TODO: Implement update() method.
+        $conv = Convention::findOrFail($id);
+        $conv->text = $request->input('text') ?? NULL;
+
+        $conv->save();
+
+        return redirect()->route('conventions.edit', $id)->with('success', 'Информация успешно обновлена');
+
+
     }
+
+
 
     public function generate($id)
     {
-        // TODO: Implement generate() method.
+        $conv =  Convention::findOrFail($id);
+
+        $temp_name = $conv->type->template;
+        $path = Storage::disk('agreements')->path("/templates/$temp_name");
+
+        $docs = new  TemplateProcessor($path);
+
+
+
+        $name_dpagr =  $this->docs_set_default($docs, $conv);
+
+        $docs->setValue('text',$conv->text );
+
+//
+
+        header('Content-Disposition: attachment;filename='.$name_dpagr);
+        header('Cache-Control: max-age=0');
+        $docs->saveAs('php://output');
     }
 }

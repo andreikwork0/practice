@@ -57,7 +57,7 @@ Route::middleware(['auth'])->group( function (){
         Route::get("/conventions/{convention}", [ConventionInterface::class, 'edit'])->name('conventions.edit');
         Route::post("/conventions/{convention}/download", [ConventionInterface::class, 'download'])->name('conventions.download');
 
-        Route::delete('/conventions/{convention}',[ConventionController::class, 'destroy'])->name('conventions.destroy');
+        Route::delete('/conventions/{convention}',[ConventionInterface::class, 'destroy'])->name('conventions.destroy');
         Route::post('/agreements/{ag_id}/conventions/',[ConventionController::class, 'store'])->name('conventions.store');
 
         Route::resource('companies', CompanyController::class);

@@ -131,37 +131,10 @@ class ConventionEduController extends ConventionController implements Convention
         $docs->cloneRowAndSetValues('agroup',$arr );
 
         $docs->setValue('count_all', $sum_all);
-//
-//
-        $ag_num = $conv->agreement->num_agreement ??  '__';
-        $docs->setValue('ag_num',$ag_num );
-//
-        $ag_date = $conv->agreement->date_agreement ? date('d.m.Y', strtotime($conv->agreement->date_agreement)) : '__.__.__';
-        $docs->setValue('ag_date', $ag_date);
-//
-        $docs->setValue('dp_num',$conv->number );
 
 
-        $company = $conv->company;
-        // фио short name
-        $mng_name = $company->mng_name ?? false;
-        $mng_patronymic = $company->mng_patronymic ?? false;
-        $com_mng_fio_short = ($mng_name ? mb_substr($mng_name, 0, 1, "UTF-8") .'. ' : '') .  ($mng_patronymic ? mb_substr($mng_patronymic, 0, 1, "UTF-8") .'. ' : '') . ' '. ($company->mng_surname ?? '');
-        $docs->setValue('com_mng_fio_short',  $com_mng_fio_short);
-        $docs->setValue('com_mng_job',  $company->mng_job ?? '___');
+        $name_dpagr =  $this->docs_set_default($docs, $conv);
 
-        $s = Setting::key_val();
-        $docs->setValue('mng_job', $s['mng_job'] ?? 'XX-XX-XX');
-
-        // фио short name
-        $mng_name = $s['mng_fname'] ?? false;
-        $mng_patronymic = $s['mng_mname'] ?? false;
-        $mng_fio_short = ($mng_name ? mb_substr($mng_name, 0, 1, "UTF-8") .'. ' : '') .  ($mng_patronymic ? mb_substr($mng_patronymic, 0, 1, "UTF-8") .'. ' : '') . ' '. ($s['mng_lname'] ?? '');
-        $docs->setValue('mng_fio_short',  $mng_fio_short);
-
-
-
-        $name_dpagr = "Доп соглашение № $conv->number к договору № $ag_num .docx";
         header('Content-Disposition: attachment;filename='.$name_dpagr);
         header('Cache-Control: max-age=0');
         $docs->saveAs('php://output');

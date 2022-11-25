@@ -221,6 +221,12 @@ class AgreementController extends Controller
         $docs->setValue('mng_job', $s['mng_job'] ?? 'XX-XX-XX');
         $docs->setValue('org_agress', $s['org_agress'] ?? 'XX-XX-XX');
 
+        $docs->setValue('org_inn', 'ИНН:' . $s['org_inn'] ?? 'XX-XX-XX');
+        $docs->setValue('org_kpp', 'КПП: ' .$s['org_kpp'] ?? 'XX-XX-XX');
+
+
+
+
         $mng_fio_full = ($s['mng_lname'] ?? '') . ' ' . ($s['mng_fname'] ?? '') . ' ' . ($s['mng_mname'] ?? '');
         if ($s['mng_mname']) {
             $gender =  Petrovich::detectGender($s['mng_mname']);
