@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1309bfbecdb1d2bfe28fef00b2d0c67d",
+    "content-hash": "504a9df8c67839aa42412ad8cf5d4c03",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2467,6 +2467,65 @@
                 }
             ],
             "time": "2022-07-24T11:55:47+00:00"
+        },
+        {
+            "name": "mxl/laravel-job",
+            "version": "v1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mxl/laravel-job.git",
+                "reference": "0e91fb54e0d395a3c0a52129166cb43d6c686f20"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mxl/laravel-job/zipball/0e91fb54e0d395a3c0a52129166cb43d6c686f20",
+                "reference": "0e91fb54e0d395a3c0a52129166cb43d6c686f20",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "5.5.*|5.6.*|5.7.*|5.8.*|^6.0|^7.0|^8.0|^9.0",
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "MichaelLedin\\LaravelJob\\LaravelJobServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "MichaelLedin\\LaravelJob\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Ledin",
+                    "email": "mledin89@gmail.com"
+                }
+            ],
+            "description": "Laravel job tools",
+            "homepage": "https://github.com/mxl/laravel-job",
+            "keywords": [
+                "command",
+                "dispatch",
+                "job",
+                "laravel",
+                "tools"
+            ],
+            "support": {
+                "issues": "https://github.com/mxl/laravel-job/issues",
+                "source": "https://github.com/mxl/laravel-job"
+            },
+            "time": "2022-03-03T12:16:34+00:00"
         },
         {
             "name": "nesbot/carbon",

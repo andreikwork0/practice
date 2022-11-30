@@ -15,6 +15,11 @@
                         <x-form.fieldgroup title="Даты">
 
 
+                            <x-form.input
+                                type="text"
+                                label="Номер договора"
+                                name="num_agreement"/>
+
                             <x-form.select
                                 required
                                 :options=$types

@@ -63,7 +63,8 @@ class AgreementController extends Controller
 
 
 
-        $agreement->num_agreement = $this->getNextNum($request->input('date_bg'));
+
+        $agreement->num_agreement = $request->input('num_agreement') ?? $this->getNextNum($request->input('date_bg'));
         $agreement->save();
 
         return redirect(route('companies.show', ["company" => $company->id, 'agr' => $agreement->id]))->with('success', 'Договор успешно добавлен');
@@ -163,7 +164,8 @@ class AgreementController extends Controller
             'date_agreement'  => 'nullable|date|before_or_equal:date_bg',
             'date_bg'  => 'required|date',
             'date_end' =>  'nullable|date|after_or_equal:date_bg',
-            'agr_type_id' => 'required'
+            'agr_type_id' => 'required',
+            'num_agreement' => 'nullable|unique:agreements,num_agreement'
         ]);
     }
 

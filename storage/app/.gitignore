@@ -1,4 +1,4 @@
 *
 !public/
 !.gitignore
-!/app/agreements/templates/*
+!agreements/templates/*
