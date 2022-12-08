@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
             YearLearningSeeder::class,
             PulpitSeeder::class,
             PracticeTypeSeeder::class,
-            PracticeSeeder::class,
+            //PracticeSeeder::class,
             RoleSeeder::class,
             CountrySeeder::class,
             ConvTypeSeeder::class

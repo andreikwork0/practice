@@ -181,9 +181,11 @@ class AgreementController extends Controller
         $extension = explode('.', $path);
         $extension = $extension[1];
 //        $extension =  Storage::disk('agreements')->extension( $path); //\extension( $path);
-        $name = "Договор № $num $com_name.$extension";
 
         $date_from = date('d.m.Y', strtotime($agreement->date_agreement));
+
+        $num = str_replace('/', '_', $num);
+        $num = str_replace("\\", '_', $num);
 
         return Storage::disk('agreements')->download($path, "Договор № $num  c $com_name от $date_from .$extension" );
 

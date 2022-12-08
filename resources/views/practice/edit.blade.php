@@ -21,11 +21,11 @@
 
             <div class="d-flex">
                 <p >Контингент: {{$practice->contingent}} </p>
-                @if($practice->day)
-                    <p class="mx-3">Длительность: {{$practice->day ?? '-'}} дней </p>
-                @elseif($practice->week)
-                    <p class="mx-3">Длительность:   {{$practice->week ?? '-'}} недель</p>
-                @endif
+{{--                @if($practice->day)--}}
+{{--                    <p class="mx-3">Длительность: {{$practice->day ?? '-'}} дней </p>--}}
+{{--                @elseif($practice->week)--}}
+{{--                    <p class="mx-3">Длительность:   {{$practice->week ?? '-'}} недель</p>--}}
+{{--                @endif--}}
                 <p class="mx-3">Курс:   {{$practice->course }}</p>
                 <p class="mx-3">Семестр:   {{$practice->semester }}</p>
             </div>

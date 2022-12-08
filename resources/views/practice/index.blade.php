@@ -96,8 +96,8 @@
                 <th scope="col">Семестр</th>
 
 
-                <th scope="col">Дней</th>
-                <th scope="col">Недель</th>
+{{--                <th scope="col">Дней</th>--}}
+{{--                <th scope="col">Недель</th>--}}
                 <th scope="col"></th>
             </tr>
             </thead>
@@ -114,8 +114,8 @@
                     <td>{{$practice->course }}</td>
                     <td>{{$practice->semester }}</td>
 
-                    <td>{{$practice->day ?? '-' }}</td>
-                    <td>{{$practice->week ?? '-' }}</td>
+{{--                    <td>{{$practice->day ?? '-' }}</td>--}}
+{{--                    <td>{{$practice->week ?? '-' }}</td>--}}
 
                     <td class="">
                         <div class="d-flex justify-content-end">

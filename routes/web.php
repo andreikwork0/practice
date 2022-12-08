@@ -32,6 +32,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+
+
+
 Route::get('/login', [\App\Http\Controllers\UserLoginLdap::class, 'loginPage'])->name('login')->middleware('guest');
 Route::post('/login', [\App\Http\Controllers\UserLoginLdap::class, 'loginUser'])->middleware('guest');;
 
@@ -61,6 +64,8 @@ Route::middleware(['auth'])->group( function (){
         Route::post('/agreements/{ag_id}/conventions/',[ConventionController::class, 'store'])->name('conventions.store');
 
         Route::resource('companies', CompanyController::class);
+
+
         Route::resource('grn_letters',   GrnLetterController::class);
 
         Route::controller(PremiseController::class)->group(function () {
@@ -112,6 +117,37 @@ Route::middleware(['auth'])->group( function (){
 });
 
 
-//Auth::routes(['verify' => true]);
+Route::get('/test', function (){ ?>
 
+
+    <select id="mySelect2">
+        <option value="AL">Выберите организацию</option>
+        ...
+
+    </select>
+
+<?php
+});
+
+Route::get('/api/companies/search', function (){
+    $collection  =   \App\Models\Company::filter(request(['search']))->select('id', 'name')->orderBy('name')->paginate(10);
+
+    //$col = \Illuminate\Support\Collection::make()
+    $tmp_arr = array();
+    foreach ($collection as $item)
+    {
+        $single = new \stdClass();
+        $single->id = $item->id;
+        $single->text = $item->name;
+        $tmp_arr[] = $single;
+    }
+
+
+    $col = \Illuminate\Support\Collection::make($tmp_arr);
+    return response()->json(['results' =>    $col ?? '',
+        "pagination" => ["more" =>  $col->count() ? true : false ]
+        ]
+    );
+});
+//Auth::routes(['verify' => true]);
 

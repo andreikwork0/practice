@@ -9,6 +9,31 @@ require('suggestions-jquery')
 
 $(document).ready(function() {
 
+
+    //https://select2.org/data-sources/ajax
+    try {
+        $('#mySelect2').select2({
+            ajax: {
+                url: '/api/companies/search',
+                delay: 250,
+                dataType: 'json',
+                data: function (params) {
+                    var query = {
+                        search: params.term,
+                        page: params.page || 1
+                    }
+                    // Query parameters will be ?search=[term]&type=public
+                    return query;
+                }
+            }
+        });
+    }
+     catch (e) {
+        console.log(e.message)
+     }
+
+
+
     $('.dp_inc_al').click( function (){
 
         let checkboxs =  $(this).closest('table').find("input[type='checkbox']")

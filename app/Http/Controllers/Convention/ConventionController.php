@@ -213,6 +213,10 @@ class ConventionController extends Controller
 
 
 
+
+        $ag_num = str_replace('/', '_', $ag_num);
+        $ag_num = str_replace("\\", '_', $ag_num);
+
         $name_dpagr = "$dp_num к договору № $ag_num .docx";
 
         return  $name_dpagr;
