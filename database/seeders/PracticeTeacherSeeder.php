@@ -36,7 +36,7 @@ class PracticeTeacherSeeder extends Seeder
          *
          */
 
-        $year_learning= YearLearning::activeYear();
+        $year_learning= settings;
 
         if ($education_type_id ==  1) {
             $id_year_learning = $year_learning->l_id_vo;
