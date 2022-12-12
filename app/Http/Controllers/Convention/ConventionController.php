@@ -155,6 +155,9 @@ class ConventionController extends Controller
 //        $extension =  Storage::disk('agreements')->extension( $path); //\extension( $path);
 
 
+        $num = str_replace('/', '_', $num);
+        $num = str_replace("\\", '_', $num);
+
         $date_from = date('d.m.Y', strtotime($agreement->date_agreement));
 
 
