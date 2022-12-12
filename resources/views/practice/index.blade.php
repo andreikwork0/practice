@@ -8,7 +8,6 @@
 
 @section('content')
     <div class="container">
-
         <div class="row">
             <div class="col-md-12">
                 <x-form.fieldgroup title="Фильтр">
@@ -16,7 +15,6 @@
                     <div class="row">
                         @roleis('umu')
                         <div class="col-md-6">
-
                             <x-form.select
                                 :options=$ed_types
                                 ids="education_type_id"
@@ -62,12 +60,6 @@
                             />
                         </div>
                     </div>
-
-
-
-
-
-
                     <div class="d-flex justify-content-center my-3">
                         <button type="submit" class="btn btn-primary">Применить</button>
 
@@ -75,14 +67,7 @@
                             <a href="{{route('practices.index')}}"  class="btn btn-outline-danger mx-3"> Сбросить</a>
                             <a href="{{request()->fullUrl()}}"  class="btn btn-outline-success mx-3"> Обновить</a>
                         @endif
-
                     </div>
-
-
-
-
-
-
                 </form>
                 </x-form.fieldgroup>
             </div>
@@ -104,8 +89,6 @@
 
                 <th scope="col">Курс</th>
                 <th scope="col">Семестр</th>
-
-
 {{--                <th scope="col">Дней</th>--}}
 {{--                <th scope="col">Недель</th>--}}
                 <th scope="col"></th>

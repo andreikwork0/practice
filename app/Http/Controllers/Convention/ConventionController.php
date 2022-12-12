@@ -85,8 +85,9 @@ class ConventionController extends Controller
         $hash_name = $file->hashName();
 
         $content = $file->getContent();
-        $path = $convention->id .'/'.$hash_name;
         $agreement = $convention->agreement;
+        $path = $agreement->id .'/'.$hash_name;
+
         Storage::disk('agreements')->put($agreement->id .'/'.$hash_name, $content);
 
 

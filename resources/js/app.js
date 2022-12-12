@@ -119,25 +119,16 @@ $(document).ready(function() {
                 data = suggestion.data;
                  console.log(data)
 
-
-
                 if (data.name){
-
                     name = data.name.full_with_opf
                     short_with_opf = data.name.short_with_opf
-
-
                     if (name) {
                         $('#name_full').val(name);
                     }
-
                     if (short_with_opf) {
                         $('#name').val(short_with_opf);
                     }
-
                 }
-
-
                 if (data.address) {
                     address = data.address.unrestricted_value;
                     if (address) {
