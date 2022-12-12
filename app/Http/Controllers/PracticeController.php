@@ -30,7 +30,7 @@ class PracticeController extends Controller
             $filters = ['pulpit' => $user->pulpit_id];
         }
 
-        $filters = array_merge(request(['semester', 'course', 'pulpit', 'ed_type']), $filters);
+        $filters = array_merge(request(['semester', 'course', 'pulpit', 'ed_type' ,'pr_state']), $filters);
 
 
         $course_arr = array();
@@ -59,6 +59,24 @@ class PracticeController extends Controller
             $pulpits =  array();
         }
 
+        $pr_states = array();
+
+        $pr_state_s  = new \stdClass();
+        $pr_state_s->id     =   'p';
+        $pr_state_s->name   =   'Прошлые';
+        $pr_states[]= $pr_state_s;
+
+        $pr_state_s  = new \stdClass();
+        $pr_state_s->id     =   'n';
+        $pr_state_s->name   =   'Текущие';
+        $pr_states[]= $pr_state_s;
+
+        $pr_state_s  = new \stdClass();
+        $pr_state_s->id     =   'f';
+        $pr_state_s->name   =   'Будующие';
+        $pr_states[]= $pr_state_s;
+
+
 
 
         return view('practice.index', [
@@ -67,6 +85,7 @@ class PracticeController extends Controller
             'semesters' => $semester_arr,
             'ed_types'  => EducationType::all(),
             'pulpits'   => $pulpits,
+            'pr_states' => $pr_states
         ]);
 
     }

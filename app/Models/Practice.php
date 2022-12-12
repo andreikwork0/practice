@@ -35,6 +35,14 @@ class Practice extends Model
             );
         });
 
+
+        $query->when($filters['pr_state'] ?? 'n', function($query, $pr_state){
+            $query->where( fn($query) =>
+            $query->where('pr_state', '=', $pr_state  )
+            );
+        });
+
+
         $query->when($filters['year'] ?? $active_year->id, function($query, $year){
             $query->where( fn($query) =>
             $query->where('year_learning_id', '=', $year  )

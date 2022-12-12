@@ -47,40 +47,39 @@ class PracticeImport
     private function toRealTableFromTmp()
     {
         // перекопировать
-
         $sql = "
         insert into practices (name, plan_title, course, semester, date_start, date_end,  depart_name, spec, agroup, contingent, l_id_plan,
                              created_at, updated_at,  education_type_id, year_learning_id, pulpit_id, practice_type_id, pr_state)
         select
-            practices_tmp.name,
-            practices_tmp.plan_title,
-            practices_tmp.course,
-            practices_tmp.semester,
-            practices_tmp.date_start,
-            practices_tmp.date_end,
-            practices_tmp.depart_name,
-            practices_tmp.spec,
-            practices_tmp.agroup,
-            practices_tmp.contingent,
-            practices_tmp.l_id_plan,
-            practices_tmp.created_at,
-            practices_tmp.updated_at,
-            practices_tmp.education_type_id,
-            practices_tmp.year_learning_id,
-            practices_tmp.pulpit_id,
-            practices_tmp.practice_type_id,
-            practices_tmp.pr_state
-        from practices_tmp left  join practices
-           on practices_tmp.name = practices.name
-               and  practices_tmp.course = practices.course
-               and  practices_tmp.agroup = practices.agroup
-               and  practices_tmp.semester = practices.semester
-              and  practices_tmp.education_type_id = practices.education_type_id
-              and practices_tmp.year_learning_id = practices.year_learning_id
+           pr_tmp.name,
+           pr_tmp.plan_title,
+           pr_tmp.course,
+           pr_tmp.semester,
+           pr_tmp.date_start,
+           pr_tmp.date_end,
+           pr_tmp.depart_name,
+           pr_tmp.spec,
+           pr_tmp.agroup,
+           pr_tmp.contingent,
+           pr_tmp.l_id_plan,
+           pr_tmp.created_at,
+           pr_tmp.updated_at,
+           pr_tmp.education_type_id,
+           pr_tmp.year_learning_id,
+           pr_tmp.pulpit_id,
+           pr_tmp.practice_type_id,
+           pr_tmp.pr_state
+        from practices_tmp as pr_tmp left  join practices
+           on pr_tmp.name = practices.name
+               and pr_tmp.course = practices.course
+               and pr_tmp.agroup = practices.agroup
+               and pr_tmp.semester = practices.semester
+              and pr_tmp.education_type_id = practices.education_type_id
+              and pr_tmp.year_learning_id = practices.year_learning_id
+              and pr_tmp.pr_state = practices.pr_state
         where practices.name is null
         ";
      DB::connection('mysql')->insert($sql);
-
 
     }
 
@@ -104,7 +103,7 @@ class PracticeImport
 
 
         $sql2 = "
-     select * from (
+    select * from (
          select
              concat(g.name, '-', g.year, '-', g.number) as agroup,
              ld.name_discipline as name,
@@ -132,8 +131,8 @@ class PracticeImport
          group by agroup, spec, name_discipline,  semester,  course,  id_pulpit, depart_name, plan_title
      ) as q
 
-where  ( name like 'Учеб%'  or name  like 'Произ%'  or  name  like '%практик%')
-order by  agroup";
+    where  ( name like 'Учеб%'  or name  like 'Произ%'  or  name  like '%практик%')
+    order by  agroup";
 
 
 
@@ -163,5 +162,8 @@ order by  agroup";
         }
         // проставить даты
     }
+
+
+
 
 }

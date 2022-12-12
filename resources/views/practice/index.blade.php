@@ -50,7 +50,17 @@
                                 dfvalue="{{request('course')}}"
                                 name="course"
                                 label="Курс"
-                            /></div>
+                            />
+                        </div>
+
+                        <div class="col-md-6">
+                            <x-form.select
+                                :options=$pr_states
+                                dfvalue="{{request('pr_state') ?? 'n'}}"
+                                name="pr_state"
+                                label="Статус"
+                            />
+                        </div>
                     </div>
 
 
@@ -61,7 +71,7 @@
                     <div class="d-flex justify-content-center my-3">
                         <button type="submit" class="btn btn-primary">Применить</button>
 
-                        @if(request('ed_type') ||  request('pulpit') || request('semester') || request('course') )
+                        @if(request('ed_type') ||  request('pulpit') || request('semester') || request('course')  || request('pr_state'))
                             <a href="{{route('practices.index')}}"  class="btn btn-outline-danger mx-3"> Сбросить</a>
                             <a href="{{request()->fullUrl()}}"  class="btn btn-outline-success mx-3"> Обновить</a>
                         @endif
