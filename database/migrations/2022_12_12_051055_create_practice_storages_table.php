@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class PrTables extends Migration
+class CreatePracticeStoragesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,7 @@ class PrTables extends Migration
      */
     public function up()
     {
-        Schema::table('practices', function (Blueprint $table) {
-            $table->dropColumn(['day', 'week', 'l_pr_plan_id']);
-            $table->string('plan_title')->nullable()->change();
-        });
-
-        Schema::create('practices_tmp', function (Blueprint $table) {
-
+        Schema::create('practices_storage', function (Blueprint $table) {
             $table->id();
 
             $table->string('name', 300);
@@ -51,6 +45,15 @@ class PrTables extends Migration
 
             $table->bigInteger('practice_type_id')->unsigned()->nullable();
 
+            $table->string('pr_state')->nullable();
+        });
+
+        Schema::table('practices', function (Blueprint $table) {
+            $table->string('pr_state')->nullable();
+        });
+
+        Schema::table('practices_tmp', function (Blueprint $table) {
+            $table->string('pr_state')->nullable();
         });
     }
 
@@ -61,15 +64,14 @@ class PrTables extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('practices_storage');
 
         Schema::table('practices', function (Blueprint $table) {
-            $table->integer('l_pr_plan_id')->nullable()->change();
-            $table->float('day')->nullable()->change();
-            $table->float('week')->nullable()->change();
-            $table->string('plan_title')->nullable()->change();
+            $table->dropColumn('pr_state');
         });
 
-        Schema::dropIfExists('practices_tmp');
-
+        Schema::table('practices_tmp', function (Blueprint $table) {
+            $table->dropColumn('pr_state');
+        });
     }
 }

@@ -50,7 +50,7 @@ class PracticeImport
 
         $sql = "
         insert into practices (name, plan_title, course, semester, date_start, date_end,  depart_name, spec, agroup, contingent, l_id_plan,
-                             created_at, updated_at,  education_type_id, year_learning_id, pulpit_id, practice_type_id)
+                             created_at, updated_at,  education_type_id, year_learning_id, pulpit_id, practice_type_id, pr_state)
         select
             practices_tmp.name,
             practices_tmp.plan_title,
@@ -68,7 +68,8 @@ class PracticeImport
             practices_tmp.education_type_id,
             practices_tmp.year_learning_id,
             practices_tmp.pulpit_id,
-            practices_tmp.practice_type_id
+            practices_tmp.practice_type_id,
+            practices_tmp.pr_state
         from practices_tmp left  join practices
            on practices_tmp.name = practices.name
                and  practices_tmp.course = practices.course
@@ -83,7 +84,7 @@ class PracticeImport
 
     }
 
-    private function import($connection , $education_type_id  ){
+    private function import($connection , $education_type_id  ){ // now practice
 
 
         $year_learning = YearLearning::activeYear();
@@ -154,16 +155,13 @@ order by  agroup";
             unset($tmp_practice['id_pulpit']);
 
             $tmp_practice['pulpit_id'] =  $pulpit->id;
+            $tmp_practice['pr_state'] =  'n';
 
             PracticeTmp::create($tmp_practice );
 
 
         }
-
-
         // проставить даты
-
-
     }
 
 }
