@@ -116,7 +116,7 @@ class ConventionEduController extends ConventionController implements Convention
 
             $arr_single = [];
             $arr_single['agroup'] = $dpr->practice->agroup . ' ';  //. $dpr->practice->depart_name;
-            $arr_single['semester'] = $dpr->practice->semester;
+            $arr_single['course'] = $dpr->practice->course;
             $arr_single['date_start'] = $dpr->practice->date_start ?  date('d.m.Y', strtotime($dpr->practice->date_start)) : '__';
             $arr_single['date_end'] = $dpr->practice->date_end ? date('d.m.Y', strtotime($dpr->practice->date_end)) : '__';
             $arr_single['spec'] = $dpr->practice->spec ?? '__';
