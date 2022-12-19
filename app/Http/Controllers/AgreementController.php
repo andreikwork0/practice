@@ -186,6 +186,8 @@ class AgreementController extends Controller
 
         $num = str_replace('/', '_', $num);
         $num = str_replace("\\", '_', $num);
+        $com_name = str_replace('"', '', $com_name);
+        $com_name = str_replace(',', '', $com_name);
 
         return Storage::disk('agreements')->download($path, "Договор № $num  c $com_name от $date_from .$extension" );
 
@@ -303,6 +305,8 @@ class AgreementController extends Controller
             $docs->setValue('com_inn',  $company->inn  ? ('ИНН: ' .  $company->inn) : '');
             $docs->setValue('com_kpp',  $company->kpp  ? ('КПП: ' .  $company->kpp) : '');
             $docs->setValue('com_ch_account',  $company->ch_account  ? ('Р/C: ' .  $company->ch_account) : '');
+
+
             $docs->setValue('com_cr_account',  $company->cr_account  ? ('К/С: ' .  $company->cr_account) : '');
             $docs->setValue('com_bik',  $company->bik  ? ('БИК: ' .  $company->bik) : '');
 
@@ -315,6 +319,16 @@ class AgreementController extends Controller
 
             $df = $agreement->date_agreement ? date('d.m.Y', strtotime($agreement->date_agreement)) : 'XX-XX-XX';
             $name_agr = "Договор № $agreement->num_agreement  c $company->name от $df .docx";
+
+
+            $name_agr = str_replace('/', '_', $name_agr);
+            $name_agr = str_replace("\\", '_', $name_agr);
+            $name_agr = str_replace('"', '', $name_agr);
+            $name_agr = str_replace(',', '', $name_agr);
+
+
+
+
             header('Content-Disposition: attachment;filename='.$name_agr);
             header('Cache-Control: max-age=0');
             $docs->saveAs('php://output');

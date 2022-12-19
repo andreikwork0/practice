@@ -13,11 +13,11 @@
                 <div class="card">
 
 
-{{--                    <select id="mySelect2">--}}
-{{--                        <option value="AL">Alabama</option>--}}
-{{--                        ...--}}
-{{--                        <option value="WY">Wyoming</option>--}}
-{{--                    </select>--}}
+                    <select id="mySelect2">
+                        <option value="AL">Alabama</option>
+                        ...
+                        <option value="WY">Wyoming</option>
+                    </select>
                     <div class="card-header">{{ __('Dashboard') }}</div>
 
                     <div class="card-body">

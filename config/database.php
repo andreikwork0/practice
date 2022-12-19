@@ -121,6 +121,34 @@ return [
             'sslmode' => 'prefer',
         ],
 
+        'student_sqlsrv' => [
+            'driver' => 'sqlsrv',
+            'url' => env('DB_URL_STUDENT'),
+            'host' => env('DB_HOST_STUDENT', 'localhost'),
+            'port' => env('DB_PORT_STUDENT', '1433'),
+            'database' => env('DB_DATABASE_STUDENT', 'forge'),
+            'username' => env('DB_USERNAME_STUDENT', 'forge'),
+            'password' => env('DB_PASSWORD_STUDENT', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+        ],
+
+
+
+        'student_spo_sqlsrv' => [
+            'driver' => 'sqlsrv',
+            'url' => env('DB_URL_STUDENT_SPO'),
+            'host' => env('DB_HOST_STUDENT_SPO', 'localhost'),
+            'port' => env('DB_PORT_STUDENT_SPO', '1433'),
+            'database' => env('DB_DATABASE_STUDENT_SPO', 'forge'),
+            'username' => env('DB_USERNAME_STUDENT_SPO', 'forge'),
+            'password' => env('DB_PASSWORD_STUDENT_SPO', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+        ],
+
         'sqlsrv' => [
             'driver' => 'sqlsrv',
             'url' => env('DATABASE_URL'),

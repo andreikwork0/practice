@@ -117,17 +117,6 @@ Route::middleware(['auth'])->group( function (){
 });
 
 
-Route::get('/test', function (){ ?>
-
-
-    <select id="mySelect2">
-        <option value="AL">Выберите организацию</option>
-        ...
-
-    </select>
-
-<?php
-});
 
 Route::get('/api/companies/search', function (){
     $collection  =   \App\Models\Company::filter(request(['search']))->select('id', 'name')->orderBy('name')->paginate(10);
