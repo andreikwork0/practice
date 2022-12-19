@@ -57,14 +57,8 @@ class ConventionController extends Controller
                 'agreement_id'  => $ag_id
             ]);
 
-
         return redirect(route('companies.show', ['company' => $agreement->company->id, 'agr' => $agreement->id]))->with('success', "Доп соглашение № $conv->number к $agreement->num_agreement  успешно добавлено");
-
-
-
     }
-
-
 
 //
 //
@@ -158,6 +152,9 @@ class ConventionController extends Controller
         $num = str_replace('/', '_', $num);
         $num = str_replace("\\", '_', $num);
 
+        $com_name = str_replace('"', '', $com_name);
+        $com_name = str_replace(',', '', $com_name);
+
         $date_from = date('d.m.Y', strtotime($agreement->date_agreement));
 
 
@@ -199,6 +196,7 @@ class ConventionController extends Controller
 
 
         $company = $conv->company;
+
         // фио short name
         $mng_name = $company->mng_name ?? false;
         $mng_patronymic = $company->mng_patronymic ?? false;

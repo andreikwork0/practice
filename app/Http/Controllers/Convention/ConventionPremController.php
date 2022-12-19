@@ -78,6 +78,11 @@ class ConventionPremController extends ConventionController implements Conventio
 
         $name_dpagr =  $this->docs_set_default($docs, $conv);
 
+
+        $name_dpagr = str_replace('"', '', $name_dpagr);
+        $name_dpagr = str_replace(',', '', $name_dpagr);
+
+
         header('Content-Disposition: attachment;filename='.$name_dpagr);
         header('Cache-Control: max-age=0');
         $docs->saveAs('php://output');
