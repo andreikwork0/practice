@@ -81,6 +81,8 @@ class ConventionEduController extends ConventionController implements Convention
 
         $dprs = DistributionPractice::join('practices as p', 'p.id','=','distribution_practices.practice_id')
             ->orderBy('p.depart_name')
+            ->orderBY('p.pulpit_id')
+            ->orderBY('p.name')
             ->select('distribution_practices.*') // avoid fetching anything from joined table
             ->with('practice')
             ->where('convention_id', '=', $id)->get();  // if you need managers data anyway

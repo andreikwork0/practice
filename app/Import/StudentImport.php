@@ -131,7 +131,6 @@ class StudentImport
             'name_osn' => $student->Name_OsnO
 
             );
-
             StudentTmp::create($array );
 
         }

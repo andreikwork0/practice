@@ -73,7 +73,7 @@ class PracticeController extends Controller
 
         $pr_state_s  = new \stdClass();
         $pr_state_s->id     =   'f';
-        $pr_state_s->name   =   'Будующие';
+        $pr_state_s->name   =   'Будущие';
         $pr_states[]= $pr_state_s;
 
 
