@@ -21,6 +21,9 @@ class DistributionPractice extends Model
         });
     }
 
+    public function pr_students(){
+        return $this->hasMany(PrStudent::class);
+    }
 
     public function practice(){
 

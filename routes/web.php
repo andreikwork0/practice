@@ -12,6 +12,8 @@ use App\Http\Controllers\DistributionPracticeController;
 use App\Http\Controllers\GrnLetterController;
 use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\PremiseController;
+
+use App\Http\Controllers\PrStudentController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
 use App\Models\Convention;
@@ -104,13 +106,15 @@ Route::middleware(['auth'])->group( function (){
         ])->middleware('role:umu,kaf');
 
     Route::post('/practices/{pr_id}/distribution/', [DistributionPracticeController::class, 'store'])->name('distribution_practices.store')
-        ->middleware('role:umu,kaf');;
+        ->middleware('role:umu,kaf');
 
     Route::resource('practices', PracticeController::class)
         ->except([
             'create', 'store', 'destroy'
         ])->middleware('role:umu,kaf');
 
+    Route::get('/distribution_practices/{id}/pr_student', [PrStudentController::class, 'edit'])->name('pr_student.edit')
+        ->middleware('role:umu,kaf');
 
 
     Route::get('/ajax/pulpitbyedtype/{id}', [AjaxController::class, 'getPulptitByEdType']);

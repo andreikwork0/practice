@@ -25,6 +25,18 @@ class Practice extends Model
     }
 
 
+    public function pr_students()
+    {
+        return $this->hasMany(PrStudent::class);
+    }
+
+
+
+    public function students_gr(){
+        return $this->hasMany(Student::class, 'name_ar', 'agroup');
+    }
+
+
 
     public function scopeFilter($query, array  $filters){
 
