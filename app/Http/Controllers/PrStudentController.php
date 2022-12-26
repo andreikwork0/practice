@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DistributionPractice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Validator;
 
 class PrStudentController extends Controller
 {
@@ -13,7 +14,6 @@ class PrStudentController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
@@ -44,7 +44,8 @@ class PrStudentController extends Controller
 
         return view('pr_student.edit', [   'col_edit_ss'=> $col_edit,
                                                 'col_stat_ss' => $col_stat,
-                                                'dp' => $dp, 'practice' => $practice,
+                                                'dp' => $dp,
+                                                 'practice' => $practice,
                                                 'c_s_dp' => $c_s_dp
             ]);
     }
@@ -58,8 +59,47 @@ class PrStudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $dp = DistributionPractice::find($id);
+        //dd($request->all());
+        $dp = DistributionPractice::findOrFail($id);
         $num_fact = $dp->num_fact;
+
+        if ($request->input('pr_students_id')) {
+            $c = count($request->input('pr_students_id'));
+        } else {
+            $c = 0;
+        }
+
+
+
+        if ( $c > $num_fact ) {
+            $er_text = array('errors' => "превышен лимит по количеству мест $num_fact . выбрано " . $c);
+            //return redirect()->route('pr_student.edit', $dp->id)->withErrors($er_text)->withInput();
+            return back()->withInput($request->all())->withErrors($er_text);
+        }
+
+
+
+        $select_stud = $request->input('pr_students_id');
+        $sel_arr = array();
+        if ($select_stud) {
+            foreach ($select_stud as $key => $stud) {
+                if ($stud == 'on') $sel_arr[] = $key;
+            }
+        }
+
+        $all_sts = $dp->practice->pr_students;
+
+        foreach ($all_sts as $st) {
+            if (in_array($st->id, $sel_arr)) {
+                $st->distribution_practice_id = $dp->id;
+            }
+            elseif($st->distribution_practice_id ==  $dp->id ) {
+                $st->distribution_practice_id = NULL;
+            }
+            $st->save();
+        }
+
+        return  redirect()->route('pr_student.edit',$dp->id )->with('success', 'Данные успешно обновлены');
     }
 
 

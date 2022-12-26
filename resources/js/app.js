@@ -6,8 +6,38 @@ require('suggestions-jquery')
 
 // In your Javascript (external .js resource or <script> tag)
 
+//
+// import { createApp } from 'vue'
+// const app = createApp({})
+// import pr_students from './components/PrStudents.vue';
+// app.component('pr_students', pr_students)
+// app.mount('#app')
+
+
 
 $(document).ready(function() {
+
+
+    // логика для /distribution_practices/{id}/pr_student
+    try {
+
+        $("#col_edit_ss input[type='checkbox']").on('change', function (e){
+
+            //console.log(e.target)
+           let n_count = $("#col_edit_ss input:checked").length
+
+            let n_fact = $('#dp_num_fact')[0].innerHTML;
+
+           $('#c_s_dp')[0].innerHTML = n_count;
+
+           // if  (n_fact > n_count)
+
+           // console.log(n_fact)
+        });
+
+    } catch (e) {
+        console.log(e.message)
+    }
 
 
     //https://select2.org/data-sources/ajax
@@ -20,8 +50,8 @@ $(document).ready(function() {
                 url: '/api/companies/search',
                 delay: 250,
                 dataType: 'json',
-                templateResult : formatRepo,
-                templateSelection : formatRepoSelection,
+                // templateResult : formatRepo,
+                // templateSelection : formatRepoSelection,
                 // minimumInputLength: 1,
                 data: function (params) {
                     var query = {
@@ -33,41 +63,41 @@ $(document).ready(function() {
                 }
             }
         });
-
-        function formatRepo (repo) {
-            if (repo.loading) {
-                return repo.text;
-            }
-
-            var $container = $(
-                "<div class='select2-result-repository clearfix'>" +
-                "<div class='select2-result-repository__avatar'><img src='" + repo.owner.avatar_url + "' /></div>" +
-                "<div class='select2-result-repository__meta'>" +
-                "<div class='select2-result-repository__title'></div>" +
-                "<div class='select2-result-repository__description'></div>" +
-                "<div class='select2-result-repository__statistics'>" +
-                "<div class='select2-result-repository__forks'><i class='fa fa-flash'></i> </div>" +
-                "<div class='select2-result-repository__stargazers'><i class='fa fa-star'></i> </div>" +
-                "<div class='select2-result-repository__watchers'><i class='fa fa-eye'></i> </div>" +
-                "</div>" +
-                "</div>" +
-                "</div>"
-            );
-
-            $container.find(".select2-result-repository__title").text(repo.full_name);
-            $container.find(".select2-result-repository__description").text(repo.description);
-            $container.find(".select2-result-repository__forks").append(repo.forks_count + " Forks");
-            $container.find(".select2-result-repository__stargazers").append(repo.stargazers_count + " Stars");
-            $container.find(".select2-result-repository__watchers").append(repo.watchers_count + " Watchers");
-
-            console.log('fds')
-            return $container;
-        }
-
-        function formatRepoSelection (repo) {
-            console.log('fds1')
-            return repo.full_name || repo.text;
-        }
+        //
+        // function formatRepo (repo) {
+        //     if (repo.loading) {
+        //         return repo.text;
+        //     }
+        //
+        //     var $container = $(
+        //         "<div class='select2-result-repository clearfix'>" +
+        //         "<div class='select2-result-repository__avatar'><img src='" + repo.owner.avatar_url + "' /></div>" +
+        //         "<div class='select2-result-repository__meta'>" +
+        //         "<div class='select2-result-repository__title'></div>" +
+        //         "<div class='select2-result-repository__description'></div>" +
+        //         "<div class='select2-result-repository__statistics'>" +
+        //         "<div class='select2-result-repository__forks'><i class='fa fa-flash'></i> </div>" +
+        //         "<div class='select2-result-repository__stargazers'><i class='fa fa-star'></i> </div>" +
+        //         "<div class='select2-result-repository__watchers'><i class='fa fa-eye'></i> </div>" +
+        //         "</div>" +
+        //         "</div>" +
+        //         "</div>"
+        //     );
+        //
+        //     $container.find(".select2-result-repository__title").text(repo.full_name);
+        //     $container.find(".select2-result-repository__description").text(repo.description);
+        //     $container.find(".select2-result-repository__forks").append(repo.forks_count + " Forks");
+        //     $container.find(".select2-result-repository__stargazers").append(repo.stargazers_count + " Stars");
+        //     $container.find(".select2-result-repository__watchers").append(repo.watchers_count + " Watchers");
+        //
+        //     console.log('fds')
+        //     return $container;
+        // }
+        //
+        // function formatRepoSelection (repo) {
+        //     console.log('fds1')
+        //     return repo.full_name || repo.text;
+        // }
     }
      catch (e) {
         console.log(e.message)

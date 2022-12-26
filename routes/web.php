@@ -113,7 +113,11 @@ Route::middleware(['auth'])->group( function (){
             'create', 'store', 'destroy'
         ])->middleware('role:umu,kaf');
 
+
     Route::get('/distribution_practices/{id}/pr_student', [PrStudentController::class, 'edit'])->name('pr_student.edit')
+        ->middleware('role:umu,kaf');
+
+    Route::put('/distribution_practices/{id}/pr_student', [PrStudentController::class, 'update'])->name('pr_student.update')
         ->middleware('role:umu,kaf');
 
 

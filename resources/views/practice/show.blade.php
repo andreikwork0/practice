@@ -115,7 +115,7 @@
                                                     url="{{route('distribution_practices.destroy', $dp->id)}}"
                                                 />
                                             @endif
-                                                <a class="btn btn-outline-primary" href="{{route('pr_student.edit', $dp->id)}}">По студентам</a>
+{{--                                                <a class="btn btn-outline-primary" href="{{route('pr_student.edit', $dp->id)}}">По студентам</a>--}}
                                         </div>
                                     </td>
                                 </tr>

@@ -155,6 +155,10 @@ class ConventionController extends Controller
         $com_name = str_replace('"', '', $com_name);
         $com_name = str_replace(',', '', $com_name);
 
+
+        $com_name = str_replace('/', '_', $com_name);
+        $com_name = str_replace("\\", '_', $com_name);
+
         $date_from = date('d.m.Y', strtotime($agreement->date_agreement));
 
 

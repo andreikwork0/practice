@@ -9,7 +9,6 @@
                     class="form-check-input @error($name) is-invalid @enderror" type="checkbox"
                     name="{{$name}}"
                     id="{{$name}}"
-
                     @if ((old($name, $dfvalue)) == 'on' ||  (old($name, $dfvalue)) == '1')
                         {{'checked'}}
                     @endif

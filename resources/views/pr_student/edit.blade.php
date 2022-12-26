@@ -42,12 +42,12 @@
                 <div class="d-flex">
                     <div class="">
                         <div><b>Согласовано</b></div>
-                        <div class="text-center">{{$dp->num_fact ?? 0}}</div>
+                        <div class="text-center" id="dp_num_fact">{{$dp->num_fact ?? 0}}</div>
 
                     </div>
                     <div class="mx-3">
                         <div><b>Занято</b></div>
-                        <div class="text-center">{{$c_s_dp ?? 0}}</div>
+                        <div class="text-center" id="c_s_dp" >{{$c_s_dp ?? 0}}</div>
                     </div>
                 </div>
 
@@ -57,10 +57,13 @@
 
             <div class="row">
                 @if ($col_edit_ss->count() > 0)
-                    <div class="col-6">
-                        <form action="/">
+                    <div class="col-6" id="col_edit_ss">
+                        <form action="{{route('pr_student.update', $dp->id)}}" method="post">
+                            @method('PUT')
+                            @csrf
 
-                            <div class="d-flex  align-content-center mb-1">
+                            <div
+                                class="d-flex  align-content-center mb-1">
                                 <h3 class="">Редактируемые</h3>
                             </div>
 
@@ -69,7 +72,7 @@
                                     <x-form.checkbox
                                         label="{{$ps->student->fio()}}"
                                         dfvalue="{{$ps->distribution_practice_id ? 1 : 0}}"
-                                        name="distribution_practice_id[{{$ps->id}}]"/>
+                                        name="pr_students_id[{{$ps->id}}]"/>
                                 </div>
                             @endforeach
                             <button class="my-3 btn btn-primary" type="submit">Сохранить</button>
@@ -103,6 +106,7 @@
             @if(count($practice->dp)>0)
                 <div class="row">
                     <div class="col-md-8">
+                        {{$practice->pr_students->count()}}
                         <table class="table  border table-striped">
                             <thead>
                             <tr>
@@ -127,7 +131,7 @@
                                         {{$dp->num_plan}}
                                     </td>
                                     <td  class="text-center">
-                                        {{$dp->num_fact ?? '-'}}
+                                        {{$dp->num_fact ?? '-'}} {{ ('/'. $dp->pr_students->count() ) ?? ( '/' . 0 )}}
                                     </td>
                                     <td  class="text-center">
                                         {{$dp->convention ?  'да': 'нет'}}
@@ -140,7 +144,9 @@
                                                     url="{{route('distribution_practices.destroy', $dp->id)}}"
                                                 />
                                             @endif
-                                            <a class="btn btn-outline-primary" href="{{route('pr_student.edit', $dp->id)}}">По студентам</a>
+                                            @if ($dp->num_fact > 0)
+                                                <a class="btn btn-outline-primary" href="{{route('pr_student.edit', $dp->id)}}">По студентам</a>
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>
@@ -156,4 +162,3 @@
         </div>
 
 @endsection
-

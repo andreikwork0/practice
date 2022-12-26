@@ -189,6 +189,11 @@ class AgreementController extends Controller
         $com_name = str_replace('"', '', $com_name);
         $com_name = str_replace(',', '', $com_name);
 
+
+        $com_name = str_replace('/', '_', $com_name);
+        $com_name = str_replace("\\", '_', $com_name);
+
+
         return Storage::disk('agreements')->download($path, "Договор № $num  c $com_name от $date_from .$extension" );
 
 
