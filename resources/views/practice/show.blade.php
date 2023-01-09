@@ -8,6 +8,9 @@
             Распределение практики
             <div>
                 <a href="{{route('practices.edit', $practice->id)}}" class="btn btn-outline-primary">Редактировать</a>
+                <a
+                    class="btn btn-secondary">
+                    Сформировать приказ</a>
             </div>
         </div>
     </x-page-title>
@@ -75,57 +78,11 @@
 
 
 
-            @if(count($practice->dp)>0)
-                <div class="row">
-                    <div class="col-md-8">
-                        <table class="table  border table-striped">
-                            <thead>
-                            <tr>
-                                {{--                <th scope="col">ID</th>--}}
-                                <th style="width: 50%" scope="col">Организация</th>
-                                <th scope="col" class="text-center">План</th>
 
-                                <th scope="col" class="text-center">Факт</th>
+            <x-distpr.list
+                contingent="{{$practice->contingent}}"
+                :dps="$practice->dp"></x-distpr.list>
 
-                                <th scope="col" class="text-center">Доп соглашение</th>
-
-                                <th scope="col"></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($practice->dp as $dp)
-                                <tr>
-                                    <td >
-                                        {{$dp->company->name}}
-                                    </td>
-                                    <td class="text-center">
-                                        {{$dp->num_plan}}
-                                    </td>
-                                    <td  class="text-center">
-                                        {{$dp->num_fact ?? '-'}}
-                                    </td>
-                                    <td  class="text-center">
-                                        {{$dp->convention ?  'да': 'нет'}}
-                                    </td>
-                                    <td class="">
-                                        <div class="d-flex justify-content-end">
-                                            @if(!$dp->convention)
-                                                <x-modal-delete-btn
-                                                    text="Распределение будет удалено"
-                                                    url="{{route('distribution_practices.destroy', $dp->id)}}"
-                                                />
-                                            @endif
-{{--                                                <a class="btn btn-outline-primary" href="{{route('pr_student.edit', $dp->id)}}">По студентам</a>--}}
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-            @endif
 
 
     </div>

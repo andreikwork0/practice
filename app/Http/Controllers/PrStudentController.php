@@ -99,7 +99,7 @@ class PrStudentController extends Controller
             $st->save();
         }
 
-        return  redirect()->route('pr_student.edit',$dp->id )->with('success', 'Данные успешно обновлены');
+        return  redirect()->route('practices.show',$dp->practice->id )->with('success', 'Данные успешно обновлены');
     }
 
 

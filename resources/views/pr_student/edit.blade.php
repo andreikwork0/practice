@@ -33,24 +33,22 @@
                 <p class="mx-3">Дата окончания: {{$practice->date_end ? date('d.m.Y', strtotime($practice->date_end)) : '-'}}</p>
 
             </div>
-
-
             <hr>
-
             <div class="my-3">
-                <h2> Количество  мест  </h2>
+                <h2>
+                     {{$dp->company->name}}
+                </h2>
+{{--                <h3> Количество  мест  </h3>--}}
                 <div class="d-flex">
-                    <div class="">
-                        <div><b>Согласовано</b></div>
-                        <div class="text-center" id="dp_num_fact">{{$dp->num_fact ?? 0}}</div>
-
-                    </div>
                     <div class="mx-3">
                         <div><b>Занято</b></div>
                         <div class="text-center" id="c_s_dp" >{{$c_s_dp ?? 0}}</div>
                     </div>
+                    <div class="">
+                        <div><b>Согласовано</b></div>
+                        <div class="text-center" id="dp_num_fact">{{$dp->num_fact ?? 0}}</div>
+                    </div>
                 </div>
-
 
             </div>
             <hr>
@@ -78,18 +76,17 @@
                             <button class="my-3 btn btn-primary" type="submit">Сохранить</button>
                         </form>
                     </div>
+                @else
+                    <div class="col-6">
+                        Упс .. кажется нет студентов. Обратитесь к администратору
+                    </div>
                 @endif
-
 
                 @if ($col_stat_ss->count() > 0)
                     <div class="col-6">
-
-
-
                         <div class="d-flex  align-content-center mb-1">
                             <h3 class="">Нередактируемые</h3>
                         </div>
-
                         @foreach($col_stat_ss as $ps)
                             <div>{{$ps->student->fio()}} -
                                 <a href="{{route('pr_student.edit', $ps->dp->id)}}">         {{$ps->dp->company->name}}</a>
@@ -103,61 +100,10 @@
             </div>
             <hr>
 
-            @if(count($practice->dp)>0)
-                <div class="row">
-                    <div class="col-md-8">
-                        {{$practice->pr_students->count()}}
-                        <table class="table  border table-striped">
-                            <thead>
-                            <tr>
-                                {{--                <th scope="col">ID</th>--}}
-                                <th style="width: 50%" scope="col">Организация</th>
-                                <th scope="col" class="text-center">План</th>
-
-                                <th scope="col" class="text-center">Факт</th>
-
-                                <th scope="col" class="text-center">Доп соглашение</th>
-
-                                <th scope="col"></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($practice->dp as $dp)
-                                <tr>
-                                    <td>
-                                        {{$dp->company->name}}
-                                    </td>
-                                    <td class="text-center">
-                                        {{$dp->num_plan}}
-                                    </td>
-                                    <td  class="text-center">
-                                        {{$dp->num_fact ?? '-'}} {{ ('/'. $dp->pr_students->count() ) ?? ( '/' . 0 )}}
-                                    </td>
-                                    <td  class="text-center">
-                                        {{$dp->convention ?  'да': 'нет'}}
-                                    </td>
-                                    <td class="">
-                                        <div class="d-flex justify-content-end">
-                                            @if(!$dp->convention)
-                                                <x-modal-delete-btn
-                                                    text="Распределение будет удалено"
-                                                    url="{{route('distribution_practices.destroy', $dp->id)}}"
-                                                />
-                                            @endif
-                                            @if ($dp->num_fact > 0)
-                                                <a class="btn btn-outline-primary" href="{{route('pr_student.edit', $dp->id)}}">По студентам</a>
-                                            @endif
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-            @endif
-
+            <x-distpr.list
+                contingent="{{$practice->contingent}}"
+                :dps="$practice->dp"
+                dpActiveId="{{$dp->id}}"></x-distpr.list>
 
         </div>
 
