@@ -6,11 +6,17 @@
     <x-page-title>
         <div class="d-flex justify-content-between align-content-center">
             Распределение практики
-            <div>
-                <a href="{{route('practices.edit', $practice->id)}}" class="btn btn-outline-primary">Редактировать</a>
-                <a
-                    class="btn btn-secondary">
-                    Сформировать приказ</a>
+            <div class="d-flex">
+                <div class="mx-3">
+                    <a href="{{route('practices.edit', $practice->id)}}" class="btn btn-outline-primary">Редактировать</a>
+                </div>
+
+                <form action="{{route('order.generate', $practice->id)}}" method="post">
+                    @csrf
+                    <button     class="btn btn-secondary" type="submit">
+                        Сформировать приказ</button>
+                </form>
+
             </div>
         </div>
     </x-page-title>

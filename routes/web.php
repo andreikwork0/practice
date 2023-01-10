@@ -10,6 +10,7 @@ use App\Http\Controllers\Convention\ConventionInterface;
 use App\Http\Controllers\Convention\ConvFactory;
 use App\Http\Controllers\DistributionPracticeController;
 use App\Http\Controllers\GrnLetterController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\PremiseController;
 
@@ -45,6 +46,9 @@ Route::post('/logout', [\App\Http\Controllers\UserLoginLdap::class, 'logout'])->
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth'])->group( function (){
+
+
+
 
     Route::middleware('role:umu')->group(function (){
 
@@ -120,6 +124,8 @@ Route::middleware(['auth'])->group( function (){
     Route::put('/distribution_practices/{id}/pr_student', [PrStudentController::class, 'update'])->name('pr_student.update')
         ->middleware('role:umu,kaf');
 
+    Route::post('/practices/{id}/generate', [OrderController::class, 'generate'])->name('order.generate')
+        ->middleware('role:umu,kaf');
 
     Route::get('/ajax/pulpitbyedtype/{id}', [AjaxController::class, 'getPulptitByEdType']);
 });

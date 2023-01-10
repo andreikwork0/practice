@@ -14,6 +14,9 @@ class Practice extends Model
 //    protected $dateFormat = 'd.m.Y';
 
 
+    public function pulpit(){
+        return $this->belongsTo(Pulpit::class);
+    }
 
     public function dp(){
         return $this->hasMany(DistributionPractice::class);
