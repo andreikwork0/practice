@@ -85,7 +85,7 @@
                 @if ($col_stat_ss->count() > 0)
                     <div class="col-6">
                         <div class="d-flex  align-content-center mb-1">
-                            <h3 class="">Нередактируемые</h3>
+                            <h3 class="">Распределенные</h3>
                         </div>
                         @foreach($col_stat_ss as $ps)
                             <div>{{$ps->student->fio()}} -

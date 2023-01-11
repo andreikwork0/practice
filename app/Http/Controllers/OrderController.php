@@ -45,12 +45,13 @@ class OrderController extends Controller
 
 
             if($pr_studs){
+                $i = 1;
                 foreach ($pr_studs as $pr_stud){
                     $s = array();
                     $student = $pr_stud->student;
                     $org_name = '';
                     if ($student) {
-                        $s['s_fio'] = $student->fio();
+                        $s['s_fio'] = $i .'. '. $student->fio();
                         if($pr_stud->dp){
                             if ($pr_stud->dp->company){
                                 $org_name = $pr_stud->dp->company->name;
@@ -59,12 +60,14 @@ class OrderController extends Controller
                         $s['org_name'] = $org_name;
                     }
                     $studs[] = $s;
+                    $i++;
                 }
             }
             $docs->cloneRowAndSetValues('s_fio',$studs );
 
             $s = Setting::key_val();
             $docs->setValue('mng_job', $s['mng_job'] ?? 'XX-XX-XX');
+
             // фио short name
             $mng_name = $s['mng_fname'] ?? false;
             $mng_patronymic = $s['mng_mname'] ?? false;
