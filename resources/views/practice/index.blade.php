@@ -14,7 +14,7 @@
 
         @if($setting['is_dist_pr'] == 0)
             <div class="alert alert-danger">
-                <h2>В данный момен подача заявок остановлена</h2>
+                <h2>В данный момент подача заявок остановлена</h2>
             </div>
         @endif
         <div class="row">
