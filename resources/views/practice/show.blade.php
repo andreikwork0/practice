@@ -50,9 +50,14 @@
 
             </div>
 
+            @php
+                $setting = \App\Models\Setting::key_val();
+            @endphp
 
+            @if($setting['is_dist_pr'] <> 0)
                 <x-form.fieldgroup
                     title="Добавить распределение">
+
                     <form action="{{route('distribution_practices.store', $practice->id )}}" method="POST">
                         @csrf
                         <div class="d-flex align-content-center">
@@ -81,6 +86,8 @@
                         </div>
                     </form>
                 </x-form.fieldgroup>
+
+                @endif
 
 
 

@@ -39,8 +39,6 @@
                 <div class="row">
                     <div class="col-md-6">
                         <x-form.fieldgroup title="Практика">
-
-
                             <x-form.input
                                 required
                                 dfvalue="{{$practice->date_start}}"
@@ -48,15 +46,12 @@
                                 type="date"
 
                                 name="date_start"/>
-
                             <x-form.input
                                 dfvalue="{{$practice->date_end}}"
                                 required
                                 type="date"
                                 label="Дата окончания"
                                 name="date_end"/>
-
-
                             <x-form.select
                                 :options=$types
                                 required
