@@ -87,6 +87,10 @@
                     </form>
                 </x-form.fieldgroup>
 
+                @else
+                <div class="alert alert-danger">
+                    <h2>В данный момен подача заявок остановлена</h2>
+                </div>
                 @endif
 
 

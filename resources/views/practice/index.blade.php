@@ -8,6 +8,15 @@
 
 @section('content')
     <div class="container">
+        @php
+            $setting = \App\Models\Setting::key_val();
+        @endphp
+
+        @if($setting['is_dist_pr'] == 0)
+            <div class="alert alert-danger">
+                <h2>В данный момен подача заявок остановлена</h2>
+            </div>
+        @endif
         <div class="row">
             <div class="col-md-12">
                 <x-form.fieldgroup title="Фильтр">
