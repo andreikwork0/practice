@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use App\Models\EducationType;
 use App\Models\Practice;
+use App\Models\PracticeForm;
 use App\Models\PracticeType;
 use App\Models\Pulpit;
 use Illuminate\Http\Request;
@@ -130,7 +131,7 @@ class PracticeController extends Controller
             }
         }
 
-        return view('practice.edit', ['practice' =>  $practice, 'types' => PracticeType::all() ]);
+        return view('practice.edit', ['practice' =>  $practice, 'types' => PracticeType::all(), 'forms'     => PracticeForm::all() ]);
     }
 
     /**
@@ -155,7 +156,9 @@ class PracticeController extends Controller
         $request->validate([
             'date_start'        =>  'required|date',
             'date_end'          =>  'required|date|after_or_equal:date_start',
-            'practice_type_id'  => 'required'
+            'practice_type_id'  => 'required',
+            'practice_form_id'  => 'required',
+
         ]);
 
         $practice->update($request->all());

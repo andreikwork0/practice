@@ -39,7 +39,8 @@ return [
         'prs_job'                   =>  'Должность',
         'agr_type_id'               =>  'Тип договора',
         'conv_type_id'              => 'Тип доп соглашения',
-        'num_agreement'              => 'Номер договора'
+        'num_agreement'              => 'Номер договора',
+        'practice_form_id'          => 'Форма проведения'
 
 
     ],

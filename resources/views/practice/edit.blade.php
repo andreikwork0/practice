@@ -59,6 +59,14 @@
                                 name="practice_type_id"
                                 label="Тип практики"
                             />
+
+                            <x-form.select
+                                :options=$forms
+                                required
+                                dfvalue="{{$practice->practice_form_id}}"
+                                name="practice_form_id"
+                                label="Форма проведения"
+                            />
                         </x-form.fieldgroup>
                     </div>
 

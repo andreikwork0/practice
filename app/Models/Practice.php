@@ -14,6 +14,9 @@ class Practice extends Model
 //    protected $dateFormat = 'd.m.Y';
 
 
+    public function form(){
+        return $this->belongsTo(PracticeForm::class);
+    }
     public function pulpit(){
         return $this->belongsTo(Pulpit::class);
     }
