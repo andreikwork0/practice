@@ -69,6 +69,7 @@ class StudentImport
         from students_tmp as st_tmp left  join students on
                st_tmp.education_type_id = students.education_type_id
                and st_tmp.pers_kod = students.pers_kod
+              and st_tmp.kod_agr = students.kod_agr
         where students.name1 is null
         ";
 
@@ -81,6 +82,7 @@ class StudentImport
         "
         UPDATE students
         INNER JOIN   students_tmp as st_tmp  ON students.pers_kod = st_tmp.pers_kod and  st_tmp.education_type_id = students.education_type_id
+            and st_tmp.kod_agr = students.kod_agr
         SET
            students.kod_agr =  st_tmp.kod_agr,
            students.family      = st_tmp.family,
