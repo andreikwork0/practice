@@ -15,7 +15,7 @@ class Practice extends Model
 
 
     public function form(){
-        return $this->belongsTo(PracticeForm::class);
+        return $this->belongsTo(PracticeForm::class, 'practice_form_id', 'id');
     }
     public function pulpit(){
         return $this->belongsTo(Pulpit::class);

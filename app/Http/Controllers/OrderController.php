@@ -22,6 +22,16 @@ class OrderController extends Controller
 
             $docs = new  TemplateProcessor($path);
 //            $this->prepaireSettings($docs);
+            //производственная  - учебная
+
+            $pr_type = '_________';
+            if ($practice->type) {
+                if ($practice->type->id == 1) {
+                    $pr_type = 'учебная';
+                } else {
+                    $pr_type = 'производственная';
+                }
+            }
 
             $docs->setValue('spec', $practice->spec ?? 'XX-XX-XX');
             $docs->setValue('pr_name', $practice->name ?? 'XX-XX-XX');
@@ -30,6 +40,9 @@ class OrderController extends Controller
             $docs->setValue('depart_name', $practice->depart_name ?? 'XX-XX-XX');
             $docs->setValue('date_start', $practice->date_start ? date('d.m.Y', strtotime($practice->date_start)) : '__.__.__');
             $docs->setValue('date_end', $practice->date_end ? date('d.m.Y', strtotime($practice->date_end)) : '__.__.__');
+
+            $docs->setValue('pr_form', $practice->practice_form_id  ? $practice->form->name : '_______');
+            $docs->setValue('pr_type', $pr_type);
 
 
             $pulpit = $practice->pulpit;
