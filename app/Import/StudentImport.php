@@ -40,6 +40,14 @@ class StudentImport
 
         // синхронизация
         $this->toRealTableFromTmp();
+
+        DB::connection('mysql')->update("
+            update  students as s
+            inner join d_groups dg
+                on s.education_type_id = dg.education_type_id
+                and s.name_ar=dg.name
+           set s.name_ar = dg.parent_name
+        ");
     }
 
 
