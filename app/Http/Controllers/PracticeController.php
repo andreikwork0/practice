@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use App\Models\EducationType;
+use App\Models\OrgStructure;
 use App\Models\Practice;
 use App\Models\PracticeForm;
 use App\Models\PracticeType;
@@ -111,7 +112,10 @@ class PracticeController extends Controller
             }
         }
 
-        return view('practice.show', ['practice' =>  $practice, 'companies' => $companies ]);
+        $ors = new OrgStructure();
+
+
+        return view('practice.show', ['practice' =>  $practice, 'companies' => $companies, 'orgs' =>  $ors->getTree(282) ]);
     }
 
     /**

@@ -70,6 +70,16 @@
                                     name="company_id"
                                     label=""
                                 />
+
+                                <label for="">стр подразделения</label>
+                                <x-form.select
+                                    :options=$orgs
+                                    required
+                                    type="number"
+                                    name="company1_id"
+                                    label=""
+                                />
+
                             </div>
                             <div class="mx-3">
                                 <label for="">План мест</label>
