@@ -74,9 +74,9 @@
                                 <label for="">стр подразделения</label>
                                 <x-form.select
                                     :options=$orgs
-                                    required
+
                                     type="number"
-                                    name="company1_id"
+                                    name="org_structure_id"
                                     label=""
                                 />
 

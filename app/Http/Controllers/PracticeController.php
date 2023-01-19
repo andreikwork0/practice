@@ -112,10 +112,11 @@ class PracticeController extends Controller
             }
         }
 
-        $ors = new OrgStructure();
-
-
-        return view('practice.show', ['practice' =>  $practice, 'companies' => $companies, 'orgs' =>  $ors->getTree(282) ]);
+     //   $ors = new OrgStructureController();
+        return view('practice.show', ['practice' =>  $practice, 'companies' => $companies,
+        //    'orgs' =>  $ors->getTreeForSelect(3)
+            'orgs' =>  array()
+        ]);
     }
 
     /**

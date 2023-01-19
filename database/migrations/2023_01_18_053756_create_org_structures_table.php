@@ -19,6 +19,7 @@ class CreateOrgStructuresTable extends Migration
             $table->string('name_short')->nullable();
             $table->foreignId('company_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('org_structure_id')->nullable()->constrained('org_structures')->onUpdate('cascade')->onDelete('cascade');
+            $table->boolean('is_active')->default(1);
             $table->unique(['name', 'company_id', 'org_structure_id']);
             $table->timestamps();
         });
