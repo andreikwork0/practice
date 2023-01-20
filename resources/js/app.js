@@ -246,23 +246,24 @@ $(document).ready(function() {
 
         $('#company_id').on('select2:select', function (e) {
 
+            $('#org_s_wrap').hide()
             var data = e.params.data;
             var orgStuctureSelect =    $('#org_structure_id');
             orgStuctureSelect.val(null).trigger('change');
             $('#org_structure_id option').remove();
 
-
             let bui = $('#company_id').val()
-
-            console.log(bui)
             axios({
                 method: 'get',
-                url: '/api/org_str/search?company='+bui,
+                    url: '/api/org_str/search?company='+bui,
                 responseType: 'stream'
             })
                 .then(function (response) {
                     //data1 = JSON.parse( response.data)
                     orgs_ss = response.data.results
+                    if (orgs_ss.length > 0) {
+                        $('#org_s_wrap').show()
+                    }
                     orgs_ss.forEach((orgs_s) => {
                         var option = new Option(orgs_s.name, orgs_s.id, false, false);
                         orgStuctureSelect.append(option).trigger('change');
@@ -270,21 +271,6 @@ $(document).ready(function() {
                     orgStuctureSelect.val(null).trigger('change');
                 });
         });
-        // $('#org_structure_id').select2({
-        //     ajax: {
-        //         url: '/api/org_str/search',
-        //         delay: 250,
-        //         dataType: 'json',
-        //         data: function (params) {
-        //             var query = {
-        //                 search: params.term,
-        //                 company: $('#company_id').val()
-        //             }
-        //             // Query parameters will be ?search=[term]&type=public
-        //             return query;
-        //         }
-        //     }
-        // });
     }
     catch (e) {
         console.log(e.message)

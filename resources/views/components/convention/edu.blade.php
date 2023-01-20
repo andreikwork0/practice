@@ -22,6 +22,7 @@
                 <th scope="col">
                     <button class="btn btn-success dp_inc_al" type="button">Выбрать все</button>
                 </th>
+                <th scope="col"> Подразделение</th>
                 <th scope="col">Специальность
                 </th>
                 <th scope="col">Группа</th>
@@ -43,6 +44,11 @@
                             label="Включено"
                             dfvalue="{{ intval(boolval($dpr->convention_id == $convention->id))}}"
                             name="dp[{{$dpr->id}}][convention]"/>
+                    </td>
+                    <td>
+                        @if($dpr->org_structure)
+                            <span>{{$dpr->org_structure->name_short}}</span>
+                        @endif
                     </td>
                     <td style="width: 250px" > {{$dpr->practice->spec}} </td>
                     <td  style="width: 100px"> {{$dpr->practice->agroup}} </td>

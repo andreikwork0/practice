@@ -11,11 +11,11 @@
                     <a href="{{route('practices.edit', $practice->id)}}" class="btn btn-outline-primary">Редактировать</a>
                 </div>
 
-{{--                <form action="{{route('order.generate', $practice->id)}}" method="post">--}}
-{{--                    @csrf--}}
-{{--                    <button     class="btn btn-secondary" type="submit">--}}
-{{--                        Сформировать приказ</button>--}}
-{{--                </form>--}}
+                <form action="{{route('order.generate', $practice->id)}}" method="post">
+                    @csrf
+                    <button     class="btn btn-secondary" type="submit">
+                        Сформировать приказ</button>
+                </form>
 
             </div>
         </div>
@@ -71,14 +71,6 @@
                                     label=""
                                 />
 
-                                <label for="">стр подразделения</label>
-                                <x-form.select
-                                    :options=$orgs
-
-                                    type="number"
-                                    name="org_structure_id"
-                                    label=""
-                                />
 
                             </div>
                             <div class="mx-3">
@@ -93,6 +85,15 @@
                             <div class="my-auto mx-3">
                                 <button type="submit" class="btn btn-primary mt-3 mx-3">Добавить</button>
                             </div>
+                        </div>
+                        <div style="display: none" id="org_s_wrap">
+                            <label for="">Структурное подразделения</label>
+                            <x-form.select
+                                :options=$orgs
+                                type="number"
+                                name="org_structure_id"
+                                label=""
+                            />
                         </div>
                     </form>
                 </x-form.fieldgroup>

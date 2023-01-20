@@ -28,8 +28,14 @@
                         <td>
                             @if($dpActiveId  == $dp->id)
                                 <b>{{$dp->company->name}}</b>
+                                @if($dp->org_structure)
+                                    <span>({{$dp->org_structure->name_short}})</span>
+                                @endif
                             @else
                                 {{$dp->company->name}}
+                                @if($dp->org_structure)
+                                    <span>({{$dp->org_structure->name_short}})</span>
+                                @endif
                             @endif
                         </td>
                         <td class="text-center">
@@ -58,7 +64,7 @@
                                     />
                                 @endif
                                 @if ($dp->num_fact > 0 && $dpActiveId != $dp->id)
-{{--                                    <a class="btn btn-outline-primary" href="{{route('pr_student.edit', $dp->id)}}">По студентам</a>--}}
+                                    <a class="btn btn-outline-primary" href="{{route('pr_student.edit', $dp->id)}}">По студентам</a>
                                 @endif
                             </div>
                         </td>

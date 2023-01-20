@@ -68,6 +68,12 @@ class OrderController extends Controller
                         if($pr_stud->dp){
                             if ($pr_stud->dp->company){
                                 $org_name = $pr_stud->dp->company->name;
+
+                                if ($pr_stud->dp->org_structure){
+                                    $org_name .= '(' .$pr_stud->dp->org_structure->name_short .')';
+                                }
+
+
                             }
                         }
                         $s['org_name'] = $org_name;

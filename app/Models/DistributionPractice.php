@@ -21,6 +21,10 @@ class DistributionPractice extends Model
         });
     }
 
+    public function org_structure(){
+        return $this->belongsTo(OrgStructure::class);
+    }
+
     public function pr_students(){
         return $this->hasMany(PrStudent::class);
     }
