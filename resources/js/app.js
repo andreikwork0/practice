@@ -18,6 +18,8 @@ require('suggestions-jquery')
 $(document).ready(function() {
 
 
+
+
     // логика для /distribution_practices/{id}/pr_student
     try {
 
@@ -25,13 +27,9 @@ $(document).ready(function() {
 
             //console.log(e.target)
            let n_count = $("#col_edit_ss input:checked").length
-
             let n_fact = $('#dp_num_fact')[0].innerHTML;
-
            $('#c_s_dp')[0].innerHTML = n_count;
-
            // if  (n_fact > n_count)
-
            // console.log(n_fact)
         });
 
@@ -241,6 +239,40 @@ $(document).ready(function() {
             }
         });
     } catch (e) {
+        console.log(e.message)
+    }
+
+    try {
+
+        $('#company_id').on('select2:select', function (e) {
+
+            $('#org_s_wrap').hide()
+            var data = e.params.data;
+            var orgStuctureSelect =    $('#org_structure_id');
+            orgStuctureSelect.val(null).trigger('change');
+            $('#org_structure_id option').remove();
+
+            let bui = $('#company_id').val()
+            axios({
+                method: 'get',
+                    url: '/api/org_str/search?company='+bui,
+                responseType: 'stream'
+            })
+                .then(function (response) {
+                    //data1 = JSON.parse( response.data)
+                    orgs_ss = response.data.results
+                    if (orgs_ss.length > 0) {
+                        $('#org_s_wrap').show()
+                    }
+                    orgs_ss.forEach((orgs_s) => {
+                        var option = new Option(orgs_s.name, orgs_s.id, false, false);
+                        orgStuctureSelect.append(option).trigger('change');
+                    });
+                    orgStuctureSelect.val(null).trigger('change');
+                });
+        });
+    }
+    catch (e) {
         console.log(e.message)
     }
 });

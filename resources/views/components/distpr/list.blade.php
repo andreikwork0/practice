@@ -28,8 +28,14 @@
                         <td>
                             @if($dpActiveId  == $dp->id)
                                 <b>{{$dp->company->name}}</b>
+                                @if($dp->org_structure)
+                                    <span>({{$dp->org_structure->name_short}})</span>
+                                @endif
                             @else
                                 {{$dp->company->name}}
+                                @if($dp->org_structure)
+                                    <span>({{$dp->org_structure->name_short}})</span>
+                                @endif
                             @endif
                         </td>
                         <td class="text-center">

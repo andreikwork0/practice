@@ -70,6 +70,8 @@
                                     name="company_id"
                                     label=""
                                 />
+
+
                             </div>
                             <div class="mx-3">
                                 <label for="">План мест</label>
@@ -83,6 +85,15 @@
                             <div class="my-auto mx-3">
                                 <button type="submit" class="btn btn-primary mt-3 mx-3">Добавить</button>
                             </div>
+                        </div>
+                        <div style="display: none" id="org_s_wrap">
+                            <label for="">Структурное подразделения</label>
+                            <x-form.select
+                                :options=$orgs
+                                type="number"
+                                name="org_structure_id"
+                                label=""
+                            />
                         </div>
                     </form>
                 </x-form.fieldgroup>

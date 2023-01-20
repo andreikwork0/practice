@@ -6,6 +6,9 @@
     <x-page-title>
         <div class="d-flex justify-content-between align-content-center">
             Студенты на практику в {{$dp->company->name}}
+            @if($dp->org_structure)
+                <span>({{$dp->org_structure->name_short}})</span>
+            @endif
             <div>
                  <a class="btn btn-outline-primary px-5" href="{{route('practices.show', $dp->practice->id)}}"> &larr; Назад</a>
             </div>
@@ -36,7 +39,10 @@
             <hr>
             <div class="my-3">
                 <h2>
-                     {{$dp->company->name}}
+                    {{$dp->company->name}}
+                    @if($dp->org_structure)
+                        <span>({{$dp->org_structure->name_short}})</span>
+                    @endif
                 </h2>
 {{--                <h3> Количество  мест  </h3>--}}
                 <div class="d-flex">
@@ -89,7 +95,12 @@
                         </div>
                         @foreach($col_stat_ss as $ps)
                             <div>{{$ps->student->fio()}} -
-                                <a href="{{route('pr_student.edit', $ps->dp->id)}}">         {{$ps->dp->company->name}}</a>
+                                <a href="{{route('pr_student.edit', $ps->dp->id)}}">
+                                    {{$ps->dp->company->name}}
+                                    @if($ps->dp->org_structure)
+                                        <span>({{$ps->dp->org_structure->name_short}})</span>
+                                    @endif
+                                </a>
 
                                 <br></div>
                         @endforeach

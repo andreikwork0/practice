@@ -132,6 +132,9 @@ Route::middleware(['auth'])->group( function (){
 
 
 
+Route::get('/api/org_str/search', [\App\Http\Controllers\OrgStructureController::class, 'getTreeForSelect']);
+
+
 Route::get('/api/companies/search', function (){
     $collection  =   \App\Models\Company::filter(request(['search']))->select('id', 'name')->orderBy('name')->paginate(10);
 
