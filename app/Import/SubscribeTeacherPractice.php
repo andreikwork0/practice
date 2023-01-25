@@ -39,6 +39,19 @@ class SubscribeTeacherPractice
 
     private function import($connection, $ed_type){
          $practices = Practice::query()->filter(['pr_state' => 'n', 'ed_type' => $ed_type])->get(); // 'n'  и  с текущим годом
+
+        $year_learning = YearLearning::activeYear();
+
+        $years = explode('-', $year_learning->year );
+
+        if ($ed_type ==  1) {
+            //$day_sql = "pp.day as day,";
+            $id_year_learning = $year_learning->l_id_vo;
+        } else{
+            //$day_sql = "";
+            $id_year_learning = $year_learning->l_id_spo;
+        }
+
         foreach ($practices as $practice) {
             $sql ="
             select * from (
@@ -55,32 +68,37 @@ class SubscribeTeacherPractice
                                        inner join `groups` as g on load_group_and_row.id_group = g.id
                               where
                                 ld.type = 'p'
-                                and ld.id_year_learning=".$practice->year_learning_id."
+                                and ld.id_year_learning=".$id_year_learning."
                                 and deleted = 0
                               group by agroup,  name_discipline,  semester,  course,  id_pulpit, id_teacher
                           ) as q
 
             where
-                  -- ( name like 'Учеб%'  or name  like 'Произ%'  or  name  like '%практик%')
-                 name       = ".$practice->name." and
+
+                 name       = '".$practice->name."' and
                  course     = ".$practice->course." and
-                 agroup     = ".$practice->agroup." and
+                 agroup     = '".$practice->agroup."' and
                  semester   = ".$practice->semester."  and
                  id_pulpit  = ".$practice->pulpit->l_pulpit_id."
             ";
 
 
-            $t_ps = DB::connection($connection)->select($sql);
-            foreach ($t_ps as $t_p){
 
-                $teacher = Teacher::where( 'id_teacher',  '=', $t_p->id_teacher)
+            $t_ps = DB::connection($connection)->select($sql);
+            $t_s_arr = array();
+
+            foreach ($t_ps as $t_p){
+                $teacher = Teacher::where( 'l_id',  '=', $t_p->id_teacher)
                                   ->where( 'pulpit_id',  '=', $practice->pulpit->id  )->get();
+
+
                 if ($teacher->count() > 0) {
                     $teacher = $teacher->first();
+                    $t_s_arr[$teacher->id] = array('contingent' => $t_p->contingent);
                 }
-
-
             }
+
+            $practice->teachers()->sync($t_s_arr, false);
 
         }
 

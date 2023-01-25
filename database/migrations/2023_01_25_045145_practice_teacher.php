@@ -19,10 +19,10 @@ class PracticeTeacher extends Migration
 
         Schema::create('practice_teacher', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('practice_id');
-            $table->foreignId('teacher_id');
+            $table->foreignId('practice_id')->constrained('practices')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('teacher_id')->constrained('teachers')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('contingent');
-            $table->unique('practice_id', 'teacher_id');
+            $table->unique(['practice_id', 'teacher_id']);
             $table->timestamps();
         });
 

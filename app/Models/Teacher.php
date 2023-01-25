@@ -10,4 +10,9 @@ class Teacher extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function practices()
+    {
+        return $this->belongsToMany(Practice::class, 'practice_teacher');
+    }
 }

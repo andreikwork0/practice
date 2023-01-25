@@ -28,7 +28,7 @@ class CreateTeachersTable extends Migration
             $table->string('type');
             $table->string('post');
 
-            $table->unique('l_id', 'pulpit_id');
+            $table->unique(['l_id', 'pulpit_id']);
             $table->timestamps();
 
         });

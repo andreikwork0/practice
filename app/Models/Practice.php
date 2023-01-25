@@ -13,6 +13,11 @@ class Practice extends Model
 //
 //    protected $dateFormat = 'd.m.Y';
 
+    public function teachers()
+    {
+        return $this->belongsToMany(Teacher::class, 'practice_teacher')->withPivot(['contingent']);
+    }
+
 
     public function form(){
         return $this->belongsTo(PracticeForm::class, 'practice_form_id', 'id');
@@ -41,6 +46,7 @@ class Practice extends Model
     public function students_gr(){
         return $this->hasMany(Student::class, 'name_ar', 'agroup');
     }
+
 
 
 
