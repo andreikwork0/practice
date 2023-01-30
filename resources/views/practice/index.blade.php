@@ -8,6 +8,36 @@
 
 @section('content')
     <div class="container">
+
+
+
+{{--        window.$vm.data.options = [--}}
+{{--        {--}}
+{{--        id: '1',--}}
+{{--        label: 'Институт х',--}}
+{{--        children: [{--}}
+{{--        id: '2',--}}
+{{--        label: 'Кафедра н'--}}
+
+{{--        }]--}}
+
+{{--        }--}}
+{{--        ]--}}
+{{--        window.$vm.data.value = null--}}
+{{--        не сбросилось--}}
+{{--        <input type="hidden" name="organization_id" value="6">--}}
+
+{{--        <div class="result">@{{ value }}</div>--}}
+{{--        <treeselect v-model="value" :multiple="false" :options="options"   :show-count="false">--}}
+{{--                <label slot="option-label" slot-scope="{ node, shouldShowCount, count, labelClassName, countClassName }" :class="labelClassName">--}}
+{{--                    @{{ node.label }} - Description: @{{ node.raw.desc }}--}}
+{{--                </label>--}}
+{{--        </treeselect>--}}
+{{--        <label slot="option-label" slot-scope="{ node, shouldShowCount, count, labelClassName, countClassName }" :class="labelClassName">--}}
+{{--            @{{ node.label }} - Description: @{{ node.raw.desc }}--}}
+{{--        </label>--}}
+
+
         @php
             $setting = \App\Models\Setting::key_val();
         @endphp

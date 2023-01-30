@@ -86,14 +86,25 @@
                                 <button type="submit" class="btn btn-primary mt-3 mx-3">Добавить</button>
                             </div>
                         </div>
-                        <div style="display: none" id="org_s_wrap">
+                        <div
+                            v-show="tv_options.length > 0 "
+                            id="org_s_wrap">
                             <label for="">Структурное подразделения</label>
-                            <x-form.select
-                                :options=$orgs
-                                type="number"
-                                name="org_structure_id"
-                                label=""
-                            />
+                            <treeselect
+                                placeholder="Выберите"
+                                :options="tv_options"
+                                v-model="tv_value"
+                                search-nested
+                                :show-count="true"
+                                :default-expand-level="0"
+                                :multiple="false"  >
+                                <div slot="value-label" slot-scope="{ node }">@{{ node.raw.id }}</div>
+                                <label slot="option-label" slot-scope="{ node, shouldShowCount, count, labelClassName, countClassName }" :class="labelClassName">
+                                    @{{ node.isBranch ? 'Branch' : 'Leaf' }}: @{{ node.label }}
+                                    <span v-if="shouldShowCount" :class="countClassName">( @{{ count }})</span>
+                                </label>
+                            </treeselect>
+                            <input v-model="tv_value" name="org_structure_id" hidden>
                         </div>
                     </form>
                 </x-form.fieldgroup>

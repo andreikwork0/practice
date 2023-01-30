@@ -10,6 +10,31 @@ class OrgStructureController extends Controller
 
 
 
+    public function index()
+    {
+
+    }
+
+    public function create(Request $request)
+    {
+
+
+    }
+
+    public function store()
+    {
+
+    }
+
+    public function edit()
+    {
+
+    }
+
+    public function update()
+    {
+
+    }
 
     public  function getTreeForSelect(Request  $request)
     {
@@ -18,14 +43,14 @@ class OrgStructureController extends Controller
 
         if ($elements->count() > 0) {
             $tree = $this->buildTree($elements);
-            $this->draw($tree, $arr);
+           // $this->draw($tree, $arr);
         }
 
 
-        $col = \Illuminate\Support\Collection::make($arr);
+        //$col = \Illuminate\Support\Collection::make($arr);
         return response()->json(
             [
-                'results' =>    $col ?? '',
+                'results' =>    $tree ?? '',
                 // "pagination" => ["more" =>  $col->count() ? true : false ]
             ]
         );
@@ -39,8 +64,10 @@ class OrgStructureController extends Controller
         foreach ($data as $id => $node) {
             if ($node->org_structure_id == $parent_id ) {
                 unset($data[$id]);
+                $node->label = $node->name;
                 $node->level= $level;
-                $node->childs = $this->buildTree($data, $node->id, $level);
+                $children = $this->buildTree($data, $node->id, $level);
+                if ($children)  $node->children = $children;
                 $tree[] = $node;
             }
         }
@@ -54,7 +81,7 @@ class OrgStructureController extends Controller
             $item->id = $el->id;
             $item->name =   str_repeat('—', 1 * ($el->level - 1) ). $el->name;
             $arr[] = $item;
-            if($el->childs) {
+            if($el->children) {
                 $this->draw($el->childs, $arr);
             }
         }

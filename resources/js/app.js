@@ -5,13 +5,32 @@ require('select2')
 require('suggestions-jquery')
 
 // In your Javascript (external .js resource or <script> tag)
-
-//
-// import { createApp } from 'vue'
-// const app = createApp({})
+ import { createApp } from 'vue'
+ const app = createApp({
+     created() {
+         window.addEventListener('updateTv', (event) => {
+             console.log(event.detail)
+             this.tv_value = null
+             this.tv_options = event.detail
+         });
+     },
+     data() {
+         return {
+             tv_value: null,
+             // define options
+             tv_options: [],
+         }
+     }
+ })
 // import pr_students from './components/PrStudents.vue';
 // app.component('pr_students', pr_students)
-// app.mount('#app')
+import Treeselect from 'vue3-treeselect'
+// import the styles
+import 'vue3-treeselect/dist/vue3-treeselect.css'
+ app.component('treeselect', Treeselect)
+ app.mount('#app')
+
+console.log(app._props)
 
 
 
@@ -107,6 +126,7 @@ $(document).ready(function() {
 
         let checkboxs =  $(this).closest('table').find("input[type='checkbox']")
         checkboxs.each(function (){
+            let checkbox;
             checkbox = $(this);
             checkbox.attr("checked", !checkbox.attr("checked"))
         })
@@ -157,6 +177,7 @@ $(document).ready(function() {
                 responseType: 'stream'
             })
             .then(function (response) {
+                let pulpits;
                 pulpits = JSON.parse(response.data.data)
                 pulpits.forEach((pulpit) => {
                     var option = new Option(pulpit.name, pulpit.id, false, false);
@@ -185,11 +206,13 @@ $(document).ready(function() {
             type: "PARTY",
             /* Вызывается, когда пользователь выбирает одну из подсказок */
             onSelect: function(suggestion) {
-                data = suggestion.data;
+                let data = suggestion.data;
                  console.log(data)
 
-                if (data.name){
+                let name;
+                if (data.name) {
                     name = data.name.full_with_opf
+                    let short_with_opf;
                     short_with_opf = data.name.short_with_opf
                     if (name) {
                         $('#name_full').val(name);
@@ -199,6 +222,7 @@ $(document).ready(function() {
                     }
                 }
                 if (data.address) {
+                    let address;
                     address = data.address.unrestricted_value;
                     if (address) {
                         $('#legal_adress').val(address);
@@ -206,8 +230,9 @@ $(document).ready(function() {
                 }
 
 
-
+                let inn;
                 inn = data.inn;
+                let kpp;
                 kpp = data.kpp;
 
                 if (inn) {
@@ -221,7 +246,9 @@ $(document).ready(function() {
 
                 if (data.management){
                     if (data.management.name) {
+                        let mng_f_name;
                         mng_f_name = data.management.name
+                        let mng_arr;
                         mng_arr = mng_f_name.split(" ")
                         $('#mng_surname').val(mng_arr[0]);
                         $('#mng_name').val(mng_arr[1]);
@@ -230,6 +257,7 @@ $(document).ready(function() {
                         }
                     }
                     if (data.management.post) {
+                        let mng_post;
                         mng_post = data.management.post
                         $('#mng_job').val(mng_post);
                     }
@@ -244,13 +272,22 @@ $(document).ready(function() {
 
     try {
 
-        $('#company_id').on('select2:select', function (e) {
+        $('#company_id').on('select2:select', function () {
 
-            $('#org_s_wrap').hide()
-            var data = e.params.data;
-            var orgStuctureSelect =    $('#org_structure_id');
-            orgStuctureSelect.val(null).trigger('change');
-            $('#org_structure_id option').remove();
+            // console.log(window)
+
+            // $('#org_s_wrap').hide()
+            // var data = e.params.data;
+
+            //
+            // window.$vm.data.tv_options = []
+            // window.$vm.data.tv_value = null
+
+            window.dispatchEvent(new CustomEvent("updateTv", { "detail": [] } ) )
+
+            // var orgStuctureSelect =    $('#org_structure_id');
+            // orgStuctureSelect.val(null).trigger('change');
+            // $('#org_structure_id option').remove();
 
             let bui = $('#company_id').val()
             axios({
@@ -259,16 +296,19 @@ $(document).ready(function() {
                 responseType: 'stream'
             })
                 .then(function (response) {
+                    let orgs_ss
                     //data1 = JSON.parse( response.data)
                     orgs_ss = response.data.results
                     if (orgs_ss.length > 0) {
-                        $('#org_s_wrap').show()
+                        //$('#org_s_wrap').show()
+                        window.dispatchEvent(new CustomEvent("updateTv", { "detail": orgs_ss } ) )
+                        //window.$vm.data.tv_options = orgs_ss
                     }
-                    orgs_ss.forEach((orgs_s) => {
-                        var option = new Option(orgs_s.name, orgs_s.id, false, false);
-                        orgStuctureSelect.append(option).trigger('change');
-                    });
-                    orgStuctureSelect.val(null).trigger('change');
+                    // orgs_ss.forEach((orgs_s) => {
+                    //     var option = new Option(orgs_s.name, orgs_s.id, false, false);
+                    //     orgStuctureSelect.append(option).trigger('change');
+                    // });
+                    // orgStuctureSelect.val(null).trigger('change');
                 });
         });
     }
