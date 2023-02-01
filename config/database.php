@@ -151,6 +151,21 @@ return [
             'trust_server_certificate' => true,
         ],
 
+        'shtat_sqlsrv' => [
+            'driver' => 'sqlsrv',
+            'url' => env('DB_URL_SHTAT'),
+            'host' => env('DB_HOST_SHTAT', 'localhost'),
+            'port' => env('DB_PORT_SHTAT', '1433'),
+            'database' => env('DB_DATABASE_SHTAT', 'forge'),
+            'username' => env('DB_USERNAME_SHTAT', 'forge'),
+            'password' => env('DB_PASSWORD_SHTAT', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'trust_server_certificate' => true,
+        ],
+
+
         'sqlsrv' => [
             'driver' => 'sqlsrv',
             'url' => env('DATABASE_URL'),

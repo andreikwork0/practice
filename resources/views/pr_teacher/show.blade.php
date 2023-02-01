@@ -16,13 +16,8 @@
 @endsection
 
 @section('content')
-
-
         <div class="container">
             <x-practice.header :practice=$practice></x-practice.header>
-
-
-
             @if($teachers->count() > 0)
                 <table class="table  border table-striped">
                 <thead>
@@ -30,11 +25,7 @@
                     <th style="" scope="col">ФИО</th>
                     <th scope="col" class="text-center">Контингет</th>
                     <th scope="col" class="text-center">Должность</th>
-
                     <th scope="col" class="text-center">Пост</th>
-
-
-
                 </tr>
                 </thead>
                 <tbody>
@@ -53,8 +44,6 @@
                         <td  class="text-center">
                             {{$t->type}}
                         </td>
-
-
                     </tr>
                 @endforeach
 
@@ -63,8 +52,6 @@
             @else
                 <p>Упс кажется по этой практике нет данных по преподавателям</p>
             @endif
-
-
     </div>
 @endsection
 

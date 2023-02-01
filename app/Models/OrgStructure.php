@@ -22,8 +22,11 @@ class OrgStructure extends Model
 
 
         $query->when($filters['company'] ?? false, function($query, $company){
+            $com1 = Company::findOrFail($company);
+            $version = $com1->org_structure_version;
             $query->where( fn($query) =>
-            $query->where('company_id', '=', $company)
+                $query->where('company_id', '=', $company)
+                    ->where('version', '=', $version)
             );
         });
     }

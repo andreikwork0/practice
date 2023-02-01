@@ -77,6 +77,12 @@
                                 dfvalue="{{$company->country_id}}"
                                 label="Страна"
                             />
+
+                            <x-form.input
+                                dfvalue="{{$company->org_structure_version}}"
+                                label="Версия орг структуры"
+                                disabled
+                                name="org_structure_version"/>
                         </x-form.fieldgroup>
                     </div>
                     <div class="col-md-5">

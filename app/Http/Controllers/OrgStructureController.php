@@ -65,7 +65,7 @@ class OrgStructureController extends Controller
             if ($node->org_structure_id == $parent_id ) {
                 unset($data[$id]);
                 $node->label = $node->name;
-                $node->level= $level;
+                $node->isDisabled= $node->is_disabled == 1 ? true : false;
                 $children = $this->buildTree($data, $node->id, $level);
                 if ($children)  $node->children = $children;
                 $tree[] = $node;
