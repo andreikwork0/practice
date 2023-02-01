@@ -14,24 +14,7 @@
 
 
         <div class="container">
-            <h2 class="mb-3">{{$practice->name}}</h2>
-            <h5 class="mb-3">{{$practice->agroup}} -  {{$practice->spec}}</h5>
-
-
-
-            <div class="d-flex">
-                <p >Контингент: {{$practice->contingent}} </p>
-{{--                @if($practice->day)--}}
-{{--                    <p class="mx-3">Длительность: {{$practice->day ?? '-'}} дней </p>--}}
-{{--                @elseif($practice->week)--}}
-{{--                    <p class="mx-3">Длительность:   {{$practice->week ?? '-'}} недель</p>--}}
-{{--                @endif--}}
-                <p class="mx-3">Курс:   {{$practice->course }}</p>
-                <p class="mx-3">Семестр:   {{$practice->semester }}</p>
-            </div>
-
-
-
+            <x-practice.header :practice=$practice></x-practice.header>
 
             <form action="{{route('practices.update', $practice->id)}}" method="post">
                 @csrf

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Practice;
 use App\Models\Setting;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpWord\TemplateProcessor;
@@ -11,6 +12,17 @@ use PhpOffice\PhpWord\TemplateProcessor;
 class OrderController extends Controller
 {
     //
+
+
+    private function teacherShort(Teacher $teacher){
+
+        // фио short name
+        $name = $teacher->firstname ?? false;
+        $patronymic = $teacher->lastname ?? false;
+        $fio_short =  ( $teacher->surname?? '') . ' '. ($name ? mb_substr($name, 0, 1, "UTF-8") .'.' : '') .  ($patronymic ? mb_substr($patronymic, 0, 1, "UTF-8") .'.' : '') ;
+
+        return $fio_short . ' '. ($teacher->post ? mb_strtolower( $teacher->post, "UTF-8") : '');
+    }
 
     public function generate($id)
     {
@@ -51,8 +63,8 @@ class OrderController extends Controller
             } else {
                 $pulpit_name = '';
             }
-            $docs->setValue('pulpit_name',$pulpit_name );
 
+            $docs->setValue('pulpit_name',$pulpit_name );
             $studs = array();
             $pr_studs = $practice->pr_students()->orderBy('distribution_practice_id')->get() ?? false;
 
@@ -83,6 +95,24 @@ class OrderController extends Controller
                 }
             }
             $docs->cloneRowAndSetValues('s_fio',$studs );
+
+            $teachers = $practice->teachers;
+            $t_str = '';
+            foreach ($teachers as $teacher){
+                $t_str .= $this->teacherShort($teacher) .', ';
+            }
+
+            if ($t_str) {
+                $t_str =  rtrim($t_str, ", ");
+            }
+
+
+
+            $docs->setValue('teacher_str',$t_str. ' '. $pulpit_name );
+
+            $fio_user = auth()->user()->name  ?? '';
+
+            $docs->setValue('fio_user', $fio_user);
 
             $s = Setting::key_val();
             $docs->setValue('mng_job', $s['mng_job'] ?? 'XX-XX-XX');

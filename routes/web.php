@@ -103,6 +103,10 @@ Route::middleware(['auth'])->group( function (){
     });
 
 
+    Route::get('/practices/{id}/teachers/', [\App\Http\Controllers\PracticeTeacherController::class ,'show'])
+        ->name('pr_teacher.list')
+        ->middleware('role:umu,kaf');
+
 
     Route::resource('distribution_practices',   DistributionPracticeController::class)
         ->except([

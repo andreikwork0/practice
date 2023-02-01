@@ -38,7 +38,7 @@ class OrgStructureController extends Controller
 
     public  function getTreeForSelect(Request  $request)
     {
-        $elements = OrgStructure::filter(request(['company']))->get();
+        $elements = OrgStructure::filter(request(['company']))->orderBy('name')->get();
         $arr = array();
 
         if ($elements->count() > 0) {

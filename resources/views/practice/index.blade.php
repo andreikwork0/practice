@@ -151,6 +151,10 @@
 
                     <td class="">
                         <div class="d-flex justify-content-end">
+
+                            @if($practice->date_start)
+                                <a class="p-2 mx-1" target="_blank"  href="{{route('pr_teacher.list', $practice->id)}}">@svg('people-fill', 'w-30 h-6 text-dark icon-index')</a>
+                            @endif
                             @if($practice->date_start)
                               <a class="p-2 mx-1" target="_blank"  href="{{route('practices.show', $practice->id)}}">@svg('eye', 'w-30 h-6 text-dark icon-index')</a>
                             @endif

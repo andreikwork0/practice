@@ -11,6 +11,14 @@ class Teacher extends Model
 
     protected $guarded = [];
 
+    public function fio(){
+        return $this->surname .' ' . $this->firstname . ' ' . ($this->lastname ?? '');
+    }
+
+
+
+
+
     public function practices()
     {
         return $this->belongsToMany(Practice::class, 'practice_teacher');
