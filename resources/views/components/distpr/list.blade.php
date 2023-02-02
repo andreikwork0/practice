@@ -64,7 +64,7 @@
                                     />
                                 @endif
                                 @if ($dp->num_fact > 0 && $dpActiveId != $dp->id)
-{{--                                    <a class="btn btn-outline-primary" href="{{route('pr_student.edit', $dp->id)}}">По студентам</a>--}}
+                                    <a class="btn btn-outline-primary" href="{{route('pr_student.edit', $dp->id)}}">По студентам</a>
                                 @endif
                             </div>
                         </td>
