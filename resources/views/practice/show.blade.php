@@ -11,11 +11,11 @@
                     <a href="{{route('practices.edit', $practice->id)}}" class="btn btn-outline-primary">Редактировать</a>
                 </div>
 
-{{--                <form action="{{route('order.generate', $practice->id)}}" method="post">--}}
-{{--                    @csrf--}}
-{{--                    <button     class="btn btn-secondary" type="submit">--}}
-{{--                        Сформировать приказ</button>--}}
-{{--                </form>--}}
+                <form action="{{route('order.generate', $practice->id)}}" method="post">
+                    @csrf
+                    <button     class="btn btn-secondary" type="submit">
+                        Сформировать приказ</button>
+                </form>
 
             </div>
         </div>
