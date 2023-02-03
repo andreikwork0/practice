@@ -45,7 +45,20 @@ class OrderController extends Controller
                 }
             }
 
-            $docs->setValue('spec', $practice->spec ?? 'XX-XX-XX');
+            $spec = $practice->spec;
+
+            if ($spec ){
+                if (strpos($spec, '.05.')) {
+                    $prev_spec = 'специальности';
+                } else {
+                    $prev_spec = 'направления подготовки';
+                }
+                $spec = $prev_spec . ' '. $spec;
+            } else  {
+                $spec = 'XX-XX-XX';
+            }
+
+            $docs->setValue('spec', $spec);
             $docs->setValue('pr_name', $practice->name ?? 'XX-XX-XX');
             $docs->setValue('course', $practice->course ?? 'XX');
             $docs->setValue('agroup', $practice->agroup ?? 'XX-XX-XX');

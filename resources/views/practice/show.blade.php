@@ -93,14 +93,9 @@
                 </div>
                 @endif
 
-
-
-
             <x-distpr.list
                 contingent="{{$practice->contingent}}"
                 :dps="$practice->dp"></x-distpr.list>
-
-
 
     </div>
 @endsection
