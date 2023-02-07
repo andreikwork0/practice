@@ -5,7 +5,8 @@
 @section('page-title')
     <x-page-title>
         <div class="d-flex justify-content-between align-content-center">
-            Распределение практики по преподавателям
+                  Распределение контингента студентов <br>
+                  по руководителям практики
             <div class="d-flex">
                 <div class="mx-3">
                     <a href="{{route('practices.edit', $practice->id)}}" class="btn btn-outline-primary">Редактировать</a>

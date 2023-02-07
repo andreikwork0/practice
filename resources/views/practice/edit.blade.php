@@ -5,7 +5,7 @@
 @section('page-title')
     <x-page-title>
         <div class="d-flex justify-content-between align-content-center">
-            Редактировать практику
+            Изменение характеристик практики
         </div>
     </x-page-title>
 @endsection

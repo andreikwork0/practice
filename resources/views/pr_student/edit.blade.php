@@ -52,7 +52,7 @@
 
                             <div
                                 class="d-flex  align-content-center mb-1">
-                                <h3 class="">Редактируемые</h3>
+                                <h3 class="">Доступные для выбора</h3>
                             </div>
 
                             @foreach($col_edit_ss as $ps)
@@ -75,7 +75,7 @@
                 @if ($col_stat_ss->count() > 0)
                     <div class="col-6">
                         <div class="d-flex  align-content-center mb-1">
-                            <h3 class="">Распределенные</h3>
+                            <h3 class="">Закрепленные за другой организацией</h3>
                         </div>
                         @foreach($col_stat_ss as $ps)
                             <div>{{$ps->student->fio()}} -
