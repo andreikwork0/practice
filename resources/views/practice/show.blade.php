@@ -6,18 +6,28 @@
     <x-page-title>
         <div class="d-flex justify-content-between align-content-center">
             Распределение мест для прохождения практики
-            <div class="d-flex">
-                <div class="mx-3">
-                    <a href="{{route('practices.edit', $practice->id)}}" class="btn btn-outline-primary">Редактировать</a>
-                </div>
 
-                <form action="{{route('order.generate', $practice->id)}}" method="post">
-                    @csrf
-                    <button     class="btn btn-secondary" type="submit">
-                        Сформировать приказ</button>
-                </form>
+        </div>
 
+        <div class="d-flex mt-2">
+            <div class="">
+                <a href="{{route('practices.edit', $practice->id)}}" class="btn btn-outline-primary">Редактировать</a>
             </div>
+
+            <div class="mx-3">
+                <a href="{{route('pr_student_meta.edit', $practice->id)}}" class="btn btn-outline-dark">По студетам общая</a>
+            </div>
+
+            <div class="mx-3">
+                <a href="{{route('pr_teacher.list', $practice->id)}}" class="btn btn-outline-success">По преподавателям</a>
+            </div>
+
+            <form action="{{route('order.generate', $practice->id)}}" method="post">
+                @csrf
+                <button     class="btn btn-secondary" type="submit">
+                    Сформировать приказ</button>
+            </form>
+
         </div>
     </x-page-title>
 @endsection
@@ -26,6 +36,7 @@
 
 
         <div class="container">
+
             <x-practice.header :practice=$practice></x-practice.header>
 
             @php

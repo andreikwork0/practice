@@ -6,6 +6,9 @@
     <x-page-title>
         <div class="d-flex justify-content-between align-content-center">
             Изменение характеристик практики
+            <div>
+                <a class="btn btn-outline-primary px-5" href="{{route('practices.show', $practice->id)}}"> &larr; Назад</a>
+            </div>
         </div>
     </x-page-title>
 @endsection

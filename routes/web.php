@@ -103,6 +103,15 @@ Route::middleware(['auth'])->group( function (){
     });
 
 
+    Route::get('/practices/{id}/student_meta', [\App\Http\Controllers\PrStudentMetaController::class ,'edit'])
+        ->name('pr_student_meta.edit')
+        ->middleware('role:umu,kaf');
+
+    Route::put('/practices/{id}/student_meta', [\App\Http\Controllers\PrStudentMetaController::class ,'update'])
+        ->name('pr_student_meta.update')
+        ->middleware('role:umu,kaf');
+
+
     Route::get('/practices/{id}/teachers/', [\App\Http\Controllers\PracticeTeacherController::class ,'show'])
         ->name('pr_teacher.list')
         ->middleware('role:umu,kaf');

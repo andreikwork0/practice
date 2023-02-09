@@ -8,8 +8,8 @@
                   Распределение контингента студентов <br>
                   по руководителям практики
             <div class="d-flex">
-                <div class="mx-3">
-                    <a href="{{route('practices.edit', $practice->id)}}" class="btn btn-outline-primary">Редактировать</a>
+                <div>
+                    <a class="btn btn-outline-primary px-5" href="{{route('practices.show', $practice->id)}}"> &larr; Назад</a>
                 </div>
             </div>
         </div>
