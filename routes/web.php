@@ -48,7 +48,18 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::middleware(['auth'])->group( function (){
 
 
+    Route::post('file/{id}/download', [\App\Http\Controllers\FileController::class, 'download'])
+        ->name('file.download')
+        ->middleware('role:umu,kaf');
 
+
+    Route::get('/orders/{id}/edit', [\App\Http\Controllers\OrderController::class, 'edit'])
+        ->name('orders.edit')
+        ->middleware('role:umu,kaf');
+
+    Route::put('/orders/{id}/edit', [\App\Http\Controllers\OrderController::class, 'update'])
+        ->name('orders.update')
+        ->middleware('role:umu,kaf');
 
     Route::middleware('role:umu')->group(function (){
 
@@ -101,6 +112,19 @@ Route::middleware(['auth'])->group( function (){
         ]); // может только админ или менеджер
 
     });
+
+
+    Route::delete('/orders/{id}', [OrderController::class, 'destroy'])
+        ->name('orders.destroy')
+        ->middleware('role:umu,kaf');
+
+    Route::get('/practices/{pr_id}/orders', [OrderController::class, 'index_one'])
+        ->name('orders.index_one')
+        ->middleware('role:umu,kaf');
+
+    Route::post('/practices/{pr_id}/orders', [OrderController::class, 'store'])
+        ->name('orders.store')
+        ->middleware('role:umu,kaf');
 
 
     Route::get('/practices/{id}/student_meta', [\App\Http\Controllers\PrStudentMetaController::class ,'edit'])

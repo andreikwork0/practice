@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\Practice;
 use App\Models\Setting;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpWord\TemplateProcessor;
 
@@ -13,6 +15,91 @@ class OrderController extends Controller
 {
     //
 
+
+    public function destroy($id){
+        $order = Order::findOrFail($id);
+        $order->file->delete();
+        return redirect()->back()->with(['success'=> 'Приказ успешно удален' ]);
+    }
+
+
+    public function index_one($pr_id)
+    {
+        $practice = Practice::find($pr_id);
+        return view('orders.index_one', ['orders' => $practice->orders()->get() , 'practice' => $practice]);
+    }
+
+
+    public function edit($id){
+        $order = Order::findOrFail($id);
+        return view('orders.edit', ['order' => $order, 'practice' => $order->practice]);
+    }
+
+
+    public function update(Request $request, $id) {
+
+        $order = Order::findOrFail($id);
+        $pr_id = $order->practice->id;
+
+        $request->validate([
+            'date'      => 'required|date',
+            'num'       => 'required|unique:orders,num,'. $order->id
+        ]);
+
+        $file = $request->file('order_f');
+        $args = array(
+            'num'           => $request->input('num'),
+            'date'          => $request->input('date')
+        );
+
+        DB::beginTransaction();
+
+        if ($file) {
+            $fileModel =  FileController::upload($file, 'practices', function() use ($file, $pr_id){
+                $hash_name = $file->hashName();
+                return $pr_id .'/'.$hash_name;
+            });
+            if ($fileModel) {
+                $args['file_id'] = $fileModel->id;
+            }
+        }
+        $order->update($args);
+        DB::commit();
+
+        return redirect()->route('orders.index_one', $pr_id)->with(['success'=> 'Приказ успешно обновлен' ]);
+    }
+
+    public function store(Request  $request, $pr_id)
+    {
+
+        $file = $request->file('order_f');
+        $request->validate([
+            'date'      => 'required|date',
+            'num'       => 'required|unique:orders,num',
+            'order_f'   => 'required'
+        ]);
+
+        DB::beginTransaction();
+        $fileModel =  FileController::upload($file, 'practices', function() use ($file, $pr_id){
+                        $hash_name = $file->hashName();
+                        return $pr_id .'/'.$hash_name;
+                    });
+
+
+        if ($fileModel) {
+            Order::create([
+                'num'           => $request->input('num'),
+                'date'          => $request->input('date'),
+                'practice_id'   => $pr_id,
+                'file_id'       => $fileModel->id,
+            ]);
+
+            DB::commit();
+
+            return redirect()->back()->with(['success'=> 'Приказ успешно добавлен' ]);
+        }
+
+    }
 
     private function teacherShort(Teacher $teacher){
 

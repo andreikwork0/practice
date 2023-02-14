@@ -22,6 +22,10 @@
                 <a href="{{route('pr_teacher.list', $practice->id)}}" class="btn btn-outline-success">По преподавателям</a>
             </div>
 
+            <div class="mx-3">
+                <a href="{{route('orders.index_one', $practice->id)}}" class="btn btn-outline-warning">Приказы</a>
+            </div>
+
             <form action="{{route('order.generate', $practice->id)}}" method="post">
                 @csrf
                 <button     class="btn btn-secondary" type="submit">

@@ -41,6 +41,10 @@ class Practice extends Model
         return $this->hasMany(PrStudent::class);
     }
 
+    public function orders() {
+        return $this->hasMany(Order::class);
+    }
+
 
 
     public function students_gr(){

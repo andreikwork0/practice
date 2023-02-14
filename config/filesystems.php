@@ -49,6 +49,13 @@ return [
             'visibility' => 'private',
         ],
 
+        'practices' => [
+            'driver' => 'local',
+            'root' => storage_path('app/practices'),
+            'url' => env('APP_URL').'/practices',
+            'visibility' => 'private',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
