@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UsersExport;
 use App\Models\EducationType;
 use App\Models\Pulpit;
 use App\Models\Role;
@@ -9,6 +10,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class UserController extends Controller
@@ -24,6 +26,12 @@ class UserController extends Controller
         return view('user.index', ['users' =>
             User::filter(request(['search'] ))->paginate(10)->withQueryString()
         ]);
+    }
+
+
+    public function export()
+    {
+        return Excel::download(new UsersExport, 'users.xlsx');
     }
 
 

@@ -48,6 +48,9 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::middleware(['auth'])->group( function (){
 
 
+    Route::get('users/export/', [UserController::class, 'export'])->name('users.export')->middleware('role:umu');
+    Route::get('agreements/export/', [AgreementController::class, 'export'])->name('agreements.export')->middleware('role:umu');
+
     Route::post('file/{id}/download', [\App\Http\Controllers\FileController::class, 'download'])
         ->name('file.download')
         ->middleware('role:umu,kaf');

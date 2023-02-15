@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\AgreemetsExport;
+use App\Exports\UsersExport;
 use App\Models\Agreement;
 use App\Models\AgrStatus;
 use App\Models\AgrTypes;
@@ -11,6 +13,7 @@ use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpWord\TemplateProcessor;
 use Staticall\Petrovich\Petrovich;
 use Staticall\Petrovich\Petrovich\Loader;
@@ -19,6 +22,11 @@ use Staticall\Petrovich\Petrovich\Ruleset;
 
 class AgreementController extends Controller
 {
+
+
+    public function export(){
+        return Excel::download(new AgreemetsExport, 'договора.xlsx');
+    }
     /**
      * Display a listing of the resource.
      *

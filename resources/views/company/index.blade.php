@@ -41,7 +41,14 @@
                 </a>
             @endif
 
-            <a href="{{route('companies.create')}}"  class="btn btn-primary"> Добавить новую</a>
+            <div>
+                <a href="{{route('companies.create')}}"  class="btn btn-primary"> Добавить новую</a>
+            </div>
+
+
+            <div>
+                <a href="{{route('agreements.export')}}" class="btn btn-outline-primary">Экспорт договоров в Excel</a>
+            </div>
 
 
 

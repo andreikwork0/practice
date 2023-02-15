@@ -25,6 +25,9 @@
 
                 </form>
             </div>
+            <div>
+                <a href="{{route('users.export')}}" class="btn btn-outline-primary">Export in Excel</a>
+            </div>
         </div>
         @if(count($users)>0)
         <table class="table  border table-striped">
