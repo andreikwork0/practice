@@ -4382,7 +4382,7 @@
                 "cloudloyalty/petrovich-rules": "dev-master",
                 "ext-json": "*",
                 "ext-mbstring": "*",
-                "php": "^7.2.9",
+                "php": ">=7.2.9",
                 "symfony/yaml": "~5.0"
             },
             "require-dev": {

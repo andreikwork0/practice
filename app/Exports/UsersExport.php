@@ -28,7 +28,7 @@ class UsersExport implements FromQuery, WithHeadings, WithMapping
         return [
             $user->id,
             $user->username,
-            $user->role->name
+            ($user->role ? $user->role->name : '-')
         ];
     }
 
