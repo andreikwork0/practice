@@ -25,6 +25,7 @@ class AgreementController extends Controller
 
 
     public function export(){
+
         return Excel::download(new AgreemetsExport, 'договора.xlsx');
     }
     /**
