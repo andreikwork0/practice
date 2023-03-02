@@ -116,8 +116,13 @@ class CompanyController extends Controller
             if (empty($request->input('parent_id'))) { // если головная организация
 
                 if ($company){ // update
+//                    $arr_inn = array(
+//                        'inn' => 'required|max:12|unique:companies,inn,'. $company->id,
+//                        'kpp' => 'required|max:12',
+//                    );
+
                     $arr_inn = array(
-                        'inn' => 'required|max:12|unique:companies,inn,'. $company->id,
+                        'inn' => 'required|max:12',
                         'kpp' => 'required|max:12',
                     );
                 } else { // store
@@ -150,6 +155,9 @@ class CompanyController extends Controller
             'cr_account' => 'max:30',
             'bik' => 'max:100'
         );
+
+
+
 
         $request->validate( array_merge($arr_inn, $args));
     }
