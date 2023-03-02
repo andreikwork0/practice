@@ -182,7 +182,14 @@ class OrderController extends Controller
                                 $org_name = $pr_stud->dp->company->name;
 
                                 if ($pr_stud->dp->org_structure){
-                                    $org_name .= '(' .$pr_stud->dp->org_structure->name_short .')';
+                                    $orgs = $pr_stud->dp->org_structure;
+                                    if (str_contains($orgs->name, 'кафедра') || str_contains($orgs->name, 'Кафедра') ) {
+                                        $org_name .= '( каф.' .$orgs->name_short .')';
+                                    }
+                                    else{
+                                        $org_name .= '(' .$orgs->name_short .')';
+                                    }
+
                                 }
 
 
