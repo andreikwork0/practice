@@ -52,7 +52,7 @@ class PracticeImportStorage
 
         $sql = "
         insert into practices (name, plan_title, course, semester, date_start, date_end,  depart_name, spec, agroup, contingent, l_id_plan,
-                             created_at, updated_at,  education_type_id, year_learning_id, pulpit_id, practice_type_id, pr_state)
+                             created_at, updated_at,  education_type_id, year_learning_id, pulpit_id, practice_type_id, pr_state, block)
         select
            pr_str.name,
            pr_str.plan_title,
@@ -71,7 +71,8 @@ class PracticeImportStorage
            pr_str.year_learning_id,
            pr_str.pulpit_id,
            pr_str.practice_type_id,
-           pr_str.pr_state
+           pr_str.pr_state,
+           pr_str.block,
         from practices_storage as pr_str left  join practices
            on pr_str.name = practices.name
                and pr_str.course = practices.course
@@ -80,6 +81,7 @@ class PracticeImportStorage
               and pr_str.education_type_id = practices.education_type_id
               and pr_str.year_learning_id = practices.year_learning_id
               and pr_str.pr_state = practices.pr_state
+            and pr_str.block = practices.block
         where practices.name is null and pr_str.pr_state = 'f'
         ";
      DB::connection('mysql')->insert($sql);
@@ -121,7 +123,8 @@ class PracticeImportStorage
                                           concat(gr.name, '-', gr.year, '-', gr.number) as agroup,
                                           gr.contingent                                 as contingent,
                                           pul.id                                        as id_pulpit,
-                                          d.name                                        as depart_name
+                                          d.name                                        as depart_name,
+                                          pp.block                                      as block
                                    FROM plan_practice pp
                                             join ( groups gr join (profile pf join direction dr on pf.id_direction = dr.id)
                                        on gr.id_profile = pf.id) on pp.id_plan = gr.id_plan

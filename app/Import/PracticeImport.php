@@ -49,7 +49,7 @@ class PracticeImport
         // перекопировать
         $sql = "
         insert into practices (name, plan_title, course, semester, date_start, date_end,  depart_name, spec, agroup, contingent, l_id_plan,
-                             created_at, updated_at,  education_type_id, year_learning_id, pulpit_id, practice_type_id, pr_state)
+                             created_at, updated_at,  education_type_id, year_learning_id, pulpit_id, practice_type_id, pr_state, block)
         select
            pr_tmp.name,
            pr_tmp.plan_title,
@@ -68,7 +68,8 @@ class PracticeImport
            pr_tmp.year_learning_id,
            pr_tmp.pulpit_id,
            pr_tmp.practice_type_id,
-           pr_tmp.pr_state
+           pr_tmp.pr_state,
+           pr_tmp.block
         from practices_tmp as pr_tmp left  join practices
            on pr_tmp.name = practices.name
                and pr_tmp.course = practices.course
@@ -77,6 +78,7 @@ class PracticeImport
               and pr_tmp.education_type_id = practices.education_type_id
               and pr_tmp.year_learning_id = practices.year_learning_id
               and pr_tmp.pr_state = practices.pr_state
+              and pr_tmp.block = practices.block
         where practices.name is null
         ";
      DB::connection('mysql')->insert($sql);
@@ -114,7 +116,8 @@ class PracticeImport
              pp.name as plan_title,
              ld.id_pulpit as id_pulpit,
              concat(dr.code, ' ', dr.name, ' ', pf.name) as spec,
-             d.name as depart_name
+             d.name as depart_name,
+             ld.block as block
          from load_distributed as ld
                   inner join load_group_and_row on load_group_and_row.id_load_distributed = ld.id
                   inner join
@@ -128,7 +131,7 @@ class PracticeImport
            and ld.id_year_learning=".$id_year_learning."
             and deleted = 0
 
-         group by agroup, spec, name_discipline,  semester,  course,  id_pulpit, depart_name, plan_title
+         group by agroup, spec, name_discipline,  semester,  course,  id_pulpit, depart_name, plan_title, block
      ) as q
 
     where  ( name like 'Учеб%'  or name  like 'Произ%'  or  name  like '%практик%')
