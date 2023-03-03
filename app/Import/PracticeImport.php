@@ -35,17 +35,24 @@ class PracticeImport
                 $setting['connection'],
                 $setting['ed_type'],
             );
+            // синхронизация
+            $this->toRealTableFromTmp($setting['ed_type']);
         }
 
-        // синхронизация
-        $this->toRealTableFromTmp();
+
     }
 
 
 
 
-    private function toRealTableFromTmp()
+    private function toRealTableFromTmp($education_type_id)
     {
+
+        if ($education_type_id == 2) {
+            $sql_join = " and pr_tmp.block = practices.block ";
+        } else {
+            $sql_join = "";
+        }
         // перекопировать
         $sql = "
         insert into practices (name, plan_title, course, semester, date_start, date_end,  depart_name, spec, agroup, contingent, l_id_plan,
@@ -77,12 +84,9 @@ class PracticeImport
                and pr_tmp.semester = practices.semester
               and pr_tmp.education_type_id = practices.education_type_id
               and pr_tmp.year_learning_id = practices.year_learning_id
-              and pr_tmp.pr_state = practices.pr_state
-              and pr_tmp.block = practices.block
-        where practices.name is null
-        ";
+              and pr_tmp.pr_state = practices.pr_state ". $sql_join."
+        where practices.name is null and pr_tmp.education_type_id = ". $education_type_id;
      DB::connection('mysql')->insert($sql);
-
     }
 
     private function import($connection , $education_type_id  ){ // now practice

@@ -35,10 +35,11 @@ class PracticeImportStorage
                 $setting['connection'],
                 $setting['ed_type'],
             );
+            // синхронизация
+            $this->toRealTableFromStorage($setting['ed_type']);
         }
 
-        // синхронизация
-        $this->toRealTableFromStorage();
+
     }
 
 
@@ -46,8 +47,14 @@ class PracticeImportStorage
 
 
 
-    private function toRealTableFromStorage()
+    private function toRealTableFromStorage($education_type_id)
     {
+
+        if ($education_type_id == 2) {
+            $sql_join = "and pr_str.block = practices.block";
+        } else {
+            $sql_join = "";
+        }
         // перекопировать
 
         $sql = "
@@ -72,7 +79,7 @@ class PracticeImportStorage
            pr_str.pulpit_id,
            pr_str.practice_type_id,
            pr_str.pr_state,
-           pr_str.block,
+           pr_str.block
         from practices_storage as pr_str left  join practices
            on pr_str.name = practices.name
                and pr_str.course = practices.course
@@ -80,10 +87,8 @@ class PracticeImportStorage
                and pr_str.semester = practices.semester
               and pr_str.education_type_id = practices.education_type_id
               and pr_str.year_learning_id = practices.year_learning_id
-              and pr_str.pr_state = practices.pr_state
-            and pr_str.block = practices.block
-        where practices.name is null and pr_str.pr_state = 'f'
-        ";
+              and pr_str.pr_state = practices.pr_state " . $sql_join."
+             where practices.name is null and pr_str.pr_state = 'f' and pr_str.education_type_id = " .$education_type_id;
      DB::connection('mysql')->insert($sql);
 
     }
