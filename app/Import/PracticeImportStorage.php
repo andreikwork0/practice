@@ -51,7 +51,7 @@ class PracticeImportStorage
     {
 
         if ($education_type_id == 2) {
-            $sql_join = "and pr_str.block = practices.block";
+            $sql_join = " and pr_str.block = practices.block ";
         } else {
             $sql_join = "";
         }
