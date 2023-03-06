@@ -1,5 +1,10 @@
 @props(['practice'])
-<h5 class="mb-3">{{$practice->name}}</h5>
+<h5 class="mb-3">
+    @if($practice->block)
+        {{$practice->block}}
+    @endif
+    {{$practice->name}}
+</h5>
 <h5 class="mb-3">{{$practice->agroup}} -  {{$practice->spec}}</h5>
 
 <div class="d-flex">

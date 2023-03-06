@@ -137,7 +137,12 @@
             @foreach($practices as $practice)
                 <tr>
 {{--                    <td>{{$practice->id}}</td>--}}
-                    <td style="width: 50%">{{$practice->name}}</td>
+                    <td style="width: 50%">
+                        @if($practice->block)
+                            {{$practice->block}}
+                        @endif
+                        {{$practice->name}}
+                    </td>
                     <td>{{$practice->agroup}}</td>
 
                     <td>{{$practice->date_start ? date('d.m.Y', strtotime($practice->date_start)) : '-'}}</td>

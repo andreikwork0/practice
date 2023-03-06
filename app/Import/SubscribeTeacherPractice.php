@@ -53,6 +53,14 @@ class SubscribeTeacherPractice
         }
 
         foreach ($practices as $practice) {
+
+
+            if ($ed_type ==  1) {
+                $sql_join_rule = "";
+            } else{
+                $sql_join_rule = " and block = '". $practice->block ."'";
+            }
+
             $sql ="
             select * from (
                               select
@@ -62,7 +70,8 @@ class SubscribeTeacherPractice
                                   ld.course as course ,
                                   sum(ld.contingent) as contingent,
                                   ld.id_pulpit as id_pulpit,
-                                  ld.id_teacher
+                                  ld.id_teacher ,
+                                  ld.block as block
                               from load_distributed as ld
                                        inner join load_group_and_row on load_group_and_row.id_load_distributed = ld.id
                                        inner join `groups` as g on load_group_and_row.id_group = g.id
@@ -70,7 +79,7 @@ class SubscribeTeacherPractice
                                 ld.type = 'p'
                                 and ld.id_year_learning=".$id_year_learning."
                                 and deleted = 0
-                              group by agroup,  name_discipline,  semester,  course,  id_pulpit, id_teacher
+                              group by agroup,  name_discipline,  semester,  course,  id_pulpit, id_teacher, block
                           ) as q
 
             where
@@ -79,10 +88,11 @@ class SubscribeTeacherPractice
                  course     = ".$practice->course." and
                  agroup     = '".$practice->agroup."' and
                  semester   = ".$practice->semester."  and
-                 id_pulpit  = ".$practice->pulpit->l_pulpit_id."
-            ";
+                 id_pulpit  = ".$practice->pulpit->l_pulpit_id. $sql_join_rule;
 
 
+
+            //var_dump($sql);
 
             $t_ps = DB::connection($connection)->select($sql);
             $t_s_arr = array();
