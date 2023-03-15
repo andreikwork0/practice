@@ -100,7 +100,6 @@
                                 name="inn"/>
 
                             <x-form.input
-                                type="number"
                                 label="КПП"
                                 name="kpp"/>
 

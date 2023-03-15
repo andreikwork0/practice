@@ -128,7 +128,6 @@
                                 name="inn"/>
 
                             <x-form.input
-                                type="number"
                                 dfvalue="{{$company->kpp}}"
                                 label="КПП"
                                 name="kpp"/>
