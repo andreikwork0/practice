@@ -54,6 +54,15 @@
             </a>
         </li>
         @endroleis
+
+        @roleis('umu')
+        <li>
+            <a href="{{route('tools.index')}}" class="nav-link text-white @if(request()->routeIs('tools.*')) {{'active'}} @endif">
+                @svg('tools', 'w-16 h-16 bi me-2 text-white')
+                Средства
+            </a>
+        </li>
+        @endroleis
     </ul>
 
 </div>

@@ -16,6 +16,7 @@ use App\Http\Controllers\PremiseController;
 
 use App\Http\Controllers\PrStudentController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\ToolController;
 use App\Http\Controllers\UserController;
 use App\Models\Convention;
 use Illuminate\Support\Facades\Auth;
@@ -48,6 +49,8 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::middleware(['auth'])->group( function (){
 
 
+    Route::get('tools/export/', [ToolController::class, 'export'])->name('tools.export')->middleware('role:umu');
+
     Route::get('users/export/', [UserController::class, 'export'])->name('users.export')->middleware('role:umu');
     Route::get('agreements/export/', [AgreementController::class, 'export'])->name('agreements.export')->middleware('role:umu');
 
@@ -68,6 +71,7 @@ Route::middleware(['auth'])->group( function (){
 
 
         Route::resource('settings',   SettingController::class)->except('show');
+        Route::resource('tools',   ToolController::class)->except('show');
 
 
 
