@@ -18,6 +18,11 @@
                 <a href="{{route('pr_student_meta.edit', $practice->id)}}" class="btn btn-outline-dark">По студетам общая</a>
             </div>
 
+
+            <div class="mx-3">
+                <a href="{{route('pr_student_tool.edit', $practice->id)}}" class="btn btn-dark">По средствам обучения</a>
+            </div>
+
             <div class="mx-3">
                 <a href="{{route('pr_teacher.list', $practice->id)}}" class="btn btn-outline-success">По преподавателям</a>
             </div>

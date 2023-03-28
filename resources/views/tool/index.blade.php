@@ -56,10 +56,10 @@
                     <td class="">
                         <div class="d-flex justify-content-end">
                             <a  class="p-2 mx-1" target="_blank" href="{{route('tools.edit', $tool->id)}}">@svg('pencil-square', 'w-6 h-6 text-dark icon-index')</a>
-                            <x-modal-delete-btn
-                                text="Средство {{$tool->name}} будет удалено"
-                                url="{{route('tools.destroy', $tool->id)}}"
-                            />
+{{--                            <x-modal-delete-btn--}}
+{{--                                text="Средство {{$tool->name}} будет удалено"--}}
+{{--                                url="{{route('tools.destroy', $tool->id)}}"--}}
+{{--                            />--}}
                         </div>
                     </td>
                 </tr>

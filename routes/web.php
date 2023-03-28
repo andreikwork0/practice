@@ -12,9 +12,12 @@ use App\Http\Controllers\DistributionPracticeController;
 use App\Http\Controllers\GrnLetterController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PracticeController;
+use App\Http\Controllers\PracticeTeacherController;
 use App\Http\Controllers\PremiseController;
 
 use App\Http\Controllers\PrStudentController;
+use App\Http\Controllers\PrStudentMetaController;
+use App\Http\Controllers\PrStudentToolController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ToolController;
 use App\Http\Controllers\UserController;
@@ -134,16 +137,27 @@ Route::middleware(['auth'])->group( function (){
         ->middleware('role:umu,kaf');
 
 
-    Route::get('/practices/{id}/student_meta', [\App\Http\Controllers\PrStudentMetaController::class ,'edit'])
+
+
+    Route::get('/practices/{id}/student_tool', [ PrStudentToolController::class ,'edit'])
+        ->name('pr_student_tool.edit')
+        ->middleware('role:umu,kaf');
+
+    Route::post('/practices/{id}/student_tool', [ PrStudentToolController::class ,'update'])
+        ->name('pr_student_tool.update')
+        ->middleware('role:umu,kaf');
+
+
+    Route::get('/practices/{id}/student_meta', [PrStudentMetaController::class ,'edit'])
         ->name('pr_student_meta.edit')
         ->middleware('role:umu,kaf');
 
-    Route::put('/practices/{id}/student_meta', [\App\Http\Controllers\PrStudentMetaController::class ,'update'])
+    Route::put('/practices/{id}/student_meta', [PrStudentMetaController::class ,'update'])
         ->name('pr_student_meta.update')
         ->middleware('role:umu,kaf');
 
 
-    Route::get('/practices/{id}/teachers/', [\App\Http\Controllers\PracticeTeacherController::class ,'show'])
+    Route::get('/practices/{id}/teachers/', [PracticeTeacherController::class ,'show'])
         ->name('pr_teacher.list')
         ->middleware('role:umu,kaf');
 

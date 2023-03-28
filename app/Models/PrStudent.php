@@ -19,4 +19,9 @@ class PrStudent extends Model
         return $this->belongsTo(DistributionPractice::class, 'distribution_practice_id', 'id');
     }
 
+    public function tools()
+    {
+        return $this->belongsToMany(Tool::class);
+    }
+
 }

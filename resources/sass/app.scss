@@ -54,3 +54,21 @@
     margin-top: 0 !important;
     margin-bottom: 0 !important;
 }
+
+#app .custom-select2-multi-wrap .selection > span.select2-selection{
+    height: 100%;
+}
+
+
+#app .custom-select2-multi-wrap .select2-container--default .select2-selection--single .select2-selection__arrow{
+    height: 100%;
+}
+
+#app .custom-select2-multi-wrap .select2.select2-container {
+    width: 100% !important;
+    max-width: 600px !important;
+}
+
+#app .custom-select2-multi-wrap .select2-selection__clear {
+    display: none;
+}
