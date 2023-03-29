@@ -307,8 +307,19 @@ class AgreementController extends Controller
             $docs->setValue('com_name_full', $com_name_full);
 
 
+
             $docs->setValue('com_mng_job',  $company->mng_job  ?? 'XX-XX-XX');
-            $docs->setValue('com_mng_reason',  $company->mng_reason  ?? 'XX-XX-XX');
+
+
+            if ($company->mng_reason) {
+                $reason =  $company->mng_reason;
+            } elseif ($company->ogrnip) {
+                $reason =  'ОГРНИП ' . $company->ogrnip;
+            } else {
+                $reason = 'XX-XX-XX';
+            }
+
+            $docs->setValue('com_mng_reason',  $reason);
 
             $docs->setValue('agr_date_bg', $agreement->date_bg ? date('d.m.Y', strtotime($agreement->date_bg)) : '__-__-__');
             $docs->setValue('agr_date_end', $agreement->date_end ? date('d.m.Y', strtotime($agreement->date_end)) : '__-__-__');
@@ -323,6 +334,10 @@ class AgreementController extends Controller
 
             $docs->setValue('com_cr_account',  $company->cr_account  ? ('К/С: ' .  $company->cr_account) : '');
             $docs->setValue('com_bik',  $company->bik  ? ('БИК: ' .  $company->bik) : '');
+
+
+            $docs->setValue('com_ogrnip',  $company->ogrnip  ? ('ОГРНИП: ' .  $company->ogrnip) : '');
+
 
 
             // фио short name

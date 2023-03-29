@@ -151,6 +151,12 @@
                                 name="cr_account"
                                 label="К/С" />
 
+                            <x-form.input
+                                type="number"
+                                dfvalue="{{$company->ogrnip}}"
+                                name="ogrnip"
+                                label="ОГРН ИП" />
+
                         </div>
                     </div>
                 </x-form.fieldgroup>

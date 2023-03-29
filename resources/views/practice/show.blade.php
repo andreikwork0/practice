@@ -19,9 +19,13 @@
             </div>
 
 
-            <div class="mx-3">
-                <a href="{{route('pr_student_tool.edit', $practice->id)}}" class="btn btn-dark">По средствам обучения</a>
-            </div>
+
+            @if($practice->education_type_id == 2)
+                <div class="mx-3">
+                    <a href="{{route('pr_student_tool.edit', $practice->id)}}" class="btn btn-dark">По средствам обучения</a>
+                </div>
+            @endif
+
 
             <div class="mx-3">
                 <a href="{{route('pr_teacher.list', $practice->id)}}" class="btn btn-outline-success">По преподавателям</a>
