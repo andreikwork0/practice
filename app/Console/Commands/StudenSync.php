@@ -2,16 +2,18 @@
 
 namespace App\Console\Commands;
 
+use App\Import\StudentImport;
+use App\Import\SubscribeStudentPractice;
 use Illuminate\Console\Command;
 
-class My1 extends Command
+class StudenSync extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'pr:ss';
 
     /**
      * The console command description.
@@ -37,6 +39,11 @@ class My1 extends Command
      */
     public function handle()
     {
+        $StudentImport = new StudentImport();
+        $StudentImport->run();
+
+        $SubscribeStudentPractice = new SubscribeStudentPractice();
+        $SubscribeStudentPractice->run();
         return 0;
     }
 }

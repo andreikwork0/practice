@@ -22,7 +22,7 @@ class SubscribeStudentPractice
                 $ar_pr_students[] = $pr_student->student_id;
             }
             // получить студентов с группы
-            $gr_students =  $practice->students_gr()->select('id')->get();
+            $gr_students =  $practice->students_gr()->select('id')->where('is_active' ,'=', 1)->get();
             $ar_students_gr = array();
             foreach ($gr_students as $gr_student) {
                 $ar_students_gr[] = $gr_student->id;

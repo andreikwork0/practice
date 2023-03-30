@@ -30,6 +30,12 @@ class StudentImport
         // почистить временную таблицу
         StudentTmp::query()->delete();
 
+
+        DB::connection('mysql')->update("
+            update  students as s
+            set s.is_active = 0
+        ");
+
         // выкачать студентов
         foreach ($this->settings as $setting) {
             $this->import(
