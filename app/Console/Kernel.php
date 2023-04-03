@@ -15,7 +15,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-         $schedule->command('pr:ss')->hourly()->withoutOverlapping();;
+
+        $schedule->command('pr:ss')->hourly()->withoutOverlapping();
     }
 
     /**
