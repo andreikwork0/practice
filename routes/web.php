@@ -10,6 +10,7 @@ use App\Http\Controllers\Convention\ConventionInterface;
 use App\Http\Controllers\Convention\ConvFactory;
 use App\Http\Controllers\DistributionPracticeController;
 use App\Http\Controllers\GrnLetterController;
+use App\Http\Controllers\KindOfActivityController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\PracticeTeacherController;
@@ -75,6 +76,7 @@ Route::middleware(['auth'])->group( function (){
 
         Route::resource('settings',   SettingController::class)->except('show');
         Route::resource('tools',   ToolController::class)->except('show');
+        Route::resource('kind_of_activities',   KindOfActivityController::class)->except('show', 'destroy');
 
 
 

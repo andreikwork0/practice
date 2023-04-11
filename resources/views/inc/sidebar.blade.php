@@ -63,6 +63,15 @@
             </a>
         </li>
         @endroleis
+
+        @roleis('umu')
+        <li>
+            <a href="{{route('kind_of_activities.index')}}" class="nav-link text-white @if(request()->routeIs('kind_of_activities.*')) {{'active'}} @endif">
+                @svg('file-earmark', 'w-16 h-16 bi me-2 text-white')
+                Виды деятельности
+            </a>
+        </li>
+        @endroleis
     </ul>
 
 </div>
