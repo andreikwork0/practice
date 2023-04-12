@@ -3,6 +3,12 @@
     @if($practice->block)
         {{$practice->block}}
     @endif
+
+    @if($practice->kind_of_activity)
+        <p>
+            {{$practice->kind_of_activity->full_name() }}
+        </p>
+    @endif
     {{$practice->name}}
 </h5>
 <h5 class="mb-3">{{$practice->agroup}} -  {{$practice->spec}}</h5>
@@ -19,5 +25,6 @@
     <p class="mx-3">Дата окончания: {{$practice->date_end ? date('d.m.Y', strtotime($practice->date_end)) : '-'}}</p>
 
 </div>
+
 
 

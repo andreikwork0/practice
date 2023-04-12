@@ -9,6 +9,7 @@ use App\Models\Practice;
 use App\Models\PracticeForm;
 use App\Models\PracticeType;
 use App\Models\Pulpit;
+use App\Models\Spec;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -136,7 +137,36 @@ class PracticeController extends Controller
             }
         }
 
-        return view('practice.edit', ['practice' =>  $practice, 'types' => PracticeType::all(), 'forms'     => PracticeForm::all() ]);
+        $spec = $practice->spec;
+        $arr = explode(' ', $spec);
+        $code_spec = $arr[0];
+
+        $specModel = Spec::where('code','=', $code_spec)->first();
+
+        $arr_kof = [];
+        if ($specModel)
+        {
+            $kind_of_activities = $specModel->kind_of_activities;
+
+
+            foreach ($kind_of_activities as $kind_of_activity)
+            {
+                $stdKofA = new \StdClass();
+                $stdKofA->id = $kind_of_activity->id;
+                $stdKofA->name = $kind_of_activity->full_name();
+                $arr_kof[]= $stdKofA;
+            }
+        }
+
+
+
+
+        return view('practice.edit', [
+                                                'practice' =>  $practice,
+                                                'types' => PracticeType::all(),
+                                                'forms'     => PracticeForm::all(),
+                                                'kind_of_activities' => $arr_kof
+        ]);
     }
 
     /**

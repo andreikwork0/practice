@@ -10,8 +10,9 @@ class KindOfActivityController extends Controller
 {
 
 
-    protected function getSpecsList() {
-        $specs = Spec::all();
+    protected function getSpecsList()
+    {
+        $specs = Spec::where('education_type_id','=',2)->get();
 
         $arr_specs = [];
 
@@ -63,6 +64,16 @@ class KindOfActivityController extends Controller
     {
         // validate
 
+        $vr = KindOfActivity::where('code', '=', $request->code)->where('spec_id', '=', $request->spec_id)->first();
+
+        if ($vr)
+        {
+            return redirect()->route('kind_of_activities.create')
+                ->withErrors( [ 'kof_unique' => "Код специальности и код вида деятельности должны быть уникальными"]);
+
+        }
+
+
         $KindOfActivity = KindOfActivity::create($request->all());
 
         return redirect()->route('kind_of_activities.index')
@@ -88,6 +99,8 @@ class KindOfActivityController extends Controller
      */
     public function edit($id)
     {
+
+
         $KindOfActivity = KindOfActivity::findOrFail($id);
         return view('kind_of_activity.edit', [ 'kind_of_activity' => $KindOfActivity, 'specs' => $this->getSpecsList() ]);
     }
@@ -102,6 +115,15 @@ class KindOfActivityController extends Controller
     public function update(Request $request, $id)
     {
 
+
+        $vr = KindOfActivity::where('code', '=', $request->code)->where('spec_id', '=', $request->spec_id)->where('id','<>', $id)->first();
+
+        if ($vr)
+        {
+            return redirect()->route('kind_of_activities.create')
+                ->withErrors( [ 'kof_unique' => "Код специальности и код вида деятельности должны быть уникальными"]);
+
+        }
         $KindOfActivity = KindOfActivity::findOrFail($id);
         $KindOfActivity->update($request->all());
 

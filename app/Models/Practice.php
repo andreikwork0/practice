@@ -13,6 +13,14 @@ class Practice extends Model
 //
 //    protected $dateFormat = 'd.m.Y';
 
+
+
+
+    public function kind_of_activity()
+    {
+        return $this->belongsTo(KindOfActivity::class);
+    }
+
     public function teachers()
     {
         return $this->belongsToMany(Teacher::class, 'practice_teacher')->withPivot(['contingent']);

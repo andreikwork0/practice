@@ -53,6 +53,17 @@
                                 name="practice_form_id"
                                 label="Форма проведения"
                             />
+
+
+                            @if($practice->education_type_id == 2)
+                                <x-form.select
+                                    :options=$kind_of_activities
+                                    dfvalue="{{$practice->kind_of_activity_id}}"
+                                    name="kind_of_activity_id"
+                                    label="Вид деятельности"
+                                />
+                            @endif
+
                         </x-form.fieldgroup>
                     </div>
 
