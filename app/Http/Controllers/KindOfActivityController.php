@@ -120,7 +120,7 @@ class KindOfActivityController extends Controller
 
         if ($vr)
         {
-            return redirect()->route('kind_of_activities.create')
+            return redirect()->route('kind_of_activities.edit', $id)
                 ->withErrors( [ 'kof_unique' => "Код специальности и код вида деятельности должны быть уникальными"]);
 
         }
