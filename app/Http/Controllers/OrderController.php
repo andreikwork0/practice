@@ -168,39 +168,72 @@ class OrderController extends Controller
             $studs = array();
             $pr_studs = $practice->pr_students()->orderBy('distribution_practice_id')->get() ?? false;
 
+            //$pr_studs = $practice->pr_students()->orderBy('distribution_practice_id')->get() ?? false;
 
-            if($pr_studs){
-                $i = 1;
-                foreach ($pr_studs as $pr_stud){
-                    $s = array();
+            $s_array = array();
+
+
+            if($pr_studs) {
+
+                foreach ($pr_studs as $pr_stud) {
                     $student = $pr_stud->student;
-                    $org_name = '';
                     if ($student) {
-                        $s['s_fio'] = $i .'. '. $student->fio();
-                        if($pr_stud->dp){
-                            if ($pr_stud->dp->company){
-                                $org_name = $pr_stud->dp->company->name;
+                        $pr_stud->fio_1 = $student->fio();
+                    }
+                    if ($pr_stud->dp) {
+                        if ($pr_stud->dp->company) {
 
-                                if ($pr_stud->dp->org_structure){
-                                    $orgs = $pr_stud->dp->org_structure;
-                                    if (str_contains($orgs->name, 'кафедра') || str_contains($orgs->name, 'Кафедра') ) {
-                                        $org_name .= '( каф. ' .$orgs->name_short .')';
-                                    }
-                                    else{
-                                        $org_name .= '(' .$orgs->name_short .')';
-                                    }
-
+                            $org_name = $pr_stud->dp->company->name;
+                            if ($pr_stud->dp->org_structure){
+                                $orgs = $pr_stud->dp->org_structure;
+                                if (str_contains($orgs->name, 'кафедра') || str_contains($orgs->name, 'Кафедра') ) {
+                                    $org_name .= '( каф. ' .$orgs->name_short .')';
+                                }
+                                else{
+                                    $org_name .= '(' .$orgs->name_short .')';
                                 }
 
-
                             }
+
+                            $s_array[$org_name][] = $pr_stud->fio_1;
+
                         }
-                        $s['org_name'] = $org_name;
+
                     }
+                    else {
+                        $s_array[' '][] = $pr_stud->fio_1;
+                    }
+
+                }
+
+            }
+
+            $n_array = array();
+            foreach ($s_array as $key => $nested_arrays)
+            {
+                $collator = new \Collator('ru_RUS');
+                $collator->sort($nested_arrays, \Collator::SORT_REGULAR);
+                $n_array[$key] =$nested_arrays;
+            }
+
+
+
+            $i = 1;
+            foreach ($n_array as $key => $n)
+            {
+                foreach ($n as $k => $v) {
+                    $s = array();
+                    $s['s_fio'] = $i .'. '. $v;
+                    $s['org_name'] = $key;
+
                     $studs[] = $s;
                     $i++;
                 }
+
             }
+
+
+
             $docs->cloneRowAndSetValues('s_fio',$studs );
 
             $teachers = $practice->teachers;
