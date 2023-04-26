@@ -8,6 +8,7 @@ use App\Http\Controllers\Convention\ConventionController;
 
 use App\Http\Controllers\Convention\ConventionInterface;
 use App\Http\Controllers\Convention\ConvFactory;
+use App\Http\Controllers\DirectionController;
 use App\Http\Controllers\DistributionPracticeController;
 use App\Http\Controllers\GrnLetterController;
 use App\Http\Controllers\KindOfActivityController;
@@ -185,6 +186,10 @@ Route::middleware(['auth'])->group( function (){
         ->middleware('role:umu,kaf');
 
     Route::post('/practices/{id}/generate', [OrderController::class, 'generate'])->name('order.generate')
+        ->middleware('role:umu,kaf');
+
+
+    Route::get('/direction/{id}/generate', [ DirectionController::class, 'generate'])->name('direction.generate')
         ->middleware('role:umu,kaf');
 
     Route::get('/ajax/pulpitbyedtype/{id}', [AjaxController::class, 'getPulptitByEdType']);

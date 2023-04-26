@@ -24,4 +24,11 @@ class PrStudent extends Model
         return $this->belongsToMany(Tool::class);
     }
 
+
+    public function practice(){
+        return $this->belongsTo(Practice::class, 'practice_id', 'id');
+    }
+
+
+
 }

@@ -17,6 +17,18 @@
         <div class="container">
             <x-practice.header :practice=$practice></x-practice.header>
             <hr>
+            <div style="z-index: 100;">
+
+
+                <x-form.selectmulti
+                    :options=$tools
+                    name="tool_multi"
+                    multiple="multiple"
+                    ids="tool_multi"
+                    required
+                    label="Массовое назначение"/>
+                <button class="btn btn-outline-primary" id="js-tool-btn">Применить к выбранным</button>
+            </div>
             <div class="row">
                 @if ($students->count() > 0)
                     <div class="col-12" >
@@ -24,7 +36,7 @@
                             @method('POST')
                             @csrf
                         <table class="table  border table-striped mx-y-input-0">
-                            <thead style="position: sticky; top: 0; z-index: 10000" class="table-dark">
+                            <thead style="position: sticky; top: 0; z-index: 8" class="table-dark">
                             <tr>
                                 <th  scope="col">ФИО студента</th>
                                 <th scope="col" class="text-center">Организация</th>

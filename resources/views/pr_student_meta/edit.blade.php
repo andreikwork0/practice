@@ -61,7 +61,9 @@
                                             name="pr_students[{{$pr_student->id}}][org_empl_fio]"/>
                                     </td>
 
-                                    <td></td>
+                                    <td>
+                                        <a class="btn-outline-primary btn" href="{{route('direction.generate', $pr_student->id)}}">Направление</a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
