@@ -64,14 +64,14 @@ class KindOfActivityController extends Controller
     {
         // validate
 
-        $vr = KindOfActivity::where('code', '=', $request->code)->where('spec_id', '=', $request->spec_id)->first();
-
-        if ($vr)
-        {
-            return redirect()->route('kind_of_activities.create')
-                ->withErrors( [ 'kof_unique' => "Код специальности и код вида деятельности должны быть уникальными"]);
-
-        }
+//        $vr = KindOfActivity::where('code', '=', $request->code)->where('spec_id', '=', $request->spec_id)->first();
+//
+//        if ($vr)
+//        {
+//            return redirect()->route('kind_of_activities.create')
+//                ->withErrors( [ 'kof_unique' => "Код специальности и код вида деятельности должны быть уникальными"]);
+//
+//        }
 
 
         $KindOfActivity = KindOfActivity::create($request->all());
@@ -116,14 +116,14 @@ class KindOfActivityController extends Controller
     {
 
 
-        $vr = KindOfActivity::where('code', '=', $request->code)->where('spec_id', '=', $request->spec_id)->where('id','<>', $id)->first();
-
-        if ($vr)
-        {
-            return redirect()->route('kind_of_activities.edit', $id)
-                ->withErrors( [ 'kof_unique' => "Код специальности и код вида деятельности должны быть уникальными"]);
-
-        }
+//        $vr = KindOfActivity::where('code', '=', $request->code)->where('spec_id', '=', $request->spec_id)->where('id','<>', $id)->first();
+//
+//        if ($vr)
+//        {
+//            return redirect()->route('kind_of_activities.edit', $id)
+//                ->withErrors( [ 'kof_unique' => "Код специальности и код вида деятельности должны быть уникальными"]);
+//
+//        }
         $KindOfActivity = KindOfActivity::findOrFail($id);
         $KindOfActivity->update($request->all());
 
