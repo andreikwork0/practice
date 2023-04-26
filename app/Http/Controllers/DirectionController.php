@@ -85,7 +85,7 @@ class DirectionController extends Controller
 
             $docs->setValue('mng_pr_fio', $mng_pr_fio );
 
-            $teacher = $practice->teachers()->first();
+            $teacher = $pr_student->teacher;
 
             if ($teacher)
             {

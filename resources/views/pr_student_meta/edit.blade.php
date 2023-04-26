@@ -24,12 +24,14 @@
                             @method('PUT')
                             @csrf
                         <table class="table  border table-striped mx-y-input-0">
-                            <thead style="position: sticky; top: 0" class="table-dark">
+                            <thead style="position: sticky; top: 0; z-index: 100;" class="table-dark">
                             <tr>
                                 <th  scope="col">ФИО студента</th>
                                 <th scope="col" class="text-center">В качестве кого</th>
                                 <th scope="col" class="text-center">Организация</th>
                                 <th scope="col" class="text-center">ФИО Ответственный от орг.</th>
+                                <th scope="col" class="text-center">ФИО Ответственный от МГТУ.</th>
+
                                 <th> <button class=" btn btn-primary" type="submit">Сохранить</button></th>
                             </tr>
                             </thead>
@@ -59,6 +61,18 @@
                                             dfvalue="{{$pr_student->org_empl_fio}}"
                                             placeholder="Фамилия И.О."
                                             name="pr_students[{{$pr_student->id}}][org_empl_fio]"/>
+                                    </td>
+
+                                    <td>
+
+                                        <x-form.select
+                                            :options=$teachers
+                                            name="pr_students[{{$pr_student->id}}][teacher_id]"
+                                            required
+                                            dfvalue="{{$pr_student->teacher_id}}"
+                                            label=""
+                                        />
+
                                     </td>
 
                                     <td>

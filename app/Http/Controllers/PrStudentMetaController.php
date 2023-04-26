@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DistributionPractice;
 use App\Models\Practice;
 use App\Models\PrStudent;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
@@ -23,6 +24,8 @@ class PrStudentMetaController extends Controller
         $practice = Practice::find($id);
         $students = $practice->pr_students()->get();
 
+
+
         $students =  $students->sortBy(function ($student) {
             return $student->student->family;
         });
@@ -40,7 +43,25 @@ class PrStudentMetaController extends Controller
             }
         }
 
+        $teachers = $practice->teachers;
+
+        if (  $teachers->count() < 0 )
+        {
+            $teachers = Teacher::where('pulpit_id', '=', $practice->pulpit_id)->get();
+        }
+
+        $ar = [];
+        foreach ($teachers as $teacher)
+        {
+            $tm_object = new \StdClass();
+            $tm_object->id = $teacher->id;
+            $tm_object->name = ($teacher->surname ?? '') . ' ' . ($teacher->firstname ?? '') . ' '. ($teacher->lastname ?? '');
+            $ar[]= $tm_object;
+        }
+
+
         return view('pr_student_meta.edit', [ 'practice' => $practice,
+                                                    'teachers' => $ar,
                                                     'students' => $students ]);
     }
 
