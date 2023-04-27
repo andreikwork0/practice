@@ -20,16 +20,22 @@
             font-weight: bold;
         }
         .more {
+            display: block;
             page-break-after: always;
-            display: inline !important;
+            position: relative;
+            /*display: inline !important;*/
         }
         @media print{
             @page {
                 size: A4 landscape;
             }
             .more {
+                display: block;
                 page-break-after: always;
-                display: inline !important;
+                position: relative;
+                /*break-after: page;*/
+
+                /*display: inline !important;*/
             }
 
         }
@@ -172,12 +178,18 @@
                 </div>
             </div>
                 @if($i %2 == 0)
-                        <span class=" more "></span>
+                    </div>
+                        <div>
+                            <span class=" more "></span>
+                        </div>
+                    <div class="row">
+
                 @endif
                 @php
                     $i++;
                 @endphp
             @endforeach
+                    </div>
         </div>
     </div>
 
