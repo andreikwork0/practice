@@ -40,6 +40,9 @@ class PrStudentMetaController extends Controller
                 {
                     $student->dir_flag = 0;
                 }
+                else {
+                    $student->dir_flag = 1;
+                }
                 $student->company_name = $student->dp->company->name;
 
                 if ($student->dp->org_structure){
@@ -49,10 +52,8 @@ class PrStudentMetaController extends Controller
             } else {
                 $student->company_name = 'не определено';
 
-                if ($student->dp->company->id == $s['univer_id'] )
-                {
-                    $student->dir_flag = 1;
-                }
+
+                $student->dir_flag = 1;
             }
         }
 
