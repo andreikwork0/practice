@@ -2,15 +2,6 @@
 @section('style')
     <style>
 
-        @font-face {
-            font-family: 'Firefly Sung';
-            font-style: normal;
-            font-weight: 400;
-            src: url(http://eclecticgeek.com/dompdf/fonts/cjk/fireflysung.ttf) format('truetype');
-        }
-        /** {*/
-        /*    font-family: Firefly Sung, DejaVu Sans, sans-serif;*/
-        /*}*/
 
         .l-otr {
             border-bottom: 2px solid black;
@@ -18,7 +9,7 @@
         }
         body p,  body div, body h2   {
             font-size: 12px !important;
-            font-family: Firefly Sung, DejaVu Sans, sans-serif !important;
+            font-family: "Times New Roman" !important;
         }
         .sm_index
         {
