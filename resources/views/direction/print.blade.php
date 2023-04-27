@@ -2,7 +2,7 @@
 @section('style')
     <style>
 
-
+        html, body, .main, .tabs, .tabbed-content { float: none; }
         .l-otr {
             border-bottom: 2px solid black;
             width: 100%;
