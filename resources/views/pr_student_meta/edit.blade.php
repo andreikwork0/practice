@@ -17,7 +17,7 @@
         <div class="container">
             <x-practice.header :practice=$practice></x-practice.header>
             <hr>
-{{--            <a target="_blank" class="btn-outline-primary btn" href="{{route('direction.print_all', $practice->id)}}">Направления все</a>--}}
+            <a target="_blank" class="btn-outline-primary btn" href="{{route('direction.print_all', $practice->id)}}">Направления все</a>
             <hr>
             <div class="row">
                 @if ($students->count() > 0)

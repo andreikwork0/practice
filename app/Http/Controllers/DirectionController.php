@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Practice;
 use App\Models\PrStudent;
 use App\Models\Setting;
+use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpWord\TemplateProcessor;
@@ -12,22 +13,32 @@ use PhpOffice\PhpWord\TemplateProcessor;
 class DirectionController extends Controller
 {
 
+
+
     public function print_all($id)
     {
         $practice = Practice::findOrFail($id);
         $pr_students = $practice->pr_students;
-
+        $s = Setting::key_val();
 
         foreach ($pr_students as $pr_student)
         {
+
             if ($pr_student->dp) {
+
+                if ($pr_student->dp->company->id == $s['univer_id'] )
+                {
+                   unset($pr_student);
+                   continue;
+                }
+
                 $company_name = $pr_student->dp->company->name;
 
                 if ($pr_student->dp->org_structure){
                     $company_name.= '('.$pr_student->dp->org_structure->name_short.')';
                 }
             } else {
-                $company_name = 'не определено';
+                $company_name = '_____________________';
             }
             $pr_student->company_name = $company_name;
 
@@ -40,7 +51,7 @@ class DirectionController extends Controller
             }
             else
             {
-                $t_fio = 'ХХХ';
+                $t_fio = '__________';
             }
             $pr_student->t_fio = $t_fio;
         }
@@ -49,9 +60,9 @@ class DirectionController extends Controller
         $s = Setting::key_val();
 
         if ($practice->education_type_id == 1){
-            $mng_pr_fio = $s['mng_pr_fio_vo'] ?? 'ХХХ-ХХХ-ХХХ';
+            $mng_pr_fio = $s['mng_pr_fio_vo'] ?? '__________';
         } else {
-            $mng_pr_fio = $s['mng_pr_fio_spo'] ?? 'ХХХ-ХХХ-ХХХ';
+            $mng_pr_fio = $s['mng_pr_fio_spo'] ?? '__________';
         }
 
         $order = $practice->orders()->first();
@@ -63,11 +74,28 @@ class DirectionController extends Controller
         }
         else
         {
-            $order_s->num = "ХХХ";
+            $order_s->num = "_______";
             $order_s->date = '__.__.__';
         }
 
-        return view('direction.print',['pr_students' => $pr_students, 'practice' => $practice, 'order_s' => $order_s, 'mng_pr_fio' => $mng_pr_fio]);
+        // reference the Dompdf namespace
+
+//
+//// instantiate and use the dompdf class
+//        $dompdf = new Dompdf();
+//        //$dompdf->set_option('isHtml5ParserEnabled', true);
+//        $dompdf->loadHtml(view('direction.print',['pr_students' => $pr_students, 'practice' => $practice, 'order_s' => $order_s, 'mng_pr_fio' => $mng_pr_fio]), 'utf-8');
+//
+//// (Optional) Setup the paper size and orientation
+//        $dompdf->setPaper('A4', 'landscape');
+//
+//// Render the HTML as PDF
+//        $dompdf->render();
+//
+//// Output the generated PDF to Browser
+//        $dompdf->stream();
+
+         return view('direction.print',['pr_students' => $pr_students, 'practice' => $practice, 'order_s' => $order_s, 'mng_pr_fio' => $mng_pr_fio]);
     }
     public function generate($id)
     {
