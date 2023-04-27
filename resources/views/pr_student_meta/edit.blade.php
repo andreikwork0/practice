@@ -17,6 +17,8 @@
         <div class="container">
             <x-practice.header :practice=$practice></x-practice.header>
             <hr>
+{{--            <a target="_blank" class="btn-outline-primary btn" href="{{route('direction.print_all', $practice->id)}}">Направления все</a>--}}
+            <hr>
             <div class="row">
                 @if ($students->count() > 0)
                     <div class="col-12" >
@@ -76,7 +78,9 @@
                                     </td>
 
                                     <td>
+                                        @if($pr_student->dir_flag)
                                         <a class="btn-outline-primary btn" href="{{route('direction.generate', $pr_student->id)}}">Направление</a>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

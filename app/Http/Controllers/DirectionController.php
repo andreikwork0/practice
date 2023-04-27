@@ -11,6 +11,64 @@ use PhpOffice\PhpWord\TemplateProcessor;
 
 class DirectionController extends Controller
 {
+
+    public function print_all($id)
+    {
+        $practice = Practice::findOrFail($id);
+        $pr_students = $practice->pr_students;
+
+
+        foreach ($pr_students as $pr_student)
+        {
+            if ($pr_student->dp) {
+                $company_name = $pr_student->dp->company->name;
+
+                if ($pr_student->dp->org_structure){
+                    $company_name.= '('.$pr_student->dp->org_structure->name_short.')';
+                }
+            } else {
+                $company_name = 'не определено';
+            }
+            $pr_student->company_name = $company_name;
+
+            $teacher = $pr_student->teacher;
+
+            if ($teacher)
+            {
+                $t_fio =    ($teacher->surname .' ' ?? ' ') .  ($teacher->firstname ? mb_substr($teacher->firstname, 0, 1, "UTF-8") .'.' : ' ') .  ($teacher->lastname ? mb_substr($teacher->lastname, 0, 1, "UTF-8") .'. ' : ' ');
+
+            }
+            else
+            {
+                $t_fio = 'ХХХ';
+            }
+            $pr_student->t_fio = $t_fio;
+        }
+
+
+        $s = Setting::key_val();
+
+        if ($practice->education_type_id == 1){
+            $mng_pr_fio = $s['mng_pr_fio_vo'] ?? 'ХХХ-ХХХ-ХХХ';
+        } else {
+            $mng_pr_fio = $s['mng_pr_fio_spo'] ?? 'ХХХ-ХХХ-ХХХ';
+        }
+
+        $order = $practice->orders()->first();
+
+        $order_s = new \StdClass();
+        if ($order) {
+            $order_s->num = $order->num;
+            $order_s->date = date('d.m.Y', strtotime($order->date));
+        }
+        else
+        {
+            $order_s->num = "ХХХ";
+            $order_s->date = '__.__.__';
+        }
+
+        return view('direction.print',['pr_students' => $pr_students, 'practice' => $practice, 'order_s' => $order_s, 'mng_pr_fio' => $mng_pr_fio]);
+    }
     public function generate($id)
     {
         try {

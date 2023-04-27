@@ -53,6 +53,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 
 Route::middleware(['auth'])->group( function (){
 
+    Route::get('direct/print/{id}', [DirectionController::class, 'print_all'])->name('direction.print_all')->middleware('role:umu');
 
     Route::get('tools/export/', [ToolController::class, 'export'])->name('tools.export')->middleware('role:umu');
 

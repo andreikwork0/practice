@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DistributionPractice;
 use App\Models\Practice;
 use App\Models\PrStudent;
+use App\Models\Setting;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -30,8 +31,15 @@ class PrStudentMetaController extends Controller
             return $student->student->family;
         });
 
+        $s = Setting::key_val();
+
         foreach ($students as $student) {
             if ($student->dp) {
+
+                if ($student->dp->company->id == $s['univer_id'] )
+                {
+                    $student->dir_flag = 0;
+                }
                 $student->company_name = $student->dp->company->name;
 
                 if ($student->dp->org_structure){
@@ -40,6 +48,11 @@ class PrStudentMetaController extends Controller
 
             } else {
                 $student->company_name = 'не определено';
+
+                if ($student->dp->company->id == $s['univer_id'] )
+                {
+                    $student->dir_flag = 1;
+                }
             }
         }
 
