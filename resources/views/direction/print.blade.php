@@ -37,6 +37,9 @@
 
                 /*display: inline !important;*/
             }
+            #js-print-btn-dir{
+                display: none;
+            }
 
         }
     </style>
@@ -44,6 +47,8 @@
 @section('content')
 
 
+
+    <button id="js-print-btn-dir" class="btn btn-warning" onclick="window.print()">Печать</button>
 
     <div class="wrap" style="max-width: 100%">
 
