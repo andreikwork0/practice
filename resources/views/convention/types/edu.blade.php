@@ -5,10 +5,14 @@
 
 
 
+    @php
+        $c = ($convention->company->dist_pr_new_vo()->count() ?? 0) ." / ". ($convention->company->dist_pr_new_spo()->count()  ?? 0)
+    @endphp
+
     <x-convention.edu
         :dprs=$dist_prs_new
         :convention=$convention
-        badge="{{$convention->company->dist_pr_new()->count()}}"
+        badge="{{  $c }}"
         title="Новые">
     </x-convention.edu>
 

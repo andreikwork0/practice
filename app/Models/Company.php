@@ -63,4 +63,16 @@ class Company extends Model
         return $this->dist_pr()->filter(['conv_null'=> 'on']);
     }
 
+    public function  dist_pr_new_vo(){
+        return $this->dist_pr()->filter(['conv_null'=> 'on'])->whereHas('practice', function ($query){
+            $query->where('education_type_id', '=', 1);
+        });
+    }
+
+    public function  dist_pr_new_spo(){
+        return $this->dist_pr()->filter(['conv_null'=> 'on'])->whereHas('practice', function ($query){
+            $query->where('education_type_id', '=', 2);
+        });
+    }
+
 }

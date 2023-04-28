@@ -43,11 +43,11 @@
             >
                 @svg('file-text', 'w-16 h-16 bi me-2')
                 Договоры
-                @if($company->dist_pr_new()->count())
+                @if($company->dist_pr_new_vo()->count() || $company->dist_pr_new_spo()->count())
                     <span
                         style="font-size: 14px"
                         class="position-absolute top-0 end-0 translate-middle badge rounded-pill bg-danger">
-                        {{$company->dist_pr_new()->count()}}
+                        {{$company->dist_pr_new_vo()->count() ?? 0}} / {{$company->dist_pr_new_spo()->count()  ?? 0}}
                         <span class="visually-hidden">unread messages</span>
                   </span>
 

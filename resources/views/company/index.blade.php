@@ -80,9 +80,9 @@
 
                             <a type="button" class="btn btn-outline-primary position-relative p-2 mx-3" href="{{route('companies.show', $company->id)}}">
                                 Подробнее
-                                @if($company->new_dp > 0 )
+                                @if($company->new_dp > 0  ||  $company->new_dp_spo > 0 )
                                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                    {{$company->new_dp}}
+                                    {{$company->new_dp ?? 0}} / {{ $company->new_dp_spo ?? 0}}
                                     <span class="visually-hidden">новые заявки</span>
                               </span>
                                 @endif

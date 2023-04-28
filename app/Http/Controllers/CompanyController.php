@@ -16,10 +16,28 @@ class CompanyController extends Controller
      */
     public function index()
     {
+
+//        $compaines = Company::filter(request(['search', 'dp_new'] ))
+//            ->withCount(['dist_pr as new_dp' => function ($query) {
+//                $query->whereNull('convention_id');
+//            }])
+//            ->orderby('name')
+//            ->paginate(10)
+//            ->withQueryString();
+//
+//
+
         return view('company.index', ['companies' =>
             Company::filter(request(['search', 'dp_new'] ))
             ->withCount(['dist_pr as new_dp' => function ($query) {
-                $query->whereNull('convention_id');
+                $query->whereNull('convention_id')->whereHas('practice', function ($query){
+                    $query->where('education_type_id', '=', 1);
+                });
+            }])
+            ->withCount(['dist_pr as new_dp_spo' => function ($query) {
+                $query->whereNull('convention_id')->whereHas('practice', function ($query){
+                    $query->where('education_type_id', '=', 2);
+                });
             }])
             ->orderby('name')
             ->paginate(10)
