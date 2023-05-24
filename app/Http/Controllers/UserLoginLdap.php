@@ -21,7 +21,7 @@ class UserLoginLdap extends Controller
     {
 //        return true;
 
-        $ldap_server = "ldap://192.168.20.10";
+        $ldap_server = 'ldap://' . config('ldap.ldap.host');
         try {
             $ad = ldap_connect($ldap_server) ;
             ldap_set_option($ad, LDAP_OPT_PROTOCOL_VERSION, 3) ;
