@@ -21,14 +21,14 @@ class DirectionController extends Controller
         $pr_students = $practice->pr_students;
         $s = Setting::key_val();
 
-        foreach ($pr_students as $pr_student)
+        foreach ($pr_students as $key => $pr_student)
         {
 
             if ($pr_student->dp) {
 
                 if ($pr_student->dp->company->id == $s['univer_id'] )
                 {
-                   unset($pr_student);
+                   unset($pr_students[$key]);
                    continue;
                 }
 
