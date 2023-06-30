@@ -59,7 +59,7 @@ class PrStudentMetaController extends Controller
 
         $teachers = $practice->teachers;
 
-        if (  $teachers->count() < 0 )
+        if (  $teachers->count() <= 0 )
         {
             $teachers = Teacher::where('pulpit_id', '=', $practice->pulpit_id)->get();
         }
