@@ -28,4 +28,9 @@ class Pulpit extends Model
         });
     }
 
+    public function getByCodeParent()
+    {
+        return  $this::where('code', '=', $this->code)->max('id');
+    }
+
 }

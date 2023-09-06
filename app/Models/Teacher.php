@@ -16,6 +16,22 @@ class Teacher extends Model
     }
 
 
+    public function pulpit(){
+        return $this->belongsTo(Pulpit::class);
+    }
+
+
+    public function upTeacher()
+    {
+
+       $new_id_pulpit  =  $this->pulpit->getByCodeParent() ?? NULL;
+
+       return
+       Teacher::query()->where('id_pulpit', '=', $new_id_pulpit)
+                        ->where('surname', '=', $this->surname)
+                        ->where('firstname', '=', $this->firstname)
+                        ->where('lastname' , '=', $this->lastname )->first() ?? NULL;
+    }
 
 
 
