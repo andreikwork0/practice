@@ -30,7 +30,7 @@ class Pulpit extends Model
 
     public function getByCodeParent()
     {
-        return  $this::where('code', '=', $this->code)->where('education_type_id ', '=', $this->education_type_id)->max('id');
+        return  $this::where('code', '=', $this->code)->where('education_type_id', '=', $this->education_type_id )->max('id');
     }
 
 }
