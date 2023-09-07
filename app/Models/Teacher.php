@@ -27,7 +27,7 @@ class Teacher extends Model
        $new_id_pulpit  =  $this->pulpit->getByCodeParent() ?? NULL;
 
        return
-       Teacher::query()->where('id_pulpit', '=', $new_id_pulpit)
+       Teacher::query()->where('pulpit_id', '=', $new_id_pulpit)
                         ->where('surname', '=', $this->surname)
                         ->where('firstname', '=', $this->firstname)
                         ->where('lastname' , '=', $this->lastname )->first() ?? NULL;
