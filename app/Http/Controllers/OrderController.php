@@ -147,10 +147,13 @@ class OrderController extends Controller
 
             $kind_of_activity = $practice->kind_of_activity;
 
+            $mod_name = '';
             if ($kind_of_activity) {
-                $kind_of_activity =  ' модуля  '. $kind_of_activity->code . ' '. $kind_of_activity->name;
-            } else {
-                $kind_of_activity = '';
+                $mod_name =  ' модуля  '. ($kind_of_activity->code ?? '');
+                if ($kind_of_activity->name) {
+                    $mod_name .=  ' «'. $kind_of_activity->name. '» ';
+                }
+
             }
 
             $docs->setValue('spec', $spec);
@@ -164,7 +167,7 @@ class OrderController extends Controller
             $docs->setValue('pr_form', $practice->practice_form_id  ? $practice->form->name : '_______');
             $docs->setValue('pr_type', $pr_type);
 
-            $docs->setValue('mod_name', $kind_of_activity);
+            $docs->setValue('mod_name', $mod_name);
 
 
 
