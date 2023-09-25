@@ -274,8 +274,13 @@ class OrderController extends Controller
             }
 
 
+            $teacher_str = $t_str;
 
-            $docs->setValue('teacher_str',$t_str. ' '. $pulpit_name );
+            if ($practice->education_type_id == '1') {
+                $teacher_str .= ' '. $pulpit_name;
+            }
+
+            $docs->setValue('teacher_str',$teacher_str);
 
             $fio_user = auth()->user()->name  ?? '';
 
@@ -290,6 +295,17 @@ class OrderController extends Controller
             $mng_fio_short = ($mng_name ? mb_substr($mng_name, 0, 1, "UTF-8") .'. ' : '') .  ($mng_patronymic ? mb_substr($mng_patronymic, 0, 1, "UTF-8") .'. ' : '') . ' '. ($s['mng_lname'] ?? '');
             $docs->setValue('mng_fio_short',  $mng_fio_short);
 
+
+            $who_sended = '';
+
+            if ($practice->education_type_id == '1') {
+                $who_sended = 'УМУ, ОК, '. ($practice->depart_name ?? ' ') . " , кафедра $pulpit_name";
+            }
+            else {
+                $who_sended = 'ОД, МпК, ' . ($practice->depart_name ?? '');
+            }
+
+            $docs->setValue('who_sended',  $who_sended);
 
             $doc_name = 'Приказ на практику.docx';
             header('Content-Disposition: attachment;filename='.$doc_name);
