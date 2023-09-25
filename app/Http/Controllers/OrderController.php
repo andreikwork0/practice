@@ -145,6 +145,14 @@ class OrderController extends Controller
                 $spec = 'XX-XX-XX';
             }
 
+            $kind_of_activity = $practice->kind_of_activity;
+
+            if ($kind_of_activity) {
+                $kind_of_activity =  ' модуля  '. $kind_of_activity->code . ' '. $kind_of_activity->name;
+            } else {
+                $kind_of_activity = '';
+            }
+
             $docs->setValue('spec', $spec);
             $docs->setValue('pr_name', $practice->name ?? 'XX-XX-XX');
             $docs->setValue('course', $practice->course ?? 'XX');
@@ -156,6 +164,10 @@ class OrderController extends Controller
             $docs->setValue('pr_form', $practice->practice_form_id  ? $practice->form->name : '_______');
             $docs->setValue('pr_type', $pr_type);
 
+            $docs->setValue('mod_name', $kind_of_activity);
+
+
+
 
             $pulpit = $practice->pulpit;
             if ($pulpit){
@@ -165,6 +177,18 @@ class OrderController extends Controller
             }
 
             $docs->setValue('pulpit_name',$pulpit_name );
+
+
+
+            if ($practice->education_type_id == '1') {
+                $base_head = 'зав. кафедрой ' . $pulpit_name;
+            } else {
+                $base_head = 'заведующего  ' . ($practice->depart_name ?? '');
+            }
+
+            $docs->setValue('base_head', $base_head );
+
+
             $studs = array();
             $pr_studs = $practice->pr_students()->orderBy('distribution_practice_id')->get() ?? false;
 
