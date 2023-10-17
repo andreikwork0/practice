@@ -54,9 +54,11 @@
 
             @php
                 $setting = \App\Models\Setting::key_val();
+                $user = request()->user();
+                $can_view = $user->isRole('umu') || $user->isRole('admin')
             @endphp
 
-            @if($setting['is_dist_pr'] <> 0)
+            @if($setting['is_dist_pr'] <> 0 || $can_view)
                 <x-form.fieldgroup
                     title="Добавить распределение">
 
