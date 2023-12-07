@@ -2,25 +2,30 @@
 
 namespace App\Console\Commands;
 
+use App\Import\DGroupImport;
+use App\Import\PracticeImport;
+use App\Import\PracticeImportStorage;
 use App\Import\StudentImport;
 use App\Import\SubscribeStudentPractice;
+use App\Import\SubscribeTeacherPractice;
+use App\Import\TeacherImport;
 use Illuminate\Console\Command;
 
-class StudenSync extends Command
+class UpdatePractices extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'pr:ss';
+    protected $signature = 'pr:pu';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Синхронизация студентов';
+    protected $description = 'Синхронизация практик';
 
     /**
      * Create a new command instance.
@@ -39,11 +44,32 @@ class StudenSync extends Command
      */
     public function handle()
     {
+
+
+        // скачать преподов
+        $TeacherImport = new TeacherImport();
+        $TeacherImport->run();
+
+        $DGroupImport = new DGroupImport();
+        $DGroupImport->run();
+
+        $PracticeImport = new PracticeImport();
+        $PracticeImport->run();
+
+        $PracticeImportStorage = new PracticeImportStorage();
+        $PracticeImportStorage->run();
+
+
         $StudentImport = new StudentImport();
         $StudentImport->run();
 
         $SubscribeStudentPractice = new SubscribeStudentPractice();
         $SubscribeStudentPractice->run();
+
+
+        $SubscribeTeacherPractice = new SubscribeTeacherPractice();
+        $SubscribeTeacherPractice->run();
+
         return 0;
     }
 }
