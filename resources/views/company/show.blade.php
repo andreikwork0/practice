@@ -66,11 +66,17 @@
             </a>
 
 
-            <a class="flex-sm-fill text-sm-center nav-link"
-               href="#">
-                @svg('envelope', 'w-16 h-16 bi me-2')
-                Гарантийные письма
+            <a class="flex-sm-fill text-sm-center nav-link @if(request()->routeIs('list_tool.list')) {{'active'}} @endif  "
+               href="{{route('list_tool.list', $company->id)}}">
+                @svg('box2', 'w-16 h-16 bi me-2')
+                Средства
             </a>
+
+{{--            <a class="flex-sm-fill text-sm-center nav-link"--}}
+{{--               href="#">--}}
+{{--                @svg('envelope', 'w-16 h-16 bi me-2')--}}
+{{--                Гарантийные письма--}}
+{{--            </a>--}}
         </nav>
         <hr>
 

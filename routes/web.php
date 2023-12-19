@@ -12,6 +12,7 @@ use App\Http\Controllers\DirectionController;
 use App\Http\Controllers\DistributionPracticeController;
 use App\Http\Controllers\GrnLetterController;
 use App\Http\Controllers\KindOfActivityController;
+use App\Http\Controllers\ListToolController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\PracticeTeacherController;
@@ -111,6 +112,19 @@ Route::middleware(['auth'])->group( function (){
             Route::get('/companies/{com_id}/contact_people/create', 'create')->name('contact_people.create');
             Route::get('/companies/{com_id}/contact_people/',  'list')->name('contact_people.list');
         });
+
+        /**
+         *
+         */
+        Route::controller(ListToolController::class)->group(function () {
+            Route::get('/companies/{com_id}/list_tool/', 'list')->name('list_tool.list');
+            Route::post('/companies/{com_id}/list_tool/', 'store')->name('list_tool.store');
+            Route::delete('/companies/list_tool/{id}', 'destroy')->name('list_tools.destroy');
+        });
+
+        /**
+         *
+         */
 
         Route::controller(AgreementController::class)->group(function () {
             Route::post('/agreements/{id}/generate',  'generate')->name('agreements.generate');

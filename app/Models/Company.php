@@ -34,6 +34,16 @@ class Company extends Model
         });
     }
 
+    public function list_tool()
+    {
+        return $this->hasMany(ListTool::class);
+    }
+
+//    public function tools()
+//    {
+//        return $this->hasManyThrough(Tool::class, ListTool::class, 'id', 'id', 'tool_id');
+//    }
+
 
     public function contact_people()
     {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DistributionPractice;
+use App\Models\ListTool;
 use App\Models\Practice;
 use App\Models\PrStudent;
 use App\Models\Tool;
@@ -28,16 +29,42 @@ class PrStudentToolController extends Controller
             return $student->student->family;
         });
 
+        $tools = Tool::query()->orderBy('name', 'asc')->get();
         foreach ($students as $student) {
             if ($student->dp) {
                 $student->company_name = $student->dp->company->name;
 
+                $org_str_id = false;
+
                 if ($student->dp->org_structure){
                     $student->company_name.= '('.$student->dp->org_structure->name_short.')';
+                    $org_str_id =  $student->dp->org_structure->id;
                 }
+
+                $query_list_tool = ListTool::where('company_id', $student->dp->company->id); //->where('org_structure_id')
+                if ($org_str_id) {
+                    $query_list_tool->where('org_structure_id', $org_str_id);
+                }
+
+                $list_tools = $query_list_tool->get();
+
+                if ($list_tools->count() > 0) {
+                    $tool_collection = collect();
+                    foreach ($list_tools as $lt) {
+                        $tool_collection->add($lt->tool);
+                    }
+                }
+                else {
+                    $tool_collection = $tools;
+                }
+
+
             } else {
                 $student->company_name = 'не определено';
+                $tool_collection = $tools;
             }
+
+            $student->tool_collection = $tool_collection;
 
             /*
           * tool ids
@@ -51,6 +78,12 @@ class PrStudentToolController extends Controller
                 }
             }
             $student->tool_arr = $tmp_arr;
+
+            /*
+            * tool ids
+            */
+
+
         }
 
         /*
@@ -58,7 +91,7 @@ class PrStudentToolController extends Controller
          */
 
         return view('pr_student_tool.edit', [ 'practice' => $practice,
-                                                    'tools' => Tool::query()->orderBy('name', 'asc')->get(),
+                                                    //'tools' => $tool_collection,//Tool::query()->orderBy('name', 'asc')->get(),
                                                     'students' => $students ] );
     }
 

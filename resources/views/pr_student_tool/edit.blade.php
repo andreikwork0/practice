@@ -20,14 +20,14 @@
             <div style="z-index: 100;">
 
 
-                <x-form.selectmulti
-                    :options=$tools
-                    name="tool_multi"
-                    multiple="multiple"
-                    ids="tool_multi"
-                    required
-                    label="Массовое назначение"/>
-                <button class="btn btn-outline-primary" id="js-tool-btn">Применить к выбранным</button>
+{{--                <x-form.selectmulti--}}
+{{--                    :options=$tools--}}
+{{--                    name="tool_multi"--}}
+{{--                    multiple="multiple"--}}
+{{--                    ids="tool_multi"--}}
+{{--                    required--}}
+{{--                    label="Массовое назначение"/>--}}
+{{--                <button class="btn btn-outline-primary" id="js-tool-btn">Применить к выбранным</button>--}}
             </div>
             <div class="row">
                 @if ($students->count() > 0)
@@ -62,7 +62,7 @@
 
 
                                         <x-form.selectmulti
-                                            :options=$tools
+                                            :options="$pr_student->tool_collection"
                                             name="pr_students[{{$pr_student->id}}][tool_ar][]"
                                             multiple="multiple"
                                             :dfvalue="$pr_student->tool_arr"
