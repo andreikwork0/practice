@@ -13,6 +13,16 @@ class SubscribeStudentPractice
     public  function run()
     {
 
+        $sql_delete = "
+        delete   pr_students
+        from pr_students
+        inner join practices on practices.id = pr_students.practice_id
+        inner join students s on pr_students.student_id = s.id
+        where pr_state='n' and s.is_active=0 and pr_students.distribution_practice_id is null
+        ";
+
+        DB::delete($sql_delete);
+
         $practices = Practice::query()->filter(['pr_state' => 'n'])->get(); // 'n'  и  с текущим годом
         foreach ($practices as $practice) {
             // получить студентов с этой практики
