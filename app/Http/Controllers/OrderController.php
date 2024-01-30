@@ -43,7 +43,7 @@ class OrderController extends Controller
 
         $request->validate([
             'date'      => 'required|date',
-            'num'       => 'required|unique:orders,num,'. $order->id
+            'num'       => 'required'
         ]);
 
         $file = $request->file('order_f');
@@ -75,7 +75,7 @@ class OrderController extends Controller
         $file = $request->file('order_f');
         $request->validate([
             'date'      => 'required|date',
-            'num'       => 'required|unique:orders,num',
+            'num'       => 'required',
             'order_f'   => 'required'
         ]);
 
