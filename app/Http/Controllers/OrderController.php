@@ -265,6 +265,16 @@ class OrderController extends Controller
 
             $teachers = $practice->teachers;
             $t_str = '';
+
+            if ($teachers->count() == 1) {
+                $pr_head_label = 'Руководителем практики назначается: ';
+            } else {
+                $pr_head_label = 'Руководителями практики назначаются: ';
+            }
+
+            $docs->setValue('pr_head_label', $pr_head_label);
+
+
             foreach ($teachers as $teacher){
                 $t_str .= $this->teacherShort($teacher) .', ';
             }
@@ -277,7 +287,7 @@ class OrderController extends Controller
             $teacher_str = $t_str;
 
             if ($practice->education_type_id == '1') {
-                $teacher_str .= ' '. $pulpit_name;
+                $teacher_str .= ' каф. '. $pulpit_name;
             }
 
             $docs->setValue('teacher_str',$teacher_str);
