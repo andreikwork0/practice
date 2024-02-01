@@ -160,7 +160,19 @@ class OrderController extends Controller
             $docs->setValue('pr_name', $practice->name ?? 'XX-XX-XX');
             $docs->setValue('course', $practice->course ?? 'XX');
             $docs->setValue('agroup', $practice->agroup ?? 'XX-XX-XX');
-            $docs->setValue('depart_name', $practice->depart_name ?? 'XX-XX-XX');
+
+
+            $dep_name = $practice->depart_name ?? 'XX-XX-XX';
+
+            $dep_name =  mb_strtolower($dep_name);
+
+            $charset = mb_detect_encoding($dep_name);
+            $dep_name = iconv($charset, "UTF-8", $dep_name);
+            $dep_name =  str_replace('институт', 'института', $dep_name);
+            $dep_name =  str_replace('факультет', 'факультета', $dep_name);
+
+
+            $docs->setValue('depart_name', $dep_name);
             $docs->setValue('date_start', $practice->date_start ? date('d.m.Y', strtotime($practice->date_start)) : '__.__.__');
             $docs->setValue('date_end', $practice->date_end ? date('d.m.Y', strtotime($practice->date_end)) : '__.__.__');
 
