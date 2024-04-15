@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use App\Models\ListTool;
+use App\Models\TCategory;
 use App\Models\Tool;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,9 @@ class ListToolController extends Controller
 
         $list_tools = $company->list_tool;
 
-        return view('company.tabs.tools', ['company' => $company, 'list_tools' => $list_tools ]);
+        $t_categories = TCategory::query()->where('is_active', '=',1)->get();
+
+        return view('company.tabs.tools', ['company' => $company, 'list_tools' => $list_tools, 't_categories' => $t_categories ]);
     }
     /**
      * Display a listing of the resource.
@@ -51,7 +54,7 @@ class ListToolController extends Controller
             $tool = $tool->first();
             $tool_id = $tool->id;
         } else {
-           $tool = Tool::create(['name' => $request->name]);
+           $tool = Tool::create(['name' => $request->name, 't_category_id' => $request->t_category_id]);
            $tool_id = $tool->id;
         }
         ListTool::create([

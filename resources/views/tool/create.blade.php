@@ -21,7 +21,14 @@
                             label="Название"
                             name="name"/>
 
+                        <x-form.select
+                            :options=$t_categories
+                            name="t_category_id"
+                            label="Категория"
+                        />
                     </x-form.fieldgroup>
+
+
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Создать</button>

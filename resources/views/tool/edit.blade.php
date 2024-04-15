@@ -23,6 +23,13 @@
                             dfvalue="{!! $tool->name !!}"
                             name="name"/>
 
+                        <x-form.select
+                            :options=$t_categories
+                            name="t_category_id"
+                            label="Категория"
+                            dfvalue="{{$tool->t_category_id }}"
+                        />
+
                     </x-form.fieldgroup>
                 </div>
             </div>

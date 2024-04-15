@@ -52,7 +52,7 @@
             @foreach($tools as $tool)
                 <tr>
                     <td>{{$tool->id}}</td>
-                    <td>{{$tool->name}}</td>
+                    <td>{{$tool->full_name}}</td>
                     <td class="">
                         <div class="d-flex justify-content-end">
                             <a  class="p-2 mx-1" target="_blank" href="{{route('tools.edit', $tool->id)}}">@svg('pencil-square', 'w-6 h-6 text-dark icon-index')</a>

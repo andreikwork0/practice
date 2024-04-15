@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ToolsExport;
+use App\Models\TCategory;
 use App\Models\Tool;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -32,7 +33,9 @@ class ToolController extends Controller
      */
     public function create()
     {
-        return view('tool.create');
+        $t_categories = TCategory::query()->where('is_active', '=',1)->get();
+
+        return view('tool.create', ['t_categories' => $t_categories]);
     }
 
     /**
@@ -44,7 +47,8 @@ class ToolController extends Controller
     public function store(Request $request)
     {
         $args = $request->validate([
-            'name' => 'required|unique:tools,name'
+            'name'              => 'required|unique:tools,name',
+            't_category_id'     => ''
         ]);
         $tool = Tool::create($args);
 
@@ -71,8 +75,10 @@ class ToolController extends Controller
      */
     public function edit($id)
     {
+
+        $t_categories = TCategory::query()->where('is_active', '=',1)->get();
         $tool = Tool::findOrFail($id);
-        return view('tool.edit', ['tool' => $tool ]);
+        return view('tool.edit', ['tool' => $tool, 't_categories' => $t_categories ]);
 
     }
 
@@ -87,7 +93,8 @@ class ToolController extends Controller
     {
         $tool = Tool::find($id);
         $args = $request->validate([
-            'name' => 'required|unique:tools,name,'.$id
+            'name'              => 'required|unique:tools,name,'.$id,
+            't_category_id'     => ''
         ]);
         $tool->update($args);
 

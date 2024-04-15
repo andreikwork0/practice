@@ -15,6 +15,13 @@
                         <input class="mx-3  p-2 w-full   form-control  " name="name" id="name"  required="required" value="{{old('name')}}">
                         <x-form.erorr name="name" />
                     </div>
+                    <div>
+                        <x-form.select
+                            :options=$t_categories
+                            name="t_category_id"
+                            label="Категория"
+                            />
+                    </div>
                 </div>
                 <div class="mt-3 mx-5">
                     <button  class="btn btn-primary d-block">Добавить </button>
@@ -38,7 +45,7 @@
                 <tbody>
                 @foreach($list_tools as $ltool)
                     <tr>
-                        <td>{{$ltool->tool->name}} </td>
+                        <td>{{$ltool->tool->full_name}} </td>
                         <td class="">
                             <div class="d-flex justify-content-end">
                                 <a  target="_blank" class="p-2 mx-1" href="{{route('tools.edit', $ltool->tool->id)}}">@svg('pencil-square', 'w-6 h-6 text-dark icon-index')</a>
