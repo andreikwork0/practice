@@ -28,7 +28,10 @@ class DirectionController extends Controller
 
                 if ($pr_student->dp->company->id == $s['univer_id'] )
                 {
-                    if ($pr_student->dp->org_structure->kod_dep === '082') continue; // юность
+                    $org1 = $pr_student->dp->org_structure;
+                    if ($org1){
+                        if ($org1->kod_dep === '082') continue; // юность
+                    }
                     unset($pr_students[$key]);
 
                    continue;
